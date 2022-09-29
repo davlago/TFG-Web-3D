@@ -1,0 +1,19 @@
+{
+  "name": "tfg-web-3d",
+  "version": "0.1.0",
+  "description": "TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informática de la UCM",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davlago/TFG-Web-3D.git"
+  },
+  "author": "David Lago and Ignacio Urretavizcaya",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davlago/TFG-Web-3D/issues"
+  },
+  "homepage": "https://github.com/davlago/TFG-Web-3D#readme"
+}
