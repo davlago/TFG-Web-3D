@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/davlago/TFG-Web-3D/issues"
   },
-  "homepage": "https://github.com/davlago/TFG-Web-3D#readme"
+  "homepage": "https://github.com/davlago/TFG-Web-3D#readme",
+  "dependencies": {
+    "three": "^0.145.0"
+  }
 }
