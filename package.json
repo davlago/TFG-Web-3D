@@ -17,6 +17,10 @@
   },
   "homepage": "https://github.com/davlago/TFG-Web-3D#readme",
   "dependencies": {
+    "bootstrap": "^5.2.2",
     "three": "^0.145.0"
+  },
+  "devDependencies": {
+    "liveserver": "^0.1.20"
   }
 }
