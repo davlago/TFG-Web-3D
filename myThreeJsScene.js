@@ -1,8 +1,8 @@
 import * as THREE from "./node_modules/three/src/Three.js"
 const container = document.getElementById("pruebaCubo");
 const scene = new THREE.Scene();
-const widthSize = 900;
-const heightSize = 900;
+const widthSize = 1080;
+const heightSize = 850;
 const camera = new THREE.PerspectiveCamera( 75, widthSize/heightSize, 0.1, 1000 );
 
 camera.position.z = 15;
