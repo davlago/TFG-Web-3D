@@ -21,6 +21,7 @@
     "three": "^0.145.0"
   },
   "devDependencies": {
-    "liveserver": "^0.1.20"
+    "liveserver": "^0.1.20",
+    "webpack": "^5.74.0"
   }
 }
