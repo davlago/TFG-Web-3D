@@ -26,34 +26,39 @@ sphere.position.y = 5;
 scene.add( sphere );
 
 
-
+let translateCube = 0.1;
+let rotationCube = 0.03;
 function animateCube() {
     requestAnimationFrame( animateCube );
 
-    cube.rotation.x += 0.01;
-    cube.rotation.y += 0.01;
+    if(cube.position.x > 9 || cube.position.y > 9){
+        translateCube = -0.1;
+        rotationCube = -0.02;
+    }
+    if(cube.position.x < -9 || cube.position.y < -9){
+        translateCube = 0.1;
+        rotationCube = 0.02;
+    }
+
+    cube.translateX(translateCube)
+    cube.rotation.x += rotationCube;
+    cube.rotation.y += rotationCube;
 
     renderer.render( scene, camera );
 };
 
 animateCube();
 
-var subir = true;
+let translateSphere = 0.1;
 function animateSphere() {
     requestAnimationFrame( animateSphere );
-
-    if(subir){
-        sphere.position.y += 0.1;
+    if(sphere.position.y > 9){
+        translateSphere = -0.1;
     }
-    if(!subir){
-        sphere.position.y -= 0.1;
+    if(sphere.position.y < -9){
+        translateSphere = 0.1;
     }
-    if(sphere.position.y > 12){
-        subir = false;
-    }
-    if(sphere.position.y < -12){
-        subir = !subir;
-    }
+    sphere.translateY(translateSphere);
     renderer.render( scene, camera );
 };
 
