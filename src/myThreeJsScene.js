@@ -1,4 +1,6 @@
-import * as THREE from "../node_modules/three/src/Three.js"
+import * as THREE from 'three';
+import { OrbitControls } from 'OrbitControls';
+
 const container = document.getElementById("pruebaCubo");
 const scene = new THREE.Scene();
 const widthSize = 850;
@@ -6,6 +8,7 @@ const heightSize = 650;
 const camera = new THREE.PerspectiveCamera( 100, widthSize/heightSize, 1, 100000 );
 
 camera.position.z = 15;
+
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( widthSize,heightSize );
@@ -86,15 +89,31 @@ animateCube();
 
 
 //LINEAS
-const material = new THREE.LineBasicMaterial( { color: 0x0000ff } );
+const n_lados = 5;
+const radius = 10;
+const material = new THREE.LineBasicMaterial( { color: 0xffffff } );
 const points = [];
-points.push( new THREE.Vector3( - 10, 0, 0 ) );
-points.push( new THREE.Vector3( 0, 10, 0 ) );
-points.push( new THREE.Vector3( 10, 0, 0 ) );
-points.push( new THREE.Vector3( 15, 5, 0 ) );
-points.push( new THREE.Vector3( 10, 15, 0 ) );
+for(let i=0; i<=n_lados; i++){
+    var theta = (i / n_lados) * Math.PI * 2;
+    let x = radius * Math.cos(theta);
+    let y = radius * Math.sin(theta);
+    points.push( new THREE.Vector3( x, y, 0 ) );
+}
 
 const geometry = new THREE.BufferGeometry().setFromPoints( points );
 const line = new THREE.Line( geometry, material );
 scene.add( line );
 
+for(let i = 0; i < n_lados; i++){
+    let sphereGeometry = new THREE.SphereGeometry( 1, 32, 16 );
+    let sphereMaterial = new THREE.MeshStandardMaterial( { color: 0xff0000 } );
+    let sphere = new THREE.Mesh( sphereGeometry, sphereMaterial );
+    sphere.castShadow = true; //default is false
+    sphere.receiveShadow = false; //default
+    sphere.position.x = points[i].getComponent(0)
+    sphere.position.y = points[i].getComponent(1)
+    scene.add( sphere );
+}
+
+const controls = new OrbitControls( camera, renderer.domElement );
+controls.update()
