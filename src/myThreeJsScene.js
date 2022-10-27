@@ -104,6 +104,7 @@ const geometry = new THREE.BufferGeometry().setFromPoints( points );
 const line = new THREE.Line( geometry, material );
 scene.add( line );
 
+//"PERSONAS"
 for(let i = 0; i < n_lados; i++){
     let sphereGeometry = new THREE.SphereGeometry( 1, 32, 16 );
     let sphereMaterial = new THREE.MeshStandardMaterial( { color: 0xff0000 } );
