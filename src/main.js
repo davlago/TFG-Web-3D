@@ -4,7 +4,7 @@ import {OrbitControls} from  './OrbitControls.js';
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
 const widthSize = window.outerWidth;
-const heightSize = window.outerHeight*0.93;
+const heightSize = window.outerHeight;
 
 //RENDERER
 const renderer = new THREE.WebGLRenderer();
