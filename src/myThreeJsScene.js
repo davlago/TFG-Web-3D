@@ -3,11 +3,13 @@ import {OrbitControls} from  './OrbitControls.js';
 
 const container = document.getElementById("pruebaCubo");
 const scene = new THREE.Scene();
-const widthSize = 850;
-const heightSize = 650;
+const widthSize = window.outerWidth;
+const heightSize = window.outerHeight*0.93;
 const camera = new THREE.PerspectiveCamera( 100, widthSize/heightSize, 1, 100000 );
 
-camera.position.z = 15;
+camera.position.z = 30;
+camera.position.x = 50;
+camera.position.y = 40;
 
 
 const renderer = new THREE.WebGLRenderer();
@@ -121,7 +123,7 @@ controls.update()
 
 
 function createRoom(){
-    var geometry = new THREE.BoxGeometry( 20, 10, 20 );
+    var geometry = new THREE.BoxGeometry( 50, 50, 50 );
 
     // material
     var material2 = new THREE.MeshPhongMaterial( {
