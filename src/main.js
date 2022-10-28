@@ -12,17 +12,19 @@ const renderer = new THREE.WebGLRenderer();
 renderer.setSize( widthSize,heightSize );
 renderer.setClearColor( 0x000000, 0.5);
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
 
 //CAMERA
 
-const camera = new THREE.PerspectiveCamera( 100, widthSize/heightSize, 1, 100000 );
+const camera = new THREE.PerspectiveCamera( 100, widthSize/heightSize, 1, 1000 );
 
 camera.position.z = 30;
 camera.position.x = 50;
 camera.position.y = 40;
 
+
 const controls = new OrbitControls( camera, renderer.domElement );
+controls.minDistance = 50 //min zoom
+controls.maxDistance = 100 //max zoom
 controls.update()
 
 //STATS
@@ -55,7 +57,6 @@ function setConfLight(){
     scene.add( helper );
 }
 setConfLight();
-
 
 
 function createRoom(){
