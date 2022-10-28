@@ -1,5 +1,6 @@
 import * as THREE from '../node_modules/three/build/three.module.js';
 import {OrbitControls} from  './OrbitControls.js';
+import Stats from '../node_modules/stats.js/src/Stats.js'
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
@@ -24,10 +25,16 @@ camera.position.y = 40;
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.update()
 
+//STATS
+var stats = new Stats();
+stats.showPanel( 0); // 0: fps, 1: ms, 2: mb, 3+: custom
+document.body.appendChild( stats.dom );
 
 function rendererScene() {
-    requestAnimationFrame( rendererScene );
+    stats.begin();
     renderer.render( scene, camera );
+    stats.end();
+    requestAnimationFrame( rendererScene );
 };
 rendererScene();
 
