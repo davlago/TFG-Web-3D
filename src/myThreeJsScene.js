@@ -1,5 +1,5 @@
-import * as THREE from 'three';
-import { OrbitControls } from 'OrbitControls';
+import * as THREE from '../node_modules/three/build/three.module.js';
+import {OrbitControls} from  './OrbitControls.js';
 
 const container = document.getElementById("pruebaCubo");
 const scene = new THREE.Scene();
@@ -118,3 +118,21 @@ for(let i = 0; i < n_lados; i++){
 
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.update()
+
+
+function createRoom(){
+    var geometry = new THREE.BoxGeometry( 20, 10, 20 );
+
+    // material
+    var material2 = new THREE.MeshPhongMaterial( {
+        color: 0xffffff, 
+        transparent: false,
+        side: THREE.BackSide
+    } );
+
+    // mesh
+    let mesh = new THREE.Mesh( geometry, material2 );
+    scene.add( mesh );
+}
+
+createRoom()
