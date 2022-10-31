@@ -24,6 +24,14 @@ export default class Room {
         this.line.position.z = z;
     }
 
+    getVertex(){
+        return this.vertex;
+    }
+
+    getOneVertex(i){
+        return this.vertex[i];
+    }
+
     get3DObject() {
         return this.line
     }
