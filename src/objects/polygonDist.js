@@ -8,7 +8,6 @@ export default class Room {
             let x = radius * Math.cos(theta);
             let z = radius * Math.sin(theta);
             this.vertex.push(new THREE.Vector3(x, 1, z));
-            console.log("hola")
         }
 
         this.geometry = new THREE.BufferGeometry().setFromPoints(this.vertex);
@@ -22,6 +21,14 @@ export default class Room {
         this.line.position.x = x;
         this.line.position.y = y;
         this.line.position.z = z;
+    }
+
+    getVertex(){
+        return this.vertex;
+    }
+
+    getOneVertex(i){
+        return this.vertex[i];
     }
 
     get3DObject() {
