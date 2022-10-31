@@ -11,6 +11,7 @@ export default class Room {
         } );
 
         this.mesh = new THREE.Mesh( this.geometry, this.material);
+        this.mesh.name = "Room"
     }
 
     setSize(x,y,z){

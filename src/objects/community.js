@@ -1,13 +1,11 @@
 export default class Community {
 
-    constructor(scene, radius) {
+    constructor(scene, index, radius) {
         this.scene = scene;
-        this.geometry = new THREE.CircleGeometry( radius, 32);
-        //this.edges = new THREE.EdgesGeometry( this.geometry );
-        this.material = new THREE.MeshBasicMaterial( { color: 0xff0000 } );
-        //this.circle = new THREE.LineSegments( this.edges, this.material );
+        this.geometry = new THREE.CylinderGeometry( radius,radius,10, 32);
+        this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0} );
         this.circle = new THREE.Mesh( this.geometry, this.material );
-        this.circle.rotation.x = Math.PI / 2;
+        this.circle.name = "Área "+index;
     }
 
     setPosition(x, y, z) {
