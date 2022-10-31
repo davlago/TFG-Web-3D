@@ -77,6 +77,6 @@ scene.add( polygonDist.get3DObject());
 //COMUNIDADES
 for(let i = 0; i < data["communities"].length; i++){
     let community = new Community(scene, data["communities"][i]["users"].length*0.5)
-    community.setPosition(polygonDist.getOneVertex(i).x,1,polygonDist.getOneVertex(i).z);
+    community.setPosition(polygonDist.getOneVertex(i).x,10,polygonDist.getOneVertex(i).z);
     scene.add( community.get3DObject() );
 }

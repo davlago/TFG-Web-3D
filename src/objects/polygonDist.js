@@ -8,7 +8,6 @@ export default class Room {
             let x = radius * Math.cos(theta);
             let z = radius * Math.sin(theta);
             this.vertex.push(new THREE.Vector3(x, 1, z));
-            console.log("hola")
         }
 
         this.geometry = new THREE.BufferGeometry().setFromPoints(this.vertex);
