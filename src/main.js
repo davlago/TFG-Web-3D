@@ -2,6 +2,7 @@ import {OrbitControls} from  './controller/OrbitControls.js';
 import Stats from '../../node_modules/stats.js/src/Stats.js'
 import Light from './view/light.js'
 import Room from './objects/room.js'
+import PolygonDist from './objects/polygonDist.js'
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 
 
@@ -22,8 +23,8 @@ const camera = new THREE.PerspectiveCamera( 100, widthSize/heightSize, 1, 1000 )
 
 //CONTROLS
 const controls = new OrbitControls( camera, renderer.domElement );
-controls.minDistance = 50 //min zoom
-controls.maxDistance = 100 //max zoom
+controls.minDistance = 100 //min zoom
+controls.maxDistance = 150 //max zoom
 controls.maxPolarAngle = 1.5 //max angle
 controls.update()
 
@@ -44,15 +45,27 @@ rendererScene();
 //ADD TO HTML
 container.appendChild( renderer.domElement );
 
-//LUCES
-let light = new Light(scene);
-light.setConfLight( 0xffffff, 1, 100 )
-scene.add(light.get3DObject())
-light.setHelper(true)
-
 
 //PRINCIPAL ROOM
-const room = new Room(scene, 50,25,50);
+const room = new Room(scene);
+const roomSize ={
+    x:100,
+    y:30,
+    z:100
+}
+room.setSize(roomSize.x,roomSize.y,roomSize.z);
+room.setPosition(0,roomSize.y/2,0);
 scene.add(room.get3DObject());
 
+//LUCES
+let light = new Light(scene);
+light.setConfLight(0xffffff, 2, 100 );
+light.setPosition(0, roomSize.y*0.9, 0);
+scene.add(light.get3DObject());
+light.setHelper(true);
 
+
+
+//POLIGONO DE DISTRIBUCIÓN
+const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/3)
+scene.add( polygonDist.get3DObject());

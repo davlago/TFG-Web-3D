@@ -1,7 +1,7 @@
 export default class Room {
 
-    constructor(scene, x, y, z){
-        this.geometry = new THREE.BoxGeometry( x, y, z );
+    constructor(scene){
+        this.geometry = new THREE.BoxGeometry( 10, 10, 10 );
         this.scene = scene;
 
         this.material = new THREE.MeshPhongMaterial( {
@@ -9,10 +9,22 @@ export default class Room {
             transparent: false,
             side: THREE.BackSide
         } );
+
+        this.mesh = new THREE.Mesh( this.geometry, this.material);
+    }
+
+    setSize(x,y,z){
+        this.mesh.geometry = new THREE.BoxGeometry( x, y, z );
+    }
+
+    setPosition(x,y,z){
+        this.mesh.position.x = x;
+        this.mesh.position.y = y;
+        this.mesh.position.z = z;
     }
 
     get3DObject(){
-        return new THREE.Mesh( this.geometry, this.material);
+        return this.mesh;
     }
 
 }
