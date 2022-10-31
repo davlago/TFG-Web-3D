@@ -75,18 +75,19 @@ scene.add( polygonDist.get3DObject());
 
 //COMUNIDADES
 let communities = [];
-for(let i = 0; i < data["communities"].length; i++){
-
-    let area = new Community(scene, i, data["communities"][i]["users"].length*0.5)
+let i = 0;
+data["communities"].forEach(comm => {
+    let area = new Community(scene, i, comm["users"].length*0.5)
     area.setPosition(polygonDist.getOneVertex(i).x,1,polygonDist.getOneVertex(i).z);
     scene.add(area.get3DObject());
 
-    let border = new CommunityBorder(scene, i, data["communities"][i]["users"].length*0.5)
+    let border = new CommunityBorder(scene, i, comm["users"].length*0.5)
     border.setPosition(polygonDist.getOneVertex(i).x,1,polygonDist.getOneVertex(i).z);
     scene.add(border.get3DObject());
 
     communities[i] = area.circle;
-}
+    i++;
+});
 
 //INTERACCION CON OBJETOS
 var raycaster = new THREE.Raycaster();
