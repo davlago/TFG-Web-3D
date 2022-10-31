@@ -78,11 +78,11 @@ let communities = [];
 let i = 0;
 data["communities"].forEach(comm => {
     let area = new Community(scene, i, comm["users"].length*0.5)
-    area.setPosition(polygonDist.getOneVertex(i).x,1,polygonDist.getOneVertex(i).z);
+    area.setPosition(polygonDist.getOneVertex(i).x, 1, polygonDist.getOneVertex(i).z);
     scene.add(area.get3DObject());
 
     let border = new CommunityBorder(scene, i, comm["users"].length*0.5)
-    border.setPosition(polygonDist.getOneVertex(i).x,1,polygonDist.getOneVertex(i).z);
+    border.setPosition(polygonDist.getOneVertex(i).x, 1, polygonDist.getOneVertex(i).z);
     scene.add(border.get3DObject());
 
     communities[i] = area.circle;
