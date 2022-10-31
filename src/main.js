@@ -1,7 +1,9 @@
-
 import {OrbitControls} from  './controller/OrbitControls.js';
 import Stats from '../../node_modules/stats.js/src/Stats.js'
 import Light from './view/light.js'
+import Room from './objects/room.js'
+import data from '../data/data1.json' assert {type:'json'}; //READ JSON
+
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
@@ -22,7 +24,7 @@ const camera = new THREE.PerspectiveCamera( 100, widthSize/heightSize, 1, 1000 )
 const controls = new OrbitControls( camera, renderer.domElement );
 controls.minDistance = 50 //min zoom
 controls.maxDistance = 100 //max zoom
-controls.maxPolarAngle = 1.5
+controls.maxPolarAngle = 1.5 //max angle
 controls.update()
 
 //STATS
@@ -39,6 +41,7 @@ function rendererScene() {
 };
 rendererScene();
 
+//ADD TO HTML
 container.appendChild( renderer.domElement );
 
 //LUCES
@@ -48,19 +51,8 @@ scene.add(light.get3DObject())
 light.setHelper(true)
 
 
-function createRoom(){
-    var geometry = new THREE.BoxGeometry( 50, 25, 50 );
+//PRINCIPAL ROOM
+const room = new Room(scene, 50,25,50);
+scene.add(room.get3DObject());
 
-    // material
-    var material2 = new THREE.MeshPhongMaterial( {
-        color: 0xffffff, 
-        transparent: false,
-        side: THREE.BackSide
-    } );
 
-    // mesh
-    let mesh = new THREE.Mesh( geometry, material2 );
-    scene.add( mesh );
-}
-
-createRoom()
