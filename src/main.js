@@ -68,7 +68,6 @@ let light = new Light(scene);
 light.setConfLight(0xffffff, 2, 120 ); //color, intensidad, distancia
 light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
 scene.add(light.get3DObject());
-light.setHelper(true);
 
 
 //POLIGONO DE DISTRIBUCIÓN
