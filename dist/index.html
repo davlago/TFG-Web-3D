@@ -8,10 +8,11 @@
     <link rel="stylesheet" href="../src/style.css" />
 
     <script type="module" src="../node_modules/three/build/three.js"> </script>
+    <script type="module" src="../node_modules/three/build/three.module.js"> </script>
     <script type="module" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"> </script>
 </head>
 
-<body>
+<body onResize='window.location.href = window.location.href;'>
     <script type="module" src="../src/main.js"></script>
     <div class="col info-col"></div>
     <div class="treeJs-container" id="mainScene"></div>

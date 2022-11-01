@@ -1,34 +1,40 @@
-
 import {OrbitControls} from  './controller/OrbitControls.js';
 import Stats from '../../node_modules/stats.js/src/Stats.js'
 import Light from './view/light.js'
+import Room from './objects/room.js'
+import PolygonDist from './objects/polygonDist.js'
+import Community from './objects/community.js';
+import CommunityBorder from './objects/communityBorder.js';
+import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
-const widthSize = window.outerWidth;
-const heightSize = window.outerHeight;
+
 
 //RENDERER
 const renderer = new THREE.WebGLRenderer();
-renderer.setSize( widthSize,heightSize );
+renderer.setSize( window.outerWidth,window.outerHeight );
 renderer.setClearColor( 0x000000, 0.5);
 renderer.shadowMap.enabled = true;
 
-//CAMERA
 
-const camera = new THREE.PerspectiveCamera( 100, widthSize/heightSize, 1, 1000 );
+//CAMERA
+const camera = new THREE.PerspectiveCamera( 100, window.outerWidth/window.outerHeight, 1, 1000 );
+
 
 //CONTROLS
 const controls = new OrbitControls( camera, renderer.domElement );
-controls.minDistance = 50 //min zoom
-controls.maxDistance = 100 //max zoom
-controls.maxPolarAngle = 1.5
+controls.minDistance = 100 //min zoom
+controls.maxDistance = 200 //max zoom
+controls.maxPolarAngle = 1.5 //max angle
 controls.update()
+
 
 //STATS
 var stats = new Stats();
 stats.showPanel( 0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild( stats.dom );
+
 
 //RENDERER FUNCTION
 function rendererScene() {
@@ -39,28 +45,64 @@ function rendererScene() {
 };
 rendererScene();
 
+
+//ADD TO HTML
 container.appendChild( renderer.domElement );
+
+
+//PRINCIPAL ROOM
+const room = new Room(scene);
+const roomSize ={
+    x:130,
+    y:50,
+    z:130
+}
+room.setSize(roomSize.x,roomSize.y,roomSize.z);
+room.setPosition(0,roomSize.y/2,0);
+scene.add(room.get3DObject());
+
 
 //LUCES
 let light = new Light(scene);
-light.setConfLight( 0xffffff, 1, 100 )
-scene.add(light.get3DObject())
-light.setHelper(true)
+light.setConfLight(0xffffff, 2, 120 ); //color, intensidad, distancia
+light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
+scene.add(light.get3DObject());
 
 
-function createRoom(){
-    var geometry = new THREE.BoxGeometry( 50, 25, 50 );
+//POLIGONO DE DISTRIBUCIÓN
+const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/3)
+scene.add( polygonDist.get3DObject());
 
-    // material
-    var material2 = new THREE.MeshPhongMaterial( {
-        color: 0xffffff, 
-        transparent: false,
-        side: THREE.BackSide
-    } );
+//COMUNIDADES
+let communities = [];
+let i = 0;
+data["communities"].forEach(comm => {
+    let area = new Community(scene, i, comm["users"].length*0.5)
+    area.setPosition(polygonDist.getOneVertex(i).x, 1, polygonDist.getOneVertex(i).z);
+    scene.add(area.get3DObject());
 
-    // mesh
-    let mesh = new THREE.Mesh( geometry, material2 );
-    scene.add( mesh );
+    let border = new CommunityBorder(scene, i, comm["users"].length*0.5)
+    border.setPosition(polygonDist.getOneVertex(i).x, 1, polygonDist.getOneVertex(i).z);
+    scene.add(border.get3DObject());
+
+    communities[i] = area.circle;
+    i++;
+});
+
+//INTERACCION CON OBJETOS
+var raycaster = new THREE.Raycaster();
+var mouse = new THREE.Vector2();
+
+window.addEventListener('click', onDocumentMouseDown, false);
+function onDocumentMouseDown( event ) {
+    event.preventDefault();
+    mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
+    raycaster.setFromCamera( mouse, camera );
+    var intersects = raycaster.intersectObjects(communities);
+    if ( intersects.length > 0 ) {
+        intersects.forEach(element => 
+            console.log(element.object.name)
+        );
+    }
 }
-
-createRoom()

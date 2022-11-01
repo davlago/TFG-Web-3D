@@ -1,4 +1,3 @@
-import * as THREE from '../../node_modules/three/build/three.module.js';
 export default class Light {
 
     constructor(scene){
@@ -14,7 +13,7 @@ export default class Light {
     setConfLight(color, intensity, distance ){
         this.light = new THREE.PointLight( color, intensity, distance );
         this.light.position.set( 0, 10, 0 );
-        this.light.castShadow = true; // default false
+        this.light.castShadow = false; // default false
     }
 
     get3DObject(){
