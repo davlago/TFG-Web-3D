@@ -37,17 +37,17 @@ body{
       height: 50px;
     }
     100% {
-      width: 500px;
-      height: 300px;
-      border-radius: 5%;
+      width: 30%;
+      height: 30%;
+      border-radius: 2%;
     }
   }
 
   @-webkit-keyframes retract {
     0% {
-        width: 500px;
-        height: 300px;
-        border-radius: 5%;
+        width: 30%;
+        height: 30%;
+        border-radius: 2%;
     }
     100% {
       width: 50px;
