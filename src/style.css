@@ -13,7 +13,20 @@ body{
     height: 50px;
     border-radius: 10%;
     border: 3px solid whitesmoke;
+    -webkit-animation: animateThis 1s ease-in;
+    -webkit-animation-fill-mode: forwards;
 }
+
+@-webkit-keyframes animateThis {
+    0% {
+      width: 100px;
+      height: 100px;
+    }
+    100% {
+      width: 500px;
+      height: 300px;
+    }
+  }
 
 .info-col:hover{
     background-color: black;
