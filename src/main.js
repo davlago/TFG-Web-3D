@@ -9,6 +9,7 @@ import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
+var expanded = false;
 
 
 //RENDERER
@@ -89,6 +90,17 @@ data["communities"].forEach(comm => {
     i++;
 });
 
+function changeInfoBox(){
+    if(!expanded){
+        document.getElementById("info-box").className = "info expand"
+        expanded = true;
+    }
+    else{
+        document.getElementById("info-box").className = "info retract"
+        expanded = false;
+    }
+}
+
 //INTERACCION CON OBJETOS
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
@@ -102,7 +114,9 @@ function onDocumentMouseDown( event ) {
     var intersects = raycaster.intersectObjects(communities);
     if ( intersects.length > 0 ) {
         intersects.forEach(element => 
-            console.log(element.object.name)
+            console.log(element.object.name),
+            changeInfoBox()
         );
     }
 }
+

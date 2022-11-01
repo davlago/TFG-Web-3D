@@ -3,7 +3,7 @@ body{
     overflow: hidden;
 }
 
-.info-col{
+.info{
     position: absolute;
     right: 20;
     top: 20;
@@ -13,14 +13,23 @@ body{
     height: 50px;
     border-radius: 10%;
     border: 3px solid whitesmoke;
-    -webkit-animation: animateThis 1s ease-in;
+
+}
+
+.retract{
+    -webkit-animation: retract 1s ease-in;
     -webkit-animation-fill-mode: forwards;
 }
 
-@-webkit-keyframes animateThis {
+.expand{
+    -webkit-animation: expand 1s ease-in;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes expand {
     0% {
-      width: 100px;
-      height: 100px;
+      width: 50px;
+      height: 50px;
     }
     100% {
       width: 500px;
@@ -28,7 +37,18 @@ body{
     }
   }
 
-.info-col:hover{
+  @-webkit-keyframes retract {
+    0% {
+        width: 500px;
+        height: 300px;
+    }
+    100% {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+.info:hover{
     background-color: black;
 }
 
