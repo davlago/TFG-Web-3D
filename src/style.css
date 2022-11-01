@@ -7,22 +7,27 @@ body{
     position: absolute;
     right: 20;
     top: 20;
-    background-color: gray;
+    background-color: black;
     opacity: 0.5;
     width: 50px;
     height: 50px;
     border-radius: 10%;
     border: 3px solid whitesmoke;
-
+    text-align: center;
+    color: white;
+    font-size: 33px;
+    font-family: Monaco;
 }
 
+
+
 .retract{
-    -webkit-animation: retract 1s ease-in;
+    -webkit-animation: retract 0.5s ease-in;
     -webkit-animation-fill-mode: forwards;
 }
 
 .expand{
-    -webkit-animation: expand 1s ease-in;
+    -webkit-animation: expand 0.5s ease-in;
     -webkit-animation-fill-mode: forwards;
 }
 
@@ -34,6 +39,7 @@ body{
     100% {
       width: 500px;
       height: 300px;
+      border-radius: 5%;
     }
   }
 
@@ -41,16 +47,13 @@ body{
     0% {
         width: 500px;
         height: 300px;
+        border-radius: 5%;
     }
     100% {
       width: 50px;
       height: 50px;
     }
   }
-
-.info:hover{
-    background-color: black;
-}
 
 .treeJs-container{
     z-index: -1;
