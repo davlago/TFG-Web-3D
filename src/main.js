@@ -3,9 +3,8 @@ import Stats from '../../node_modules/stats.js/src/Stats.js'
 import Light from './view/light.js'
 import Room from './objects/room.js'
 import PolygonDist from './objects/polygonDist.js'
-import Community from './objects/community.js';
-import CommunityBorder from './objects/communityBorder.js';
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
+import CommunitiesList from './objects/CommunitiesList.js';
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
@@ -75,20 +74,18 @@ const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.
 scene.add( polygonDist.get3DObject());
 
 //COMUNIDADES
-let communities = [];
-let i = 0;
+let communitiesList = new CommunitiesList(scene);
+let cont = 0;
 data["communities"].forEach(comm => {
-    let area = new Community(scene, i, comm["users"].length*0.5)
-    area.setPosition(polygonDist.getOneVertex(i).x, 1, polygonDist.getOneVertex(i).z);
-    scene.add(area.get3DObject());
+    let xPos = polygonDist.getOneVertex(cont).x;
+    let yPos = 1;
+    let zPos = polygonDist.getOneVertex(cont).z;
 
-    let border = new CommunityBorder(scene, i, comm["users"].length*0.5)
-    border.setPosition(polygonDist.getOneVertex(i).x, 1, polygonDist.getOneVertex(i).z);
-    scene.add(border.get3DObject());
-
-    communities[i] = area.circle;
-    i++;
+    communitiesList.addCommunity(cont, data, xPos , yPos, zPos)
+    scene.add(communitiesList.getOneCommunityObject(cont));
+    cont++;
 });
+communitiesList.drawBorders();
 
 function changeInfoBox(){
     if(!expanded){
@@ -111,7 +108,7 @@ function onDocumentMouseDown( event ) {
     mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
     raycaster.setFromCamera( mouse, camera );
-    var intersects = raycaster.intersectObjects(communities);
+    var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
     if ( intersects.length > 0 ) {
         intersects.forEach(element => 
             console.log(element.object.name),

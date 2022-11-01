@@ -19,4 +19,8 @@ export default class CommunityBorder {
         return this.circle;
     }
 
+    draw(){
+        this.scene.add(this.circle);
+    }
+
 }
