@@ -87,17 +87,6 @@ data["communities"].forEach(comm => {
 });
 communitiesList.drawBorders();
 
-function changeInfoBox(){
-    if(!expanded){
-        document.getElementById("info-box").className = "info expand"
-        expanded = true;
-    }
-    else{
-        document.getElementById("info-box").className = "info retract"
-        expanded = false;
-    }
-}
-
 //INTERACCION CON OBJETOS
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
@@ -111,9 +100,45 @@ function onDocumentMouseDown( event ) {
     var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
     if ( intersects.length > 0 ) {
         intersects.forEach(element => 
-            console.log(element.object.name),
-            changeInfoBox()
+            changeBox(element.object.name)
         );
+    }
+}
+
+
+//CAMBIAR CAJA
+function changeBox(commIndex){
+    let communitySelect = communitiesList.getOneCommunityInfo(parseInt(commIndex));
+    
+    if(!expanded){
+        document.getElementById("info-box").className = "info expand";
+        document.getElementById("community-title").innerHTML = "";
+        setTimeout(() => {changeInfo(communitySelect)}, 300);
+        
+
+    }
+    else{
+        document.getElementById("info-box").className = "info retract";
+        changeInfo();
+
+    }
+}
+
+//CAMBIAR INFO
+function changeInfo(communitySelect = null){
+    if(!expanded){
+        document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
+        document.getElementById("community-type").innerHTML = "<h3>Type:</h3>"  + communitySelect.getInfo()["community-type"];
+        document.getElementById("community-explanation").innerHTML = "<h3>Explanation:</h3>"  + communitySelect.getInfo()["explanation"];
+        document.getElementById("community-nUsers").innerHTML = "<h3>Number of Users:</h3>"  +communitySelect.getInfo()["users"].length;
+        expanded = true;
+    }
+    else{
+        document.getElementById("community-title").innerHTML = "i";
+        document.getElementById("community-type").innerHTML = "";
+        document.getElementById("community-explanation").innerHTML = "";
+        document.getElementById("community-nUsers").innerHTML = "";
+        expanded = false;
     }
 }
 

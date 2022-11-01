@@ -3,6 +3,20 @@ body{
     overflow: hidden;
 }
 
+.data-row{
+  margin-top: 15px;
+}
+
+h3{
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Times New Roman', serif;
+}
+
+h1{
+  font-family: 'Times New Roman', serif;
+}
+
 .info{
     position: absolute;
     right: 20;
@@ -15,18 +29,18 @@ body{
     border: 3px solid whitesmoke;
     text-align: center;
     color: white;
-    font-family: Monaco;
+    font-family: 'Times New Roman', serif;
 }
 
 
 
 .retract{
-    -webkit-animation: retract 0.5s ease-in;
+    -webkit-animation: retract 0.2s ease-in;
     -webkit-animation-fill-mode: forwards;
 }
 
 .expand{
-    -webkit-animation: expand 0.5s ease-in;
+    -webkit-animation: expand 0.3s ease-in;
     -webkit-animation-fill-mode: forwards;
 }
 
