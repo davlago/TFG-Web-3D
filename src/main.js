@@ -112,32 +112,35 @@ function changeBox(commIndex){
     
     if(!expanded){
         document.getElementById("info-box").className = "info expand";
-        document.getElementById("community-title").innerHTML = "";
-        setTimeout(() => {changeInfo(communitySelect)}, 300);
+        document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
+        document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
+        document.getElementById("community-explanation").innerHTML = communitySelect.getInfo()["explanation"];
+        document.getElementById("community-nUsers").innerHTML =communitySelect.getInfo()["users"].length;
+        setTimeout(() => {changeShow(communitySelect)}, 300);
         
 
     }
     else{
         document.getElementById("info-box").className = "info retract";
-        changeInfo();
+        changeShow();
 
     }
 }
 
 //CAMBIAR INFO
-function changeInfo(communitySelect = null){
+function changeShow(communitySelect = null){
     if(!expanded){
-        document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
-        document.getElementById("community-type").innerHTML = "<h3>Type:</h3>"  + communitySelect.getInfo()["community-type"];
-        document.getElementById("community-explanation").innerHTML = "<h3>Explanation:</h3>"  + communitySelect.getInfo()["explanation"];
-        document.getElementById("community-nUsers").innerHTML = "<h3>Number of Users:</h3>"  +communitySelect.getInfo()["users"].length;
+        document.getElementById("community-title").className = "show"
+        document.getElementById("community-nUsers-row").className = "data row show"
+        document.getElementById("community-explanation-row").className = "data row show"
+        document.getElementById("community-type-row").className = "data row show"
         expanded = true;
     }
     else{
-        document.getElementById("community-title").innerHTML = "i";
-        document.getElementById("community-type").innerHTML = "";
-        document.getElementById("community-explanation").innerHTML = "";
-        document.getElementById("community-nUsers").innerHTML = "";
+        document.getElementById("community-title").className = "hide"
+        document.getElementById("community-type-row").className = "data row hide"
+        document.getElementById("community-explanation-row").className = "data row hide"
+        document.getElementById("community-nUsers-row").className = "data row hide"
         expanded = false;
     }
 }

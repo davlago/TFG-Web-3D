@@ -3,8 +3,10 @@ body{
     overflow: hidden;
 }
 
-.data-row{
+.data{
   margin-top: 15px;
+  padding-right: 10px;
+  opacity: 0;
 }
 
 h3{
@@ -14,13 +16,74 @@ h3{
 }
 
 h1{
-  font-family: 'Times New Roman', serif;
+  font-family: 'Trebuchet MS', sans-serif;
+}
+
+#community-title{
+  text-align: center;
+  margin-top: 15px;
+  color: white;
+  opacity: 0;
+}
+
+.parameter{
+  min-width: 130px;
+  max-width: 130px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 17px;
+  color: white;
+}
+
+.value{
+  max-width: 400px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 15px;
+  color: white;
+  padding-left: 0px;
+  
+}
+
+.content{
+  margin-top: 30px;
+  margin-left: 15px;
+}
+
+.show{
+  -webkit-animation: appear 0.2s ease;
+  -webkit-animation-fill-mode: forwards;
+}
+
+.hide{
+  -webkit-animation: disappear 0.2s ease;
+  -webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@-webkit-keyframes disappear {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.hide{
+  opacity: 0;
 }
 
 .info{
     position: absolute;
-    right: 20;
-    top: 20;
+    right: 10;
+    top: 10;
     background-color: black;
     opacity: 0.5;
     width: 50px;
@@ -30,6 +93,15 @@ h1{
     text-align: center;
     color: white;
     font-family: 'Times New Roman', serif;
+}
+
+.info-space{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30%;
+  height: auto;
+  padding-bottom: 15px;
 }
 
 
@@ -50,23 +122,25 @@ h1{
       height: 50px;
     }
     100% {
-      width: 30%;
-      height: 30%;
+      width: 100%;
+      height: 100%;
       border-radius: 2%;
     }
   }
 
   @-webkit-keyframes retract {
     0% {
-        width: 30%;
-        height: 30%;
-        border-radius: 2%;
+      width: 100%;
+      height: 100%;
+      border-radius: 2%;
     }
     100% {
       width: 50px;
       height: 50px;
     }
   }
+
+
 
 .treeJs-container{
     z-index: -1;
