@@ -24,8 +24,6 @@ const camera = new THREE.PerspectiveCamera( 100, window.outerWidth/window.outerH
 const controller = new Controller(scene, camera, renderer.domElement );
 controller.setDefaultCamera();
 
-
-
 //STATS
 var stats = new Stats();
 stats.showPanel( 0); // 0: fps, 1: ms, 2: mb, 3+: custom
@@ -85,6 +83,7 @@ communitiesList.drawBorders();
 //INTERACCION CON OBJETOS
 var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
+var newDist = [];
 
 window.addEventListener('click', onDocumentMouseDown, false);
 function onDocumentMouseDown( event ) {
@@ -95,18 +94,45 @@ function onDocumentMouseDown( event ) {
     var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
     if ( intersects.length > 0 ) {
         let coord = polygonDist.getOneVertex(parseInt(intersects[0].object.name));
+        newDist = [-coord.x, roomSize.y/2, -coord.z];
         changeBox(intersects[0].object.name);
-        controller.setCommunityCamera(coord);
+        controller.setCommunityCamera();
         light.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
-        light.setConfLight(0xffffff, 2, 100); //x, y, z
+        light.setConfLight(0xba8083, 3, 100); //x, y, z
     }
     else{
         changeBox();
-        controller.setDefaultCamera()
+        newDist = [0,-roomSize.y/10,0];
+        controller.setDefaultCamera();
         light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
         light.setConfLight(0xffffff, 2, 200); //x, y, z
+        this.camera.position.set(20,25,20);
     }
 }
+function moveCamera(){
+    console.log(newDist)
+    if(scene.position.x > newDist[0]){
+        scene.position.x -= 3;
+    }
+    if(scene.position.x < newDist[0]){
+        scene.position.x += 3;
+    }
+    if(scene.position.y > newDist[1]){
+        scene.position.y -= 3;
+    }
+    if(scene.position.y < newDist[1]){
+        scene.position.y += 3;
+    }
+    if(scene.position.z > newDist[2]){
+        scene.position.z -= 3;
+    }
+    if(scene.position.z < newDist[2]){
+        scene.position.z += 3;
+    }
+    
+    requestAnimationFrame(moveCamera);
+}
+moveCamera();
 
 
 //CAMBIAR CAJA

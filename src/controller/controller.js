@@ -5,25 +5,25 @@ export default class Community {
     constructor(scene, camera, renderer) {
         this.scene = scene;
         this.camera = camera;
+        this.cameraInfo = "default";
         this.controls = new OrbitControls( camera, renderer );
     }
 
     setDefaultCamera(){
-        this.scene.position.set(0, 0, 0);
-        this.camera.position.set(50,40,50);
         this.controls.minDistance = 100 //min zoom
-        this.controls.maxDistance = 200 //max zoom
-        this.controls.maxPolarAngle = 1.5 //max angle      
+        this.controls.maxDistance = 150 //max zoom
+        this.controls.maxPolarAngle = 0.9 //max angle      
         this.controls.update()
+        this.cameraInfo = "default";
     }
 
-    setCommunityCamera(community){
-        this.scene.position.set(-community.x, 0, -community.z);
-        this.camera.position.set(20,25,20);
-        this.controls.minDistance = 20 //min zoom
-        this.controls.maxDistance = 50 //max zoom
-        this.controls.maxPolarAngle = 1.5 //max angle      
+    setCommunityCamera(){
+        console.log(this.scene);
+        this.controls.minDistance = 50 //min zoom
+        this.controls.maxDistance = 100 //max zoom
+        this.controls.maxPolarAngle = 0.9 //max angle      
         this.controls.update()
+        this.cameraInfo = "community";
     }
 
     setMinMaxDistance(min, max) {
@@ -36,6 +36,10 @@ export default class Community {
         this.controls.mixPolarAngle = min //min angle
         this.controls.maxPolarAngle = max //max angle
         this.controls.update()
+    }
+
+    getCameraInfo(){
+        return this.cameraInfo;
     }
 
     update() {
