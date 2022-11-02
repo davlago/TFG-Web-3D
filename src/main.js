@@ -1,11 +1,10 @@
-import {OrbitControls} from  './controller/OrbitControls.js';
 import Stats from '../../node_modules/stats.js/src/Stats.js'
 import Light from './view/light.js'
 import Room from './objects/room.js'
 import PolygonDist from './objects/polygonDist.js'
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 import CommunitiesList from './objects/CommunitiesList.js';
-
+import Controller from './controller/controller.js';
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
 
@@ -22,11 +21,9 @@ const camera = new THREE.PerspectiveCamera( 100, window.outerWidth/window.outerH
 
 
 //CONTROLS
-const controls = new OrbitControls( camera, renderer.domElement );
-controls.minDistance = 100 //min zoom
-controls.maxDistance = 200 //max zoom
-controls.maxPolarAngle = 1.5 //max angle
-controls.update()
+const controller = new Controller(scene, camera, renderer.domElement );
+controller.setDefaultCamera();
+
 
 
 //STATS
