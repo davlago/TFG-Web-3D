@@ -49,9 +49,9 @@ container.appendChild( renderer.domElement );
 //PRINCIPAL ROOM
 const room = new Room(scene);
 const roomSize ={
-    x:130,
+    x:200,
     y:50,
-    z:130
+    z:200
 }
 room.setSize(roomSize.x,roomSize.y,roomSize.z);
 room.setPosition(0,roomSize.y/2,0);
@@ -59,14 +59,13 @@ scene.add(room.get3DObject());
 
 
 //LUCES
-let light = new Light(scene);
-light.setConfLight(0xffffff, 2, 120 ); //color, intensidad, distancia
+let light = new Light(scene,0xffffff, 2, 200 );
 light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
 scene.add(light.get3DObject());
 
 
 //POLIGONO DE DISTRIBUCIÓN
-const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/3)
+const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/3.5)
 scene.add( polygonDist.get3DObject());
 
 //COMUNIDADES
@@ -95,12 +94,17 @@ function onDocumentMouseDown( event ) {
     raycaster.setFromCamera( mouse, camera );
     var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
     if ( intersects.length > 0 ) {
+        let coord = polygonDist.getOneVertex(parseInt(intersects[0].object.name));
         changeBox(intersects[0].object.name);
-        controller.setCommunityCamera(polygonDist.getOneVertex(parseInt(intersects[0].object.name)));
+        controller.setCommunityCamera(coord);
+        light.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
+        light.setConfLight(0xffffff, 2, 100); //x, y, z
     }
     else{
         changeBox();
         controller.setDefaultCamera()
+        light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
+        light.setConfLight(0xffffff, 2, 200); //x, y, z
     }
 }
 

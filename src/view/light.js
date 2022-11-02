@@ -1,7 +1,7 @@
 export default class Light {
 
-    constructor(scene){
-        this.light = new THREE.PointLight( 0xffffff, 1, 100 )
+    constructor(scene, color, intensity, distance ){
+        this.light = new THREE.PointLight( color, intensity, distance );
         this.scene = scene;
 
     }
@@ -11,8 +11,9 @@ export default class Light {
     }
 
     setConfLight(color, intensity, distance ){
-        this.light = new THREE.PointLight( color, intensity, distance );
-        this.light.position.set( 0, 10, 0 );
+        this.light.color.setHex( color);
+        this.light.intensity = intensity;
+        this.light.distance = distance;
         this.light.castShadow = false; // default false
     }
 
