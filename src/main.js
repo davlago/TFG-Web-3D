@@ -99,15 +99,16 @@ function onDocumentMouseDown( event ) {
         controller.setCommunityCamera(polygonDist.getOneVertex(parseInt(intersects[0].object.name)));
     }
     else{
+        changeBox();
         controller.setDefaultCamera()
     }
 }
 
 
 //CAMBIAR CAJA
-function changeBox(commIndex){
+function changeBox(commIndex = null){
     let communitySelect = communitiesList.getOneCommunityInfo(parseInt(commIndex));
-    if(!expanded){
+    if(commIndex !== null){
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
         document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
@@ -125,21 +126,17 @@ function changeBox(commIndex){
 
 //CAMBIAR INFO
 function changeShow(communitySelect = null){
-    if(!expanded){
+    if(communitySelect !== null){
         document.getElementById("community-title").className = "show"
         document.getElementById("community-nUsers-row").className = "data row show"
         document.getElementById("community-explanation-row").className = "data row show"
         document.getElementById("community-type-row").className = "data row show"
-        
-        expanded = true;
     }
     else{
         document.getElementById("community-title").className = "hide"
         document.getElementById("community-type-row").className = "data row hide"
         document.getElementById("community-explanation-row").className = "data row hide"
         document.getElementById("community-nUsers-row").className = "data row hide"
-        
-        expanded = false;
     }
 }
 
