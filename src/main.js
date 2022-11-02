@@ -20,7 +20,6 @@ renderer.shadowMap.enabled = true;
 //CAMERA
 const camera = new THREE.PerspectiveCamera( 100, window.outerWidth/window.outerHeight, 1, 1000 );
 
-
 //CONTROLS
 const controller = new Controller(scene, camera, renderer.domElement );
 controller.setDefaultCamera();
@@ -96,9 +95,11 @@ function onDocumentMouseDown( event ) {
     raycaster.setFromCamera( mouse, camera );
     var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
     if ( intersects.length > 0 ) {
-        intersects.forEach(element => 
-            changeBox(element.object.name)
-        );
+        changeBox(intersects[0].object.name);
+        controller.setCommunityCamera(polygonDist.getOneVertex(parseInt(intersects[0].object.name)));
+    }
+    else{
+        controller.setDefaultCamera()
     }
 }
 
@@ -111,13 +112,10 @@ function changeBox(commIndex){
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = "";
         setTimeout(() => {changeInfo(communitySelect)}, 300);
-        
-
     }
     else{
         document.getElementById("info-box").className = "info retract";
         changeInfo();
-
     }
 }
 
