@@ -100,14 +100,6 @@ function onDocumentMouseDown( event ) {
         light.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
         light.setConfLight(0xba8083, 3, 100); //x, y, z
     }
-    else{
-        changeBox();
-        newDist = [0,-roomSize.y/10,0];
-        controller.setDefaultCamera();
-        light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
-        light.setConfLight(0xffffff, 2, 200); //x, y, z
-        this.camera.position.set(20,25,20);
-    }
 }
 function moveCamera(){
     console.log(newDist)
@@ -144,12 +136,16 @@ function changeBox(commIndex = null){
         document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
         document.getElementById("community-explanation").innerHTML = communitySelect.getInfo()["explanation"];
         document.getElementById("community-nUsers").innerHTML =communitySelect.getInfo()["users"].length;
-        document.getElementById("icross").className = "smallIcon hide"
+        document.getElementById("icross").className = "smalliIcon hide";
+        document.getElementById("xcross").className = "smallXIcon show";
+        document.getElementById("xcross").disabled = false;
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
     else{
         document.getElementById("info-box").className = "info retract";
-        document.getElementById("icross").className = "smallIcon show"
+        document.getElementById("icross").className = "smalliIcon show"
+        document.getElementById("xcross").className = "smallXIcon hide";
+        document.getElementById("xcross").disabled = true;
         changeShow();
     }
 }
@@ -170,3 +166,11 @@ function changeShow(communitySelect = null){
     }
 }
 
+document.getElementById("xcross").addEventListener('click', () =>{
+    changeBox();
+    newDist = [0,-roomSize.y/10,0];
+    controller.setDefaultCamera();
+    light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
+    light.setConfLight(0xffffff, 2, 200); //x, y, z
+    this.camera.position.set(20,25,20);
+})

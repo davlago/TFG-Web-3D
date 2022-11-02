@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../node_modules/@fortawesome/fontawesome-free/css/all.min.css" />
     <link rel="stylesheet" href="../src/style.css" />
 
     <script type="module" src="../node_modules/three/build/three.js"> </script>
@@ -15,7 +16,13 @@
 <body onResize='window.location.href = window.location.href;'>
     <script type="module" src="../src/main.js"></script>
     <div class="info-space" id="info-space">
-        <div class="smallIcon" id="icross">i</div>
+        <div class="smalliIcon" id="icross">
+            <i class="fa-solid fa-circle-info"></i>
+        </div>
+        <div class="smallXIcon" id="xcross" disabled>
+            <i class="fa-solid fa-xmark"></i>
+        </div>
+        
         <div class="info" id="info-box"></div>
         <h1 class="" id = "community-title"></h1>
         <div class="content">
