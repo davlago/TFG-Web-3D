@@ -109,21 +109,19 @@ function onDocumentMouseDown( event ) {
 //CAMBIAR CAJA
 function changeBox(commIndex){
     let communitySelect = communitiesList.getOneCommunityInfo(parseInt(commIndex));
-    
     if(!expanded){
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
         document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
         document.getElementById("community-explanation").innerHTML = communitySelect.getInfo()["explanation"];
         document.getElementById("community-nUsers").innerHTML =communitySelect.getInfo()["users"].length;
+        document.getElementById("icross").className = "smallIcon hide"
         setTimeout(() => {changeShow(communitySelect)}, 300);
-        
-
     }
     else{
         document.getElementById("info-box").className = "info retract";
+        document.getElementById("icross").className = "smallIcon show"
         changeShow();
-
     }
 }
 
@@ -134,6 +132,7 @@ function changeShow(communitySelect = null){
         document.getElementById("community-nUsers-row").className = "data row show"
         document.getElementById("community-explanation-row").className = "data row show"
         document.getElementById("community-type-row").className = "data row show"
+        
         expanded = true;
     }
     else{
@@ -141,6 +140,7 @@ function changeShow(communitySelect = null){
         document.getElementById("community-type-row").className = "data row hide"
         document.getElementById("community-explanation-row").className = "data row hide"
         document.getElementById("community-nUsers-row").className = "data row hide"
+        
         expanded = false;
     }
 }
