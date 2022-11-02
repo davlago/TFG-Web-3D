@@ -2,3 +2,73 @@ body{
     display: table;
     overflow: hidden;
 }
+
+.data-row{
+  margin-top: 15px;
+}
+
+h3{
+  font-size: 20px;
+  font-weight: bold;
+  font-family: 'Times New Roman', serif;
+}
+
+h1{
+  font-family: 'Times New Roman', serif;
+}
+
+.info{
+    position: absolute;
+    right: 20;
+    top: 20;
+    background-color: black;
+    opacity: 0.5;
+    width: 50px;
+    height: 50px;
+    border-radius: 10%;
+    border: 3px solid whitesmoke;
+    text-align: center;
+    color: white;
+    font-family: 'Times New Roman', serif;
+}
+
+
+
+.retract{
+    -webkit-animation: retract 0.2s ease-in;
+    -webkit-animation-fill-mode: forwards;
+}
+
+.expand{
+    -webkit-animation: expand 0.3s ease-in;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@-webkit-keyframes expand {
+    0% {
+      width: 50px;
+      height: 50px;
+    }
+    100% {
+      width: 30%;
+      height: 30%;
+      border-radius: 2%;
+    }
+  }
+
+  @-webkit-keyframes retract {
+    0% {
+        width: 30%;
+        height: 30%;
+        border-radius: 2%;
+    }
+    100% {
+      width: 50px;
+      height: 50px;
+    }
+  }
+
+.treeJs-container{
+    z-index: -1;
+    position: absolute
+}
