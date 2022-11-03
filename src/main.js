@@ -5,9 +5,9 @@ import PolygonDist from './objects/polygonDist.js'
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 import CommunitiesList from './objects/CommunitiesList.js';
 import Controller from './controller/controller.js';
+import { MapControls } from './controller/OrbitControls.js';
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
-var expanded = false;
 
 
 //RENDERER
@@ -19,6 +19,7 @@ renderer.shadowMap.enabled = true;
 
 //CAMERA
 const camera = new THREE.PerspectiveCamera( 100, window.outerWidth/window.outerHeight, 1, 1000 );
+camera.position.set(10,100,10);
 
 //CONTROLS
 const controller = new Controller(scene, camera, renderer.domElement );
@@ -29,11 +30,12 @@ var stats = new Stats();
 stats.showPanel( 0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild( stats.dom );
 
-
 //RENDERER FUNCTION
 function rendererScene() {
     stats.begin();
     renderer.render( scene, camera );
+    controller.update();
+
     stats.end();
     requestAnimationFrame( rendererScene );
 };
@@ -93,38 +95,75 @@ function onDocumentMouseDown( event ) {
     raycaster.setFromCamera( mouse, camera );
     var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
     if ( intersects.length > 0 ) {
+        controller.setCommunityCamera();
         let coord = polygonDist.getOneVertex(parseInt(intersects[0].object.name));
         newDist = [-coord.x, roomSize.y/2, -coord.z];
+        moveCamera();
         changeBox(intersects[0].object.name);
-        controller.setCommunityCamera();
         light.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
         light.setConfLight(0xba8083, 3, 100); //x, y, z
+        moveCamera();
+    }
+    else{
+        controller.setDefaultCamera();
+        changeBox();
+        newDist = [0,0,0];
+        moveCamera();
+        light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
+        light.setConfLight(0xffffff, 2, 200); //x, y, z
+        this.camera.position.set(20,25,20);
     }
 }
-function moveCamera(){
-    console.log(newDist)
+function moveScene(){
     if(scene.position.x > newDist[0]){
-        scene.position.x -= 3;
+        scene.position.x -= 2;
     }
     if(scene.position.x < newDist[0]){
-        scene.position.x += 3;
+        scene.position.x += 2;
     }
     if(scene.position.y > newDist[1]){
-        scene.position.y -= 3;
+        scene.position.y -= 2;
     }
     if(scene.position.y < newDist[1]){
-        scene.position.y += 3;
+        scene.position.y += 2;
     }
     if(scene.position.z > newDist[2]){
-        scene.position.z -= 3;
+        scene.position.z -= 2;
     }
     if(scene.position.z < newDist[2]){
-        scene.position.z += 3;
+        scene.position.z += 2;
     }
-    
-    requestAnimationFrame(moveCamera);
+    requestAnimationFrame(moveScene);
 }
-moveCamera();
+
+moveScene();
+
+function moveCamera(){
+    let positive;
+    if(controller.getCameraInfo()=== "community"){
+        positive = Math.abs(0.98); 
+    }
+    else{         
+        positive = Math.abs(1.02); 
+    }
+    //Moving camera.
+    camera.position.x *= positive;
+    camera.position.y *= positive;
+    camera.position.z *= positive;
+    if(controller.getDistance() > 100 || controller.getDistance() < 61){
+        cancelAnimationFrame(moveCamera)
+    }
+    else{
+        requestAnimationFrame(moveCamera);
+    }
+}
+
+
+
+
+
+
+
 
 
 //CAMBIAR CAJA
