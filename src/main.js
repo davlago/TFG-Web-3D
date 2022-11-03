@@ -95,26 +95,26 @@ function onDocumentMouseDown( event ) {
     raycaster.setFromCamera( mouse, camera );
     var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
     if ( intersects.length > 0 ) {
+        controller.setCommunityCamera();
         let coord = polygonDist.getOneVertex(parseInt(intersects[0].object.name));
         newDist = [-coord.x, roomSize.y/2, -coord.z];
+        moveCamera();
         changeBox(intersects[0].object.name);
-        controller.setCommunityCamera();
-        controller.target(coord);
         light.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
         light.setConfLight(0xba8083, 3, 100); //x, y, z
+        moveCamera();
     }
     else{
+        controller.setDefaultCamera();
         changeBox();
         newDist = [0,0,0];
-        controller.setDefaultCamera();
-        controller.target(new THREE.Vector3(0,0,0));
+        moveCamera();
         light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
         light.setConfLight(0xffffff, 2, 200); //x, y, z
         this.camera.position.set(20,25,20);
     }
 }
-function moveCamera(){
-    console.log(newDist)
+function moveScene(){
     if(scene.position.x > newDist[0]){
         scene.position.x -= 3;
     }
@@ -133,9 +133,33 @@ function moveCamera(){
     if(scene.position.z < newDist[2]){
         scene.position.z += 3;
     }
-    
-    requestAnimationFrame(moveCamera);
+    requestAnimationFrame(moveScene);
 }
+
+moveScene();
+
+function moveCamera(){
+    let positive;
+    if(controller.getCameraInfo()=== "community"){
+        positive = Math.abs(0.99); 
+    }
+    else{         
+        positive = Math.abs(1.02); 
+    }
+    //Moving camera.
+    camera.position.x *= positive;
+    camera.position.y *= positive;
+    camera.position.z *= positive;
+    if(controller.getDistance() > 100 || controller.getDistance() < 61){
+        cancelAnimationFrame(moveCamera)
+    }
+    else{
+        requestAnimationFrame(moveCamera);
+    }
+}
+
+
+
 
 
 
