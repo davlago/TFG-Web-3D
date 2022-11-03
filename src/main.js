@@ -104,15 +104,7 @@ function onDocumentMouseDown( event ) {
         light.setConfLight(0xba8083, 3, 100); //x, y, z
         moveCamera();
     }
-    else{
-        controller.setDefaultCamera();
-        changeBox();
-        newDist = [0,0,0];
-        moveCamera();
-        light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
-        light.setConfLight(0xffffff, 2, 200); //x, y, z
-        this.camera.position.set(20,25,20);
-    }
+
 }
 function moveScene(){
     if(scene.position.x > newDist[0]){
@@ -206,10 +198,13 @@ function changeShow(communitySelect = null){
 }
 
 document.getElementById("xcross").addEventListener('click', () =>{
-    changeBox();
-    newDist = [0,-roomSize.y/10,0];
     controller.setDefaultCamera();
+    changeBox();
+    newDist = [0,0,0];
+    moveCamera();
     light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
     light.setConfLight(0xffffff, 2, 200); //x, y, z
     this.camera.position.set(20,25,20);
+    
 })
+
