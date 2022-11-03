@@ -116,22 +116,22 @@ function onDocumentMouseDown( event ) {
 }
 function moveScene(){
     if(scene.position.x > newDist[0]){
-        scene.position.x -= 3;
+        scene.position.x -= 2;
     }
     if(scene.position.x < newDist[0]){
-        scene.position.x += 3;
+        scene.position.x += 2;
     }
     if(scene.position.y > newDist[1]){
-        scene.position.y -= 3;
+        scene.position.y -= 2;
     }
     if(scene.position.y < newDist[1]){
-        scene.position.y += 3;
+        scene.position.y += 2;
     }
     if(scene.position.z > newDist[2]){
-        scene.position.z -= 3;
+        scene.position.z -= 2;
     }
     if(scene.position.z < newDist[2]){
-        scene.position.z += 3;
+        scene.position.z += 2;
     }
     requestAnimationFrame(moveScene);
 }
@@ -141,7 +141,7 @@ moveScene();
 function moveCamera(){
     let positive;
     if(controller.getCameraInfo()=== "community"){
-        positive = Math.abs(0.99); 
+        positive = Math.abs(0.98); 
     }
     else{         
         positive = Math.abs(1.02); 
