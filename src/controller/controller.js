@@ -7,6 +7,12 @@ export default class Community {
         this.camera = camera;
         this.cameraInfo = "default";
         this.controls = new OrbitControls( camera, renderer );
+        this.controls.mouseButtons = {
+            LEFT: THREE.MOUSE.ROTATE,
+            MIDDLE: THREE.MOUSE.DOLLY,
+            // RIGHT: THREE.MOUSE.PAN
+        }
+
     }
 
     setDefaultCamera(){
@@ -40,6 +46,14 @@ export default class Community {
 
     getCameraInfo(){
         return this.cameraInfo;
+    }
+
+    getDistance(){
+        return this.controls.getDistance();
+    }
+
+    target(vector){
+        this.controls.target = vector;
     }
 
     update() {

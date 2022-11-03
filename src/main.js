@@ -5,9 +5,9 @@ import PolygonDist from './objects/polygonDist.js'
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 import CommunitiesList from './objects/CommunitiesList.js';
 import Controller from './controller/controller.js';
+import { MapControls } from './controller/OrbitControls.js';
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
-var expanded = false;
 
 
 //RENDERER
@@ -19,6 +19,7 @@ renderer.shadowMap.enabled = true;
 
 //CAMERA
 const camera = new THREE.PerspectiveCamera( 100, window.outerWidth/window.outerHeight, 1, 1000 );
+camera.position.set(10,100,10);
 
 //CONTROLS
 const controller = new Controller(scene, camera, renderer.domElement );
@@ -29,11 +30,12 @@ var stats = new Stats();
 stats.showPanel( 0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild( stats.dom );
 
-
 //RENDERER FUNCTION
 function rendererScene() {
     stats.begin();
     renderer.render( scene, camera );
+    controller.update();
+
     stats.end();
     requestAnimationFrame( rendererScene );
 };
@@ -97,13 +99,15 @@ function onDocumentMouseDown( event ) {
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         changeBox(intersects[0].object.name);
         controller.setCommunityCamera();
+        controller.target(coord);
         light.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
         light.setConfLight(0xba8083, 3, 100); //x, y, z
     }
     else{
         changeBox();
-        newDist = [0,-roomSize.y/10,0];
+        newDist = [0,0,0];
         controller.setDefaultCamera();
+        controller.target(new THREE.Vector3(0,0,0));
         light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
         light.setConfLight(0xffffff, 2, 200); //x, y, z
         this.camera.position.set(20,25,20);
@@ -132,7 +136,10 @@ function moveCamera(){
     
     requestAnimationFrame(moveCamera);
 }
-moveCamera();
+
+
+
+
 
 
 //CAMBIAR CAJA
