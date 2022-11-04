@@ -1,19 +1,21 @@
-import Stats from '../../node_modules/stats.js/src/Stats.js'
+import Stats from '../node_modules/stats.js/src/Stats.js'
 import Light from './view/light.js'
 import Room from './objects/room.js'
 import PolygonDist from './objects/polygonDist.js'
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 import CommunitiesList from './objects/CommunitiesList.js';
 import Controller from './controller/controller.js';
-import { MapControls } from './controller/OrbitControls.js';
+
+import Models from '../models/models.js'
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
+const models = new Models(); //Modelos 3D
 
 
 //RENDERER
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.outerWidth,window.outerHeight );
-renderer.setClearColor( 0x000000, 0.5);
+renderer.setClearColor( 0x000000, 1);
 renderer.shadowMap.enabled = true;
 
 
@@ -45,7 +47,6 @@ rendererScene();
 //ADD TO HTML
 container.appendChild( renderer.domElement );
 
-
 //PRINCIPAL ROOM
 const room = new Room(scene);
 const roomSize ={
@@ -53,34 +54,35 @@ const roomSize ={
     y:50,
     z:200
 }
-room.setSize(roomSize.x,roomSize.y,roomSize.z);
-room.setPosition(0,roomSize.y/2,0);
-scene.add(room.get3DObject());
-
+function createRoom(){
+    room.setSize(roomSize.x,roomSize.y,roomSize.z);
+    room.setPosition(0,roomSize.y/2,0);
+    scene.add(room.get3DObject());
+}
 
 //LUCES
 let light = new Light(scene,0xffffff, 2, 200 );
 light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
-scene.add(light.get3DObject());
 
 
 //POLIGONO DE DISTRIBUCIÓN
 const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/3.5)
-scene.add( polygonDist.get3DObject());
 
 //COMUNIDADES
 let communitiesList = new CommunitiesList(scene);
-let cont = 0;
-data["communities"].forEach(comm => {
-    let xPos = polygonDist.getOneVertex(cont).x;
-    let yPos = 1;
-    let zPos = polygonDist.getOneVertex(cont).z;
-
-    communitiesList.addCommunity(cont, data, xPos , yPos, zPos)
-    scene.add(communitiesList.getOneCommunityObject(cont));
-    cont++;
-});
-communitiesList.drawBorders();
+function createCommunities(){
+    let cont = 0;
+    data["communities"].forEach(comm => {
+        let xPos = polygonDist.getOneVertex(cont).x;
+        let yPos = 1;
+        let zPos = polygonDist.getOneVertex(cont).z;
+    
+        communitiesList.addCommunity(cont, data, xPos , yPos, zPos)
+        scene.add(communitiesList.getOneCommunityObject(cont));
+        cont++;
+    });
+    communitiesList.drawBorders();
+}
 
 //INTERACCION CON OBJETOS
 var raycaster = new THREE.Raycaster();
@@ -150,13 +152,17 @@ function moveCamera(){
     }
 }
 
-
-
-
-
-
-
-
+function createScenary(){
+    createRoom();
+    scene.add(light.get3DObject());
+    scene.add( polygonDist.get3DObject());
+    createCommunities();
+    scene.add(models.getStickMan())
+}
+setTimeout(()=>{createScenary();},1000);
+/*--------------------------------------------------------------------
+-----------------------CAMBIOS EN HTML--------------------------------
+--------------------------------------------------------------------*/
 
 //CAMBIAR CAJA
 function changeBox(commIndex = null){
@@ -204,7 +210,6 @@ document.getElementById("xcross").addEventListener('click', () =>{
     moveCamera();
     light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
     light.setConfLight(0xffffff, 2, 200); //x, y, z
-    this.camera.position.set(20,25,20);
     
 })
 
