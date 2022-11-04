@@ -2,16 +2,56 @@ import User from "./user.js";
 
 export default class UsersList {
 
-    constructor(scene,data, list) {
+    constructor(scene, data, radius, pos) {
+        this.center = pos;
         this.scene = scene;
         this.usersList = []
         this.objectList = []
+        this.n_users = data["users"].length;
+        this.coord = []
+        this.coordCircle = [1,6, 14, 21, 29];
+        this.coordAcom = [1, 7, 21, 42, 73];
+        this.radius = radius;
+        this.generateGeomPos();
     }
 
-    addUser(userInfo) {
-        let newUser = new User(this.scene, userInfo);
+    addUser(userInfo, model) {
+        console.log(this.usersList.length);
+        let ranCoord= this.coord[this.usersList.length];
+        console.log(ranCoord)
+        let newUser = new User(this.scene, userInfo, model,ranCoord.x, ranCoord.z);
         this.objectList.push(newUser.get3DObject());
         this.usersList.push(newUser);
+        this.n_users++;
+    }
+
+    generateGeomPos(){
+        let grand = 0;
+        let xi, zi;
+        for(let i = 0; i < this.coordAcom.length; i++){
+            if(this.coordAcom[i] >= this.n_users){
+                grand = i;
+                break;
+            }
+        }
+        if(grand === 0) grand = 1;
+        let radiusPart = this.radius/grand;
+        console.log(radiusPart)
+        for (let i = 0; i <= grand; i++) {
+            for(let j = 0; j < this.coordCircle[i]; j++){
+                var theta = (j / this.coordCircle[i]) * Math.PI * 2;
+                xi = this.center.x + radiusPart*i * Math.cos(theta);
+                zi = this.center.z + radiusPart*i * Math.sin(theta);
+                this.coord.push({"x":xi, "z": zi});
+            }
+        }
+        console.log(this.coord)
+    }
+
+    addUsersOnScene(){
+        this.usersList.forEach((elem) =>{
+            this.scene.add(elem.get3DObject());
+        })
     }
 
     getObjectList() {

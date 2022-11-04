@@ -1,11 +1,12 @@
-import Stats from '../../node_modules/stats.js/src/Stats.js'
+import Stats from '../node_modules/stats.js/src/Stats.js'
 import Light from './view/light.js'
 import Room from './objects/room.js'
 import PolygonDist from './objects/polygonDist.js'
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 import CommunitiesList from './objects/CommunitiesList.js';
 import Controller from './controller/controller.js';
-import { MapControls } from './controller/OrbitControls.js';
+import Models from '../models/models.js';
+
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
 
@@ -13,7 +14,7 @@ const scene = new THREE.Scene();
 //RENDERER
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.outerWidth,window.outerHeight );
-renderer.setClearColor( 0x000000, 0.5);
+renderer.setClearColor( 0x000000, 1);
 renderer.shadowMap.enabled = true;
 
 
@@ -45,7 +46,6 @@ rendererScene();
 //ADD TO HTML
 container.appendChild( renderer.domElement );
 
-
 //PRINCIPAL ROOM
 const room = new Room(scene);
 const roomSize ={
@@ -53,34 +53,35 @@ const roomSize ={
     y:50,
     z:200
 }
-room.setSize(roomSize.x,roomSize.y,roomSize.z);
-room.setPosition(0,roomSize.y/2,0);
-scene.add(room.get3DObject());
-
+function createRoom(){
+    room.setSize(roomSize.x,roomSize.y,roomSize.z);
+    room.setPosition(0,roomSize.y/2,0);
+    scene.add(room.get3DObject());
+}
 
 //LUCES
 let light = new Light(scene,0xffffff, 2, 200 );
 light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
-scene.add(light.get3DObject());
 
 
 //POLIGONO DE DISTRIBUCIÓN
 const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/3.5)
-scene.add( polygonDist.get3DObject());
 
 //COMUNIDADES
 let communitiesList = new CommunitiesList(scene);
-let cont = 0;
-data["communities"].forEach(comm => {
-    let xPos = polygonDist.getOneVertex(cont).x;
-    let yPos = 1;
-    let zPos = polygonDist.getOneVertex(cont).z;
-
-    communitiesList.addCommunity(cont, data, xPos , yPos, zPos)
-    scene.add(communitiesList.getOneCommunityObject(cont));
-    cont++;
-});
-communitiesList.drawBorders();
+function createCommunities(models){
+    let cont = 0;
+    data["communities"].forEach(comm => {
+        let xPos = polygonDist.getOneVertex(cont).x;
+        let yPos = 1;
+        let zPos = polygonDist.getOneVertex(cont).z;
+    
+        communitiesList.addCommunity(models,cont, data, xPos , yPos, zPos)
+        cont++;
+    });
+    communitiesList.addCommunityOnScene();
+    communitiesList.drawBorders();
+}
 
 //INTERACCION CON OBJETOS
 var raycaster = new THREE.Raycaster();
@@ -104,8 +105,19 @@ function onDocumentMouseDown( event ) {
         light.setConfLight(0xba8083, 3, 100); //x, y, z
         moveCamera();
     }
-
 }
+
+function defaultView(noSelect){
+    if(!noSelect){
+        controller.setDefaultCamera();
+        newDist = [0,0,0];
+        moveCamera();
+        light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
+        light.setConfLight(0xffffff, 2, 200); //x, y, z
+    }
+    changeBox();
+}
+
 function moveScene(){
     if(scene.position.x > newDist[0]){
         scene.position.x -= 2;
@@ -142,7 +154,7 @@ function moveCamera(){
     camera.position.x *= positive;
     camera.position.y *= positive;
     camera.position.z *= positive;
-    if(controller.getDistance() > 100 || controller.getDistance() < 61){
+    if(controller.getDistance() > 99 || controller.getDistance() < 61){
         cancelAnimationFrame(moveCamera)
     }
     else{
@@ -150,18 +162,37 @@ function moveCamera(){
     }
 }
 
+let models = new Models();
+models.loadStickMan();
 
-
-
-
-
-
-
+function createScenary(){
+    console.log("empiezo")
+    createRoom();
+    scene.add(light.get3DObject());
+    scene.add( polygonDist.get3DObject());
+    let arrayModels = [models.getStickMan()];
+    createCommunities(arrayModels);
+}
+setTimeout(()=>{createScenary();},2000);
+/*--------------------------------------------------------------------
+-----------------------CAMBIOS EN HTML--------------------------------
+--------------------------------------------------------------------*/
 
 //CAMBIAR CAJA
 function changeBox(commIndex = null){
     let communitySelect = communitiesList.getOneCommunityInfo(parseInt(commIndex));
-    if(commIndex !== null){
+    if(commIndex === -1){
+        document.getElementById("info-box").className = "info expand";
+        document.getElementById("community-title").innerHTML = "No community selected"
+        document.getElementById("community-type").innerHTML = "";
+        document.getElementById("community-explanation").innerHTML = "";
+        document.getElementById("community-nUsers").innerHTML = "";
+        document.getElementById("icross").className = "smalliIcon hide";
+        document.getElementById("xcross").className = "smallXIcon show";
+        communitySelect = -1
+        setTimeout(() => {changeShow(communitySelect)}, 300);
+    }
+    else if(commIndex !== null){
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
         document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
@@ -169,21 +200,20 @@ function changeBox(commIndex = null){
         document.getElementById("community-nUsers").innerHTML =communitySelect.getInfo()["users"].length;
         document.getElementById("icross").className = "smalliIcon hide";
         document.getElementById("xcross").className = "smallXIcon show";
-        document.getElementById("xcross").disabled = false;
+  
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
     else{
         document.getElementById("info-box").className = "info retract";
         document.getElementById("icross").className = "smalliIcon show"
         document.getElementById("xcross").className = "smallXIcon hide";
-        document.getElementById("xcross").disabled = true;
         changeShow();
     }
 }
 
 //CAMBIAR INFO
 function changeShow(communitySelect = null){
-    if(communitySelect !== null){
+    if(communitySelect !== null || communitySelect === -1){
         document.getElementById("community-title").className = "show"
         document.getElementById("community-nUsers-row").className = "data row show"
         document.getElementById("community-explanation-row").className = "data row show"
@@ -198,13 +228,17 @@ function changeShow(communitySelect = null){
 }
 
 document.getElementById("xcross").addEventListener('click', () =>{
-    controller.setDefaultCamera();
-    changeBox();
-    newDist = [0,0,0];
-    moveCamera();
-    light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
-    light.setConfLight(0xffffff, 2, 200); //x, y, z
-    this.camera.position.set(20,25,20);
+    if(controller.getCameraInfo()=== "community"){
+        defaultView(false);  
+    }
+    else{
+        defaultView(true);  
+    }
+ 
+})
+
+document.getElementById("icross").addEventListener('click', () =>{
+    changeBox(-1);
     
 })
 
