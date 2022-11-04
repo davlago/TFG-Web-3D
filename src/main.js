@@ -152,7 +152,7 @@ function moveCamera(){
     camera.position.x *= positive;
     camera.position.y *= positive;
     camera.position.z *= positive;
-    if(controller.getDistance() > 100 || controller.getDistance() < 61){
+    if(controller.getDistance() > 99 || controller.getDistance() < 61){
         cancelAnimationFrame(moveCamera)
     }
     else{
@@ -179,7 +179,18 @@ setTimeout(()=>{createScenary();},2000);
 //CAMBIAR CAJA
 function changeBox(commIndex = null){
     let communitySelect = communitiesList.getOneCommunityInfo(parseInt(commIndex));
-    if(commIndex !== null){
+    if(commIndex === -1){
+        document.getElementById("info-box").className = "info expand";
+        document.getElementById("community-title").innerHTML = "No community selected"
+        document.getElementById("community-type").innerHTML = "";
+        document.getElementById("community-explanation").innerHTML = "";
+        document.getElementById("community-nUsers").innerHTML = "";
+        document.getElementById("icross").className = "smalliIcon hide";
+        document.getElementById("xcross").className = "smallXIcon show";
+        communitySelect = -1
+        setTimeout(() => {changeShow(communitySelect)}, 300);
+    }
+    else if(commIndex !== null){
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
         document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
@@ -187,21 +198,20 @@ function changeBox(commIndex = null){
         document.getElementById("community-nUsers").innerHTML =communitySelect.getInfo()["users"].length;
         document.getElementById("icross").className = "smalliIcon hide";
         document.getElementById("xcross").className = "smallXIcon show";
-        document.getElementById("xcross").disabled = false;
+  
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
     else{
         document.getElementById("info-box").className = "info retract";
         document.getElementById("icross").className = "smalliIcon show"
         document.getElementById("xcross").className = "smallXIcon hide";
-        document.getElementById("xcross").disabled = true;
         changeShow();
     }
 }
 
 //CAMBIAR INFO
 function changeShow(communitySelect = null){
-    if(communitySelect !== null){
+    if(communitySelect !== null || communitySelect === -1){
         document.getElementById("community-title").className = "show"
         document.getElementById("community-nUsers-row").className = "data row show"
         document.getElementById("community-explanation-row").className = "data row show"
@@ -217,5 +227,10 @@ function changeShow(communitySelect = null){
 
 document.getElementById("xcross").addEventListener('click', () =>{
     defaultView();   
+})
+
+document.getElementById("icross").addEventListener('click', () =>{
+    changeBox(-1);
+    
 })
 
