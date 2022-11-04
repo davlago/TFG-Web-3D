@@ -43,16 +43,6 @@ h1{
   margin-left: 15px;
 }
 
-.show{
-  -webkit-animation: appear 0.2s ease;
-  -webkit-animation-fill-mode: forwards;
-}
-
-.hide{
-  -webkit-animation: disappear 0.2s ease;
-  -webkit-animation-fill-mode: forwards;
-}
-
 @-webkit-keyframes appear {
   0% {
     opacity: 0;
@@ -93,8 +83,7 @@ h1{
   font-size: 30px;
   color: white;
   opacity: 1;
-  z-index: 1;
-
+  z-index: 2;
 }
 
 .smallXIcon{
@@ -111,6 +100,22 @@ h1{
 .smallXIcon:hover{
   color:red;
 
+}
+
+.smalliIcon:hover{
+  color: rgb(197, 197, 197);
+}
+
+.show{
+  -webkit-animation: appear 0.2s ease;
+  -webkit-animation-fill-mode: forwards;
+  z-index: 2;
+}
+
+.hide{
+  -webkit-animation: disappear 0.2s ease;
+  -webkit-animation-fill-mode: forwards;
+  z-index: 1;
 }
 
 .info-space{

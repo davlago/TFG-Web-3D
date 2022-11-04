@@ -161,7 +161,20 @@ function moveCamera(){
 //CAMBIAR CAJA
 function changeBox(commIndex = null){
     let communitySelect = communitiesList.getOneCommunityInfo(parseInt(commIndex));
-    if(commIndex !== null){
+    if(commIndex === -1){
+        document.getElementById("info-box").className = "info expand";
+        document.getElementById("community-title").innerHTML = "No community selected"
+        document.getElementById("community-type").innerHTML = "";
+        document.getElementById("community-explanation").innerHTML = "";
+        document.getElementById("community-nUsers").innerHTML = "";
+        document.getElementById("icross").className = "smalliIcon hide";
+        document.getElementById("xcross").className = "smallXIcon show";
+        document.getElementById("xcross").disabled = false;
+        document.getElementById("icross").disabled = true;
+        communitySelect = -1
+        setTimeout(() => {changeShow(communitySelect)}, 300);
+    }
+    else if(commIndex !== null){
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
         document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
@@ -170,6 +183,7 @@ function changeBox(commIndex = null){
         document.getElementById("icross").className = "smalliIcon hide";
         document.getElementById("xcross").className = "smallXIcon show";
         document.getElementById("xcross").disabled = false;
+        document.getElementById("icross").disabled = true;
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
     else{
@@ -177,13 +191,14 @@ function changeBox(commIndex = null){
         document.getElementById("icross").className = "smalliIcon show"
         document.getElementById("xcross").className = "smallXIcon hide";
         document.getElementById("xcross").disabled = true;
+        document.getElementById("icross").disabled = false;
         changeShow();
     }
 }
 
 //CAMBIAR INFO
 function changeShow(communitySelect = null){
-    if(communitySelect !== null){
+    if(communitySelect !== null || communitySelect === -1){
         document.getElementById("community-title").className = "show"
         document.getElementById("community-nUsers-row").className = "data row show"
         document.getElementById("community-explanation-row").className = "data row show"
@@ -205,6 +220,11 @@ document.getElementById("xcross").addEventListener('click', () =>{
     light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
     light.setConfLight(0xffffff, 2, 200); //x, y, z
     this.camera.position.set(20,25,20);
+    
+})
+
+document.getElementById("icross").addEventListener('click', () =>{
+    changeBox(-1);
     
 })
 
