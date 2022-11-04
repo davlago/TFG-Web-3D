@@ -9,6 +9,7 @@ import Models from '../models/models.js';
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
+var commSelected = null;
 
 
 //RENDERER
@@ -94,16 +95,24 @@ function onDocumentMouseDown( event ) {
     mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
     raycaster.setFromCamera( mouse, camera );
-    var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
-    if ( intersects.length > 0 ) {
+    var intersectsC = raycaster.intersectObjects(communitiesList.getObjectList());
+    if (intersectsC.length > 0 && controller.getCameraInfo() !== "community") {
+        commSelected = intersectsC[0].object.name;
         controller.setCommunityCamera();
-        let coord = polygonDist.getOneVertex(parseInt(intersects[0].object.name));
+        let coord = polygonDist.getOneVertex(parseInt(commSelected));
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         moveCamera();
-        changeBox(intersects[0].object.name);
+        changeBox(commSelected);
         light.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
         light.setConfLight(0xba8083, 3, 100); //x, y, z
         moveCamera();
+    }
+    else if(controller.getCameraInfo() === "community"){
+        var userArray = communitiesList.getOneCommunityInfo(commSelected).userList.getObjectList();
+        var intersectsU = raycaster.intersectObjects(userArray);
+        if (intersectsU.length > 0){
+            console.log(intersectsU)
+        }
     }
 }
 

@@ -16,9 +16,7 @@ export default class UsersList {
     }
 
     addUser(userInfo, model) {
-        console.log(this.usersList.length);
         let ranCoord= this.coord[this.usersList.length];
-        console.log(ranCoord)
         let newUser = new User(this.scene, userInfo, model,ranCoord.x, ranCoord.z);
         this.objectList.push(newUser.get3DObject());
         this.usersList.push(newUser);
@@ -36,7 +34,6 @@ export default class UsersList {
         }
         if(grand === 0) grand = 1;
         let radiusPart = this.radius/grand;
-        console.log(radiusPart)
         for (let i = 0; i <= grand; i++) {
             for(let j = 0; j < this.coordCircle[i]; j++){
                 var theta = (j / this.coordCircle[i]) * Math.PI * 2;
@@ -45,7 +42,6 @@ export default class UsersList {
                 this.coord.push({"x":xi, "z": zi});
             }
         }
-        console.log(this.coord)
     }
 
     addUsersOnScene(){
