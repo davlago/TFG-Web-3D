@@ -94,11 +94,12 @@ h1{
   color: white;
   opacity: 0;
   z-index: 1;
+  pointer-events: none;
 
 }
 
 .smallXIcon:hover{
-  color:red;
+  color:rgb(255, 65, 65);
 
 }
 
@@ -110,12 +111,14 @@ h1{
   -webkit-animation: appear 0.2s ease;
   -webkit-animation-fill-mode: forwards;
   z-index: 2;
+  pointer-events: all;
 }
 
 .hide{
   -webkit-animation: disappear 0.2s ease;
   -webkit-animation-fill-mode: forwards;
   z-index: 1;
+  pointer-events: none;
 }
 
 .info-space{
