@@ -25,15 +25,6 @@ export default class UsersList {
         this.n_users++;
     }
 
-    generatePos(pos, radius){
-        let theta = 2 * Math.PI * Math.random();
-        let distance = radius * Math.random();
-        let xi = pos.x + distance * Math.cos(theta)
-        let zi = pos.z + distance * Math.sin(theta)
-
-        return {"x":xi, "z": zi};
-    }
-
     generateGeomPos(){
         let grand = 0;
         let xi, zi;
