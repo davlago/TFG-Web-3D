@@ -170,7 +170,6 @@ function createScenary(){
     scene.add( polygonDist.get3DObject());
     let arrayModels = [models.getStickMan()];
     createCommunities(arrayModels);
-    modelsPruebas();
 }
 setTimeout(()=>{createScenary();},2000);
 /*--------------------------------------------------------------------

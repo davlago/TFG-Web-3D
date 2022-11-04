@@ -15,7 +15,6 @@ export default class Models {
         objLoader.load(
             '../models/stickman.obj',
             (object) => {
-                object.scale.set(0.1,0.1,0.1)
                 object.position.set(0,3.5,0);
                 console.log("Cargado StickMan")
                 stickman = object;
