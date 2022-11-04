@@ -16,11 +16,11 @@ export default class UsersList {
     }
 
     addUser(userInfo, model) {
+        let index = this.usersList.length;
         let ranCoord= this.coord[this.usersList.length];
-        let newUser = new User(this.scene, userInfo, model,ranCoord.x, ranCoord.z);
+        let newUser = new User(this.scene, userInfo, model, index, ranCoord.x, ranCoord.z);
         this.objectList.push(newUser.get3DObject());
         this.usersList.push(newUser);
-        this.n_users++;
     }
 
     generateGeomPos(){
@@ -36,7 +36,7 @@ export default class UsersList {
         let radiusPart = this.radius/grand;
         for (let i = 0; i <= grand; i++) {
             for(let j = 0; j < this.coordCircle[i]; j++){
-                var theta = (j / this.coordCircle[i]) * Math.PI * 2;
+                let theta = (j / this.coordCircle[i]) * Math.PI * 2;
                 xi = this.center.x + radiusPart*i * Math.cos(theta);
                 zi = this.center.z + radiusPart*i * Math.sin(theta);
                 this.coord.push({"x":xi, "z": zi});
