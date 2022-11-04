@@ -1,8 +1,9 @@
 export default class User {
 
-    constructor(scene, info, x,y,z) {
+    constructor(scene, info, model) {
         this.scene = scene;  
         this.info = info;
+        this.user = model;
     }
 
     getInfo(){
@@ -10,7 +11,7 @@ export default class User {
     }
 
     setPosition(x,y,z){
-        this.user.setPosition(x,y,z);
+        this.user.position.set(x,y,z);
     }
     
     get3DObject() {

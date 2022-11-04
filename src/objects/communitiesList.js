@@ -8,9 +8,9 @@ export default class CommunitiesList {
         this.n_communities = 0;
     }
 
-    addCommunity(index, data, xPos, yPos, zPos) {
+    addCommunity(models, index, data, xPos, yPos, zPos) {
         let radius = data["communities"][index]["users"].length * 0.5;
-        let newComunity = new Community(this.scene, index, radius, data);
+        let newComunity = new Community(this.scene, index, radius, data,models);
         newComunity.setPosition(xPos, yPos, zPos);
         this.objectList.push(newComunity.get3DObject());
         this.communitiesList.push(newComunity);
@@ -20,7 +20,7 @@ export default class CommunitiesList {
     addCommunityOnScene(){
         for(let i = 0; i < this.n_communities; i++){
             this.scene.add(this.objectList[i]);
-            //this.communitiesList[i].addUsersOnScene();
+            this.communitiesList[i].addUsersOnScene();
         }
     }
 

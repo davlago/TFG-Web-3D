@@ -2,7 +2,7 @@ import CommunityBorder from './communityBorder.js';
 import UsersList from './usersList.js';
 export default class Community {
 
-    constructor(scene, index, radius, data) {
+    constructor(scene, index, radius, data, models) {
         this.scene = scene;
         this.info = data["communities"][index];
         this.geometry = new THREE.CylinderGeometry( radius,radius,10, 32);
@@ -18,7 +18,7 @@ export default class Community {
         data["communities"][index]["users"].forEach(userIndex => {
             data["users"].forEach(userInfo => {
                 if(userInfo.id === userIndex){
-                    this.userList.addUser(userInfo);
+                    this.userList.addUser(userInfo, models[0].clone());
                 }
             })
         });

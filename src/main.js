@@ -69,14 +69,14 @@ const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.
 
 //COMUNIDADES
 let communitiesList = new CommunitiesList(scene);
-function createCommunities(){
+function createCommunities(models){
     let cont = 0;
     data["communities"].forEach(comm => {
         let xPos = polygonDist.getOneVertex(cont).x;
         let yPos = 1;
         let zPos = polygonDist.getOneVertex(cont).z;
     
-        communitiesList.addCommunity(cont, data, xPos , yPos, zPos)
+        communitiesList.addCommunity(models,cont, data, xPos , yPos, zPos)
         cont++;
     });
     communitiesList.addCommunityOnScene();
@@ -162,19 +162,17 @@ function moveCamera(){
 
 let models = new Models();
 models.loadStickMan();
+
 function createScenary(){
     console.log("empiezo")
     createRoom();
     scene.add(light.get3DObject());
     scene.add( polygonDist.get3DObject());
-    createCommunities();
+    let arrayModels = [models.getStickMan()];
+    createCommunities(arrayModels);
     modelsPruebas();
 }
 setTimeout(()=>{createScenary();},2000);
-
-function modelsPruebas(){
-    scene.add(models.getStickMan());
-}
 /*--------------------------------------------------------------------
 -----------------------CAMBIOS EN HTML--------------------------------
 --------------------------------------------------------------------*/

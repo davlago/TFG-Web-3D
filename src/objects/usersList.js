@@ -8,15 +8,16 @@ export default class UsersList {
         this.objectList = []
     }
 
-    addUser(userInfo) {
-        let newUser = new User(this.scene, userInfo);
+    addUser(userInfo, model) {
+        let newUser = new User(this.scene, userInfo, model);
         this.objectList.push(newUser.get3DObject());
         this.usersList.push(newUser);
     }
 
     addUsersOnScene(){
-        this.objectList.forEach((elem) =>{
-            this.scene.add(elem);
+        this.usersList.forEach((elem) =>{
+            elem.setPosition(Math.random()*100, 3.5, Math.random()*100);
+            this.scene.add(elem.get3DObject());
         })
     }
 
