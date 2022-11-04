@@ -14,6 +14,12 @@ export default class UsersList {
         this.usersList.push(newUser);
     }
 
+    addUsersOnScene(){
+        this.objectList.forEach((elem) =>{
+            this.scene.add(elem);
+        })
+    }
+
     getObjectList() {
         return this.objectList;
     }

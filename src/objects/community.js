@@ -32,6 +32,10 @@ export default class Community {
         this.border.setPosition(this.circle.position.x, this.circle.position.y, this.circle.position.z);
     }
 
+    addUsersOnScene(){
+        this.userList.addUsersOnScene();
+    }
+
     getInfo(){
         return this.info;
     }

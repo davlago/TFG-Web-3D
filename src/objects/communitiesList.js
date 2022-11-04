@@ -5,6 +5,7 @@ export default class CommunitiesList {
         this.scene = scene;
         this.communitiesList = []
         this.objectList = []
+        this.n_communities = 0;
     }
 
     addCommunity(index, data, xPos, yPos, zPos) {
@@ -13,6 +14,14 @@ export default class CommunitiesList {
         newComunity.setPosition(xPos, yPos, zPos);
         this.objectList.push(newComunity.get3DObject());
         this.communitiesList.push(newComunity);
+        this.n_communities++;
+    }
+
+    addCommunityOnScene(){
+        for(let i = 0; i < this.n_communities; i++){
+            this.scene.add(this.objectList[i]);
+            //this.communitiesList[i].addUsersOnScene();
+        }
     }
 
     drawBorders(){

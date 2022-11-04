@@ -5,11 +5,10 @@ import PolygonDist from './objects/polygonDist.js'
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 import CommunitiesList from './objects/CommunitiesList.js';
 import Controller from './controller/controller.js';
+import Models from '../models/models.js';
 
-import Models from '../models/models.js'
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
-const models = new Models(); //Modelos 3D
 
 
 //RENDERER
@@ -78,9 +77,9 @@ function createCommunities(){
         let zPos = polygonDist.getOneVertex(cont).z;
     
         communitiesList.addCommunity(cont, data, xPos , yPos, zPos)
-        scene.add(communitiesList.getOneCommunityObject(cont));
         cont++;
     });
+    communitiesList.addCommunityOnScene();
     communitiesList.drawBorders();
 }
 
@@ -161,14 +160,21 @@ function moveCamera(){
     }
 }
 
+let models = new Models();
+models.loadStickMan();
 function createScenary(){
+    console.log("empiezo")
     createRoom();
     scene.add(light.get3DObject());
     scene.add( polygonDist.get3DObject());
     createCommunities();
-    scene.add(models.getStickMan())
+    modelsPruebas();
 }
-setTimeout(()=>{createScenary();},1000);
+setTimeout(()=>{createScenary();},2000);
+
+function modelsPruebas(){
+    scene.add(models.getStickMan());
+}
 /*--------------------------------------------------------------------
 -----------------------CAMBIOS EN HTML--------------------------------
 --------------------------------------------------------------------*/
