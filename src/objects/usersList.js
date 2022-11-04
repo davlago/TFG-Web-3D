@@ -6,18 +6,28 @@ export default class UsersList {
         this.scene = scene;
         this.usersList = []
         this.objectList = []
+        this.n_users;
+        this.coord = []
     }
 
     addUser(userInfo, model, pos, radius) {
-        
+        let ranCoord=this.generatePos(pos, radius);
+        this.coord.push(ranCoord);
+
+        let newUser = new User(this.scene, userInfo, model,ranCoord.x, ranCoord.z);
+        this.objectList.push(newUser.get3DObject());
+        this.usersList.push(newUser);
+        this.n_users++;
+        console.log(this.coord);
+    }
+
+    generatePos(pos, radius){
         let theta = 2 * Math.PI * Math.random();
         let distance = radius * Math.random();
         let xi = pos.x + distance * Math.cos(theta)
-        let yi = pos.z + distance * Math.sin(theta)
+        let zi = pos.z + distance * Math.sin(theta)
 
-        let newUser = new User(this.scene, userInfo, model,xi, yi);
-        this.objectList.push(newUser.get3DObject());
-        this.usersList.push(newUser);
+        return {"x":xi, "z": zi};
     }
 
     addUsersOnScene(){
