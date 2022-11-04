@@ -28,13 +28,15 @@ export default class UsersList {
     generateGeomPos(){
         let grand = 0;
         let xi, zi;
-        console.log(this.coordAcom.length)
         for(let i = 0; i < this.coordAcom.length; i++){
-            if(this.coordAcom[i] <= this.n_users) grand = i+1;
+            if(this.coordAcom[i] >= this.n_users){
+                grand = i;
+                break;
+            }
         }
-
+        if(grand === 0) grand = 1;
         let radiusPart = this.radius/grand;
-        console.log(grand)
+        console.log(radiusPart)
         for (let i = 0; i <= grand; i++) {
             for(let j = 0; j < this.coordCircle[i]; j++){
                 var theta = (j / this.coordCircle[i]) * Math.PI * 2;

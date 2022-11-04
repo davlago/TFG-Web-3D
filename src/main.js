@@ -107,13 +107,15 @@ function onDocumentMouseDown( event ) {
     }
 }
 
-function defaultView(){
-    controller.setDefaultCamera();
+function defaultView(noSelect){
+    if(!noSelect){
+        controller.setDefaultCamera();
+        newDist = [0,0,0];
+        moveCamera();
+        light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
+        light.setConfLight(0xffffff, 2, 200); //x, y, z
+    }
     changeBox();
-    newDist = [0,0,0];
-    moveCamera();
-    light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
-    light.setConfLight(0xffffff, 2, 200); //x, y, z
 }
 
 function moveScene(){
@@ -226,7 +228,13 @@ function changeShow(communitySelect = null){
 }
 
 document.getElementById("xcross").addEventListener('click', () =>{
-    defaultView();   
+    if(controller.getCameraInfo()=== "community"){
+        defaultView(false);  
+    }
+    else{
+        defaultView(true);  
+    }
+ 
 })
 
 document.getElementById("icross").addEventListener('click', () =>{
