@@ -4,11 +4,13 @@ export default class User {
         this.scene = scene;  
         this.info = info;
         this.user = model;
+
         let random = Math.random() * Math.random();
         let theta = 2 * Math.PI * random;
         let distance = random * radius
         let xi = pos.x + distance * Math.cos(theta)
         let yi = pos.z + distance * Math.sin(theta)
+        
         this.setPosition(xi,0,yi);
     }
 
