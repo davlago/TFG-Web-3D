@@ -16,11 +16,11 @@ export default class Models {
             '../models/stickman.obj',
             (object) => {
                 object.position.set(0,3.5,0);
+                object.scale.set(1.5,1.5,1.5);
                 console.log("Cargado StickMan")
                 stickman = object;
             },
             (error) => {
-                console.log(error)
             });
     }
 

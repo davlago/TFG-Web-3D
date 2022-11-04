@@ -9,7 +9,8 @@ export default class CommunitiesList {
     }
 
     addCommunity(models, index, data, xPos, yPos, zPos) {
-        let radius = Math.log(data["communities"][index]["users"].length)*7;
+        let radius = Math.log(data["communities"][index]["users"].length)*8;
+        if (radius===0)radius = 4;
         let newComunity = new Community(this.scene, index, radius, data,xPos, yPos, zPos, models);
         this.objectList.push(newComunity.get3DObject());
         this.communitiesList.push(newComunity);

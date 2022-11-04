@@ -11,13 +11,11 @@ export default class Community {
         this.circle.name = index;
         this.border = new CommunityBorder(scene, index, radius)
         this.setPosition(xPos, yPos, zPos);
-
-        console.log(this.getPosition())
-        this.userList = new UsersList(scene);
+        this.userList = new UsersList(scene, this.info, radius, this.getPosition());
         data["communities"][index]["users"].forEach(userIndex => {
             data["users"].forEach(userInfo => {
                 if(userInfo.id === userIndex){
-                    this.userList.addUser(userInfo, models[0].clone(), this.getPosition(), radius);
+                    this.userList.addUser(userInfo, models[0].clone());
                 }
             })
         });
