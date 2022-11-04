@@ -106,8 +106,17 @@ function onDocumentMouseDown( event ) {
         light.setConfLight(0xba8083, 3, 100); //x, y, z
         moveCamera();
     }
-
 }
+
+function defaultView(){
+    controller.setDefaultCamera();
+    changeBox();
+    newDist = [0,0,0];
+    moveCamera();
+    light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
+    light.setConfLight(0xffffff, 2, 200); //x, y, z
+}
+
 function moveScene(){
     if(scene.position.x > newDist[0]){
         scene.position.x -= 2;
@@ -204,12 +213,6 @@ function changeShow(communitySelect = null){
 }
 
 document.getElementById("xcross").addEventListener('click', () =>{
-    controller.setDefaultCamera();
-    changeBox();
-    newDist = [0,0,0];
-    moveCamera();
-    light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
-    light.setConfLight(0xffffff, 2, 200); //x, y, z
-    
+    defaultView();   
 })
 
