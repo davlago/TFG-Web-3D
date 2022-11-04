@@ -1,17 +1,11 @@
 export default class User {
 
-    constructor(scene, info, model, pos, radius) {
+    constructor(scene, info, model, x, y) {
         this.scene = scene;  
         this.info = info;
         this.user = model;
-
-        let random = Math.random();
-        let theta = 2 * Math.PI * Math.random();
-        let distance = radius * Math.random();
-        let xi = pos.x + distance * Math.cos(theta)
-        let yi = pos.z + distance * Math.sin(theta)
         
-        this.setPosition(xi,0,yi);
+        this.setPosition(x,0,y);
     }
 
     getInfo(){

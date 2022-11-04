@@ -9,7 +9,13 @@ export default class UsersList {
     }
 
     addUser(userInfo, model, pos, radius) {
-        let newUser = new User(this.scene, userInfo, model,pos, radius);
+        
+        let theta = 2 * Math.PI * Math.random();
+        let distance = radius * Math.random();
+        let xi = pos.x + distance * Math.cos(theta)
+        let yi = pos.z + distance * Math.sin(theta)
+
+        let newUser = new User(this.scene, userInfo, model,xi, yi);
         this.objectList.push(newUser.get3DObject());
         this.usersList.push(newUser);
     }
