@@ -6,6 +6,7 @@ import data from '../data/data1.json' assert {type:'json'}; //READ JSON
 import CommunitiesList from './objects/CommunitiesList.js';
 import Controller from './controller/controller.js';
 import Models from '../models/models.js';
+import CommunityLight from './view/communityLight.js';
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
@@ -62,7 +63,7 @@ function createRoom(){
 
 //LUCES
 let light = new Light(scene,0xffffff, 2, 200 );
-let communityLight = new Light(scene,0xffffff, 3, 100 );
+let communityLight = new CommunityLight(scene,0xffffff, 0, 200 )
 light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
 
 
@@ -109,8 +110,9 @@ function onDocumentMouseDown( event ) {
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         moveCamera();
         changeBox(commSelected);
+        setCommunityLight()
         communityLight.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
-        communityLight.setConfLight(0xba8083, 3, 100); //x, y, z
+        communityLight.setConfLight(0xba8083, 2, 50); //x, y, z
         light.setConfLight(0xffffff, 1, 200); //x, y, z
         communitiesList.selectCommunity(parseInt(commSelected));
 
@@ -128,6 +130,17 @@ function onDocumentMouseDown( event ) {
         }
     }
 }
+
+function setCommunityLight(type){
+    if(type === "community"){
+
+    }
+    else{
+
+    }
+
+}
+
 
 function defaultView(noSelect){
     if(!noSelect){
@@ -195,7 +208,7 @@ function createScenary(){
     console.log("empiezo")
     createRoom();
     scene.add(light.get3DObject());
-    scene.add(communityLight.get3DObject());
+    scene.add(communityLight.addToScene());
     scene.add( polygonDist.get3DObject());
     let arrayModels = [models.getStickMan()];
     createCommunities(arrayModels);
