@@ -11,6 +11,7 @@ const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
 
 
+
 //RENDERER
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.outerWidth,window.outerHeight );
@@ -89,34 +90,45 @@ var raycaster = new THREE.Raycaster();
 var mouse = new THREE.Vector2();
 var newDist = [];
 
-window.addEventListener('click', onDocumentMouseDown, false);
+let commSelected = null;
+window.addEventListener('mousedown', onDocumentMouseDown, false);
 function onDocumentMouseDown( event ) {
     event.preventDefault();
     mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
     raycaster.setFromCamera( mouse, camera );
-    var intersects = raycaster.intersectObjects(communitiesList.getObjectList());
-    if ( intersects.length > 0 ) {
+    console.log(controller.getCameraInfo())
+    let intersectsC = raycaster.intersectObjects(communitiesList.getObjectList());
+    if (controller.getCameraInfo() !== "community" && intersectsC.length > 0) {
+        commSelected = intersectsC[0].object.name;
         controller.setCommunityCamera();
-        let coord = polygonDist.getOneVertex(parseInt(intersects[0].object.name));
+        let coord = polygonDist.getOneVertex(parseInt(commSelected));
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         moveCamera();
-        changeBox(intersects[0].object.name);
-        communityLight.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
+        changeBox(commSelected);        communityLight.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
         communityLight.setConfLight(0xba8083, 3, 100); //x, y, z
         light.setConfLight(0xffffff, 1, 200); //x, y, z
         communitiesList.selectCommunity(parseInt(intersects[0].object.name));
-        moveCamera();
+
+    }
+    else if(controller.getCameraInfo() === "community"){
+        let userArray = communitiesList.getOneCommunityInfo(commSelected).userList.getObjectList();
+        let intersectsU = raycaster.intersectObjects(userArray);
+        if (intersectsU.length > 0){
+            let idUser = intersectsU[0].object.parent.name;
+            console.log(communitiesList.getOneCommunityInfo(commSelected).userList.getOneUserInfo(idUser))
+
+        }
     }
 }
 
 function defaultView(noSelect){
     if(!noSelect){
-        controller.setDefaultCamera();
         newDist = [0,0,0];
         moveCamera();
         communityLight.setConfLight(0xffffff, 0, 0); //x, y, z
         light.setConfLight(0xffffff, 2, 200); //x, y, z
+        controller.setDefaultCamera();
     }
     changeBox();
 }
@@ -231,14 +243,14 @@ function changeShow(communitySelect = null){
     }
 }
 
-document.getElementById("xcross").addEventListener('click', () =>{
+document.getElementById("xcross").addEventListener('mouseup', () =>{
     if(controller.getCameraInfo()=== "community"){
         defaultView(false);  
     }
     else{
         defaultView(true);  
     }
- 
+    commSelected = null;
 })
 
 document.getElementById("icross").addEventListener('click', () =>{

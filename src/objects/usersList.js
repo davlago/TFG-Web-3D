@@ -16,12 +16,17 @@ export default class UsersList {
     }
 
     addUser(userInfo, model) {
+<<<<<<< HEAD
         let ranCoord= this.coord[this.usersList.length];
         let newUser = new User(this.scene, userInfo, model,ranCoord.x, ranCoord.z);
         this.group.add(newUser.get3DObject());
+=======
+        let index = this.usersList.length;
+        let ranCoord= this.coord[this.usersList.length];
+        let newUser = new User(this.scene, userInfo, model, index, ranCoord.x, ranCoord.z);
+>>>>>>> interaccion-individuos
         this.objectList.push(newUser.get3DObject());
         this.usersList.push(newUser);
-        this.n_users++;
     }
 
     getGroup(){
@@ -40,8 +45,8 @@ export default class UsersList {
         if(grand === 0) grand = 1;
         let radiusPart = this.radius/grand;
         for (let i = 0; i <= grand; i++) {
-            for(let j = 0; j < coordCircle[i]; j++){
-                var theta = (j / coordCircle[i]) * Math.PI * 2;
+            for(let j = 0; j < this.coordCircle[i]; j++){
+                let theta = (j / this.coordCircle[i]) * Math.PI * 2;
                 xi = this.center.x + radiusPart*i * Math.cos(theta);
                 zi = this.center.z + radiusPart*i * Math.sin(theta);
                 this.coord.push({"x":xi, "z": zi});
