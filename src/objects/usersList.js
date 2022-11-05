@@ -36,7 +36,7 @@ export default class UsersList {
             }
         }
         if(grand === 0) grand = 1;
-        let radiusPart = this.radius/grand;
+        let radiusPart = (this.radius-3)/grand;
         for (let i = 0; i <= grand; i++) {
             for(let j = 0; j < coordCircle[i]; j++){
                 let theta = (j / coordCircle[i]) * Math.PI * 2;
