@@ -18,11 +18,11 @@ export default class User {
     }
 
     selectUser(){
-        this.user.position.y = 10;
+        this.user.position.y += 10;
     }
 
     unselectUser(){
-        this.user.position.y = 0;
+        this.user.position.y -=10;
     }
     
     get3DObject() {

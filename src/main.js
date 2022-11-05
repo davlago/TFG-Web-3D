@@ -91,6 +91,9 @@ var mouse = new THREE.Vector2();
 var newDist = [];
 
 let commSelected = null;
+
+let userSelected = null;
+
 window.addEventListener('mousedown', onDocumentMouseDown, false);
 function onDocumentMouseDown( event ) {
     event.preventDefault();
@@ -105,25 +108,33 @@ function onDocumentMouseDown( event ) {
         let coord = polygonDist.getOneVertex(parseInt(commSelected));
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         moveCamera();
-        changeBox(commSelected);        communityLight.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
+        changeBox(commSelected);
+        communityLight.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
         communityLight.setConfLight(0xba8083, 3, 100); //x, y, z
         light.setConfLight(0xffffff, 1, 200); //x, y, z
-        communitiesList.selectCommunity(parseInt(intersects[0].object.name));
+        communitiesList.selectCommunity(parseInt(commSelected));
 
     }
     else if(controller.getCameraInfo() === "community"){
         let userArray = communitiesList.getOneCommunityInfo(commSelected).userList.getObjectList();
         let intersectsU = raycaster.intersectObjects(userArray);
         if (intersectsU.length > 0){
-            let idUser = intersectsU[0].object.parent.name;
-            console.log(communitiesList.getOneCommunityInfo(commSelected).userList.getOneUserInfo(idUser))
-
+            if(userSelected !== null){
+                communitiesList.getOneCommunityInfo(commSelected).userList.unselectOneUser(userSelected)
+            }
+            userSelected = intersectsU[0].object.parent.name;
+            console.log(communitiesList.getOneCommunityInfo(commSelected).userList.getOneUserInfo(userSelected))
+            communitiesList.getOneCommunityInfo(commSelected).userList.selectOneUser(userSelected)
         }
     }
 }
 
 function defaultView(noSelect){
     if(!noSelect){
+        communitiesList.unselectCommunity(parseInt(commSelected));
+        if(userSelected !== null){
+            communitiesList.getOneCommunityInfo(commSelected).userList.unselectOneUser(userSelected)
+        }
         newDist = [0,0,0];
         moveCamera();
         communityLight.setConfLight(0xffffff, 0, 0); //x, y, z
@@ -169,7 +180,7 @@ function moveCamera(){
     camera.position.x *= positive;
     camera.position.y *= positive;
     camera.position.z *= positive;
-    if(controller.getDistance() > 99 || controller.getDistance() < 61){
+    if(controller.getDistance() > 119 || controller.getDistance() < 81){
         cancelAnimationFrame(moveCamera)
     }
     else{
@@ -251,6 +262,7 @@ document.getElementById("xcross").addEventListener('mouseup', () =>{
         defaultView(true);  
     }
     commSelected = null;
+    userSelected = null;
 })
 
 document.getElementById("icross").addEventListener('click', () =>{
