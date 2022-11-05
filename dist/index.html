@@ -15,27 +15,42 @@
 
 <body onResize='window.location.href = window.location.href;'>
     <script type="module" src="../src/main.js"></script>
-    <div class="info-space" id="info-space">
-        <div class="smalliIcon" id="icross">
-            <i class="fa-solid fa-circle-info"></i>
+    <div class="info-user" id="info-user">
+        <div class="info-space" id="info-space">
+            <div class="info" id="info-box"></div>
+            <div class="smalliIcon" id="icross">
+                <i class="fa-solid fa-circle-info"></i>
+            </div>
+            <div class="smallXIcon" id="xcross">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <h1 class="" id = "community-title"></h1>
+            <div class="content">
+                <div class="data row" id="community-type-row">
+                    <div class="col parameter">Type: </div>
+                    <div class="col value"  id="community-type"></div>
+                </div>
+                <div class="data row" id="community-explanation-row">
+                    <div class="col parameter">Explanation: </div>
+                    <div class="col value"  id="community-explanation"></div>
+                </div>
+                <div class="data row" id="community-nUsers-row">
+                    <div class="col parameter">Nº Users: </div>
+                    <div class="col value"  id="community-nUsers"></div>
+                </div>
+            </div>
         </div>
-        <div class="smallXIcon" id="xcross">
-            <i class="fa-solid fa-xmark"></i>
-        </div>
-        
-        <div class="info" id="info-box"></div>
-        <h1 class="" id = "community-title"></h1>
-        <div class="content">
-            <div class="data row" id="community-type-row">
-                <div class="col parameter">Type: </div>
+        <div class="content-user">
+            <div class="data row show" id="user-id-row">
+                <div class="col parameter">PLaceholder 1: </div>
                 <div class="col value"  id="community-type"></div>
             </div>
-            <div class="data row" id="community-explanation-row">
-                <div class="col parameter">Explanation: </div>
+            <div class="data row show" id="user-age-row">
+                <div class="col parameter">PLaceholder 2:</div>
                 <div class="col value"  id="community-explanation"></div>
             </div>
-            <div class="data row" id="community-nUsers-row">
-                <div class="col parameter">Nº Users: </div>
+            <div class="data row show" id="user-language-row">
+                <div class="col parameter">PLaceholder 3:</div>
                 <div class="col value"  id="community-nUsers"></div>
             </div>
         </div>
