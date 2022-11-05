@@ -2,7 +2,7 @@
   "name": "tfg-web-3d",
   "version": "0.1.0",
   "description": "TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informática de la UCM",
-  "main": "./dist/index.html",
+  "main": "./src/main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
