@@ -120,13 +120,24 @@ function onDocumentMouseDown( event ) {
     else if(controller.getCameraInfo() === "community"){
         let userArray = communitiesList.getOneCommunityInfo(commSelected).userList.getObjectList();
         let intersectsU = raycaster.intersectObjects(userArray);
+        let first = false;
         if (intersectsU.length > 0){
             if(userSelected !== null){
                 communitiesList.getOneCommunityInfo(commSelected).userList.unselectOneUser(userSelected)
             }
-            userSelected = intersectsU[0].object.parent.name;
-            console.log(communitiesList.getOneCommunityInfo(commSelected).userList.getOneUserInfo(userSelected))
-            communitiesList.getOneCommunityInfo(commSelected).userList.selectOneUser(userSelected)
+            else{
+                first = true
+            }
+            if(userSelected !== intersectsU[0].object.parent.name){
+                userSelected = intersectsU[0].object.parent.name;
+                changeUser(communitiesList.getOneCommunityInfo(commSelected).userList.getOneUserInfo(userSelected).info, first)
+                communitiesList.getOneCommunityInfo(commSelected).userList.selectOneUser(userSelected)
+            }
+            else{
+                userSelected = null;
+                changeUser(null, true)  //true para que simule click y esconda la informacion del usuario
+            }
+
         }
     }
 }
@@ -228,7 +239,7 @@ function changeBox(commIndex = null){
         document.getElementById("community-explanation").innerHTML = "";
         document.getElementById("community-nUsers").innerHTML = "";
         document.getElementById("icross").className = "smalliIcon hide";
-        document.getElementById("xcross").className = "smallXIcon show";
+        document.getElementById("xcross").className = "smallXIcon myShow";
         communitySelect = -1
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
@@ -239,31 +250,53 @@ function changeBox(commIndex = null){
         document.getElementById("community-explanation").innerHTML = communitySelect.getInfo()["explanation"];
         document.getElementById("community-nUsers").innerHTML =communitySelect.getInfo()["users"].length;
         document.getElementById("icross").className = "smalliIcon hide";
-        document.getElementById("xcross").className = "smallXIcon show";
+        document.getElementById("xcross").className = "smallXIcon myShow";
   
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
     else{
         document.getElementById("info-box").className = "info retract";
-        document.getElementById("icross").className = "smalliIcon show"
+        document.getElementById("icross").className = "smalliIcon myShow"
         document.getElementById("xcross").className = "smallXIcon hide";
         changeShow();
+        if(userSelected !== null) changeUser(null, true);
     }
 }
 
 //CAMBIAR INFO
 function changeShow(communitySelect = null){
     if(communitySelect !== null || communitySelect === -1){
-        document.getElementById("community-title").className = "show"
-        document.getElementById("community-nUsers-row").className = "data row show"
-        document.getElementById("community-explanation-row").className = "data row show"
-        document.getElementById("community-type-row").className = "data row show"
+        document.getElementById("community-title").className = "myShow";
+        document.getElementById("community-nUsers-row").className = "data row myShow";
+        document.getElementById("community-explanation-row").className = "data row myShow";
+        document.getElementById("community-type-row").className = "data row myShow";
     }
     else{
-        document.getElementById("community-title").className = "hide"
-        document.getElementById("community-type-row").className = "data row hide"
-        document.getElementById("community-explanation-row").className = "data row hide"
-        document.getElementById("community-nUsers-row").className = "data row hide"
+        document.getElementById("community-title").className = "hide";
+        document.getElementById("community-type-row").className = "data row hide";
+        document.getElementById("community-explanation-row").className = "data row hide";
+        document.getElementById("community-nUsers-row").className = "data row hide";
+    }
+}
+
+function changeUser(userInfo = null, first){
+    console.log(userInfo)
+    if(first) document.getElementById("botonSimulado").click()
+    if(userInfo !== null){
+        document.getElementById("raya").className = "hr1 myShow"
+        document.getElementById("user-id-row").className = "data row myShow";
+        document.getElementById("user-age-row").className = "data row myShow";
+        document.getElementById("user-language-row").className = "data row myShow";
+        document.getElementById("user-id").innerHTML = userInfo.id;
+        document.getElementById("user-age").innerHTML = userInfo.explicit_community.ageGroup;
+        document.getElementById("user-language").innerHTML = userInfo.explicit_community.language;
+
+    }
+    else{
+        document.getElementById("raya").className = "hr1 hide"
+        document.getElementById("user-id-row").className = "data row hide"
+        document.getElementById("user-age-row").className = "data row hide"
+        document.getElementById("user-language-row").className = "data row hide"
     }
 }
 

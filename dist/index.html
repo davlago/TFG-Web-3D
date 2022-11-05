@@ -15,7 +15,7 @@
 
 <body onResize='window.location.href = window.location.href;'>
     <script type="module" src="../src/main.js"></script>
-    <div class="info-user" id="info-user">
+        <button class="hidden-content" id="botonSimulado" type="button" data-bs-toggle="collapse" data-bs-target="#info-user" aria-expanded="false" aria-controls="collapseExample"></button>
         <div class="info-space" id="info-space">
             <div class="info" id="info-box"></div>
             <div class="smalliIcon" id="icross">
@@ -39,20 +39,20 @@
                     <div class="col value"  id="community-nUsers"></div>
                 </div>
             </div>
-        </div>
-        <div class="content-user">
-            <div class="data row show" id="user-id-row">
-                <div class="col parameter">PLaceholder 1: </div>
-                <div class="col value"  id="community-type"></div>
-            </div>
-            <div class="data row show" id="user-age-row">
-                <div class="col parameter">PLaceholder 2:</div>
-                <div class="col value"  id="community-explanation"></div>
-            </div>
-            <div class="data row show" id="user-language-row">
-                <div class="col parameter">PLaceholder 3:</div>
-                <div class="col value"  id="community-nUsers"></div>
-            </div>
+            <div class="content collapse" id="info-user">
+                <hr class="hr1" id="raya">
+                <div class="dataU row" id="user-id-row">
+                    <div class="col parameter">ID: </div>
+                    <div class="col value"  id="user-id"></div>
+                </div>
+                <div class="dataU row " id="user-age-row">
+                    <div class="col parameter">Age:</div>
+                    <div class="col value"  id="user-age"></div>
+                </div>
+                <div class="dataU row " id="user-language-row">
+                    <div class="col parameter">Language:</div>
+                    <div class="col value"  id="user-language"></div>
+                </div>
         </div>
     </div>
     <div class="treeJs-container" id="mainScene"></div>

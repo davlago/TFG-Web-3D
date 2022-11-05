@@ -1,67 +1,77 @@
-body{
+body {
   display: table;
   overflow: hidden;
 }
 
-.data{
-margin-top: 15px;
-padding-right: 10px;
-opacity: 0;
+.data {
+  margin-top: 15px;
+  padding-right: 10px;
+  opacity: 0;
 }
 
-h1{
-font-family: 'Trebuchet MS', sans-serif;
+.hidden-content{
+  z-index: 4;
+  width: 0px;
+  height: 0px;
+  position: absolute;
 }
 
-#community-title{
-text-align: center;
-margin-top: 15px;
-color: white;
-opacity: 0;
-font-weight: bold;
+
+
+h1 {
+  font-family: 'Trebuchet MS', sans-serif;
 }
 
-.parameter{
-min-width: 130px;
-max-width: 130px;
-font-family: 'Trebuchet MS', sans-serif;
-font-size: 17px;
-color: white;
+#community-title {
+  text-align: center;
+  margin-top: 15px;
+  color: white;
+  opacity: 0;
+  font-weight: bold;
 }
 
-.value{
-max-width: 400px;
-font-family: 'Trebuchet MS', sans-serif;
-font-size: 15px;
-color: white;
-padding-left: 0px;
+.parameter {
+  min-width: 130px;
+  max-width: 130px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 17px;
+  color: white;
+}
+
+.value {
+  max-width: 400px;
+  font-family: 'Trebuchet MS', sans-serif;
+  font-size: 15px;
+  color: white;
+  padding-left: 0px;
 
 }
 
-.content{
-margin-top: 30px;
-margin-left: 15px;
+.content {
+  margin-left: 15px;
 }
 
 @-webkit-keyframes appear {
-0% {
-  opacity: 0;
-}
-100% {
-  opacity: 1;
-}
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes disappear {
-0% {
-  opacity: 1;
-}
-100% {
-  opacity: 0;
-}
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
 
-.info{
+.info {
   position: absolute;
   right: 10;
   top: 10;
@@ -69,72 +79,74 @@ margin-left: 15px;
   opacity: 0.5;
   backdrop-filter: blur(10px);
   width: 50px;
-  height: 50px; 
+  height: 50px;
   border-radius: 10%;
   border: 3px solid whitesmoke;
   text-align: center;
   color: white;
 }
 
-.smalliIcon{
-position: absolute;
-top: 20;
-right: 20;
-font-size: 30px;
-color: white;
-opacity: 1;
-z-index: 2;
+.smalliIcon {
+  position: absolute;
+  top: 20;
+  right: 20;
+  font-size: 30px;
+  color: white;
+  opacity: 1;
+  z-index: 2;
 }
 
-.smallXIcon{
-position: absolute;
-top: 20;
-right: 25;
-font-size: 30px;
-color: white;
-opacity: 0;
-z-index: 1;
-pointer-events: none;
-
-}
-
-.smallXIcon:hover{
-color:rgb(255, 65, 65);
+.smallXIcon {
+  position: absolute;
+  top: 20;
+  right: 25;
+  font-size: 30px;
+  color: white;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
 
 }
 
-.smalliIcon:hover{
-color: rgb(197, 197, 197);
+.smallXIcon:hover {
+  color: rgb(255, 65, 65);
+
 }
 
-.show{
--webkit-animation: appear 0.2s ease;
--webkit-animation-fill-mode: forwards;
-z-index: 2;
-pointer-events: all;
+.smalliIcon:hover {
+  color: rgb(197, 197, 197);
 }
 
-.hide{
--webkit-animation: disappear 0.2s ease;
--webkit-animation-fill-mode: forwards;
-z-index: 1;
-pointer-events: none;
+.myShow {
+  -webkit-animation: appear 0.2s ease;
+  -webkit-animation-fill-mode: forwards;
+  z-index: 2;
+  pointer-events: all;
 }
 
-.info-space{
-  width: 100%;
+.hide {
+  -webkit-animation: disappear 0.2s ease;
+  -webkit-animation-fill-mode: forwards;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.info-space {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 30%;
   height: auto;
   padding-bottom: 15px;
-  background-color: green;
 }
 
 
-.retract{
+.retract {
   -webkit-animation: retract 0.2s ease-in;
   -webkit-animation-fill-mode: forwards;
 }
 
-.expand{
+.expand {
   -webkit-animation: expand 0.3s ease-in;
   -webkit-animation-fill-mode: forwards;
 }
@@ -144,6 +156,7 @@ pointer-events: none;
     width: 50px;
     height: 50px;
   }
+
   100% {
     width: 100%;
     height: 100%;
@@ -157,24 +170,23 @@ pointer-events: none;
     height: 100%;
     border-radius: 2%;
   }
+
   100% {
     width: 50px;
     height: 50px;
   }
 }
 
-.info-user{
-  position: absolute;
-  right: 0;
-  top: 0;
-  width: 30%;
-  height: auto;
-  padding-bottom: 15px;
-  background-color: blue;
-  }
 
-
-.treeJs-container{
+.treeJs-container {
   z-index: -1;
   position: absolute
+}
+
+hr.hr1 {
+  color: white;
+    width: 95%;
+    border: solid 2px white;
+    opacity: 1;
+    position: relative;
 }
