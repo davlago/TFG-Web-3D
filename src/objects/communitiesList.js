@@ -24,6 +24,14 @@ export default class CommunitiesList {
         }
     }
 
+    selectCommunity(index){
+        this.communitiesList[index].selectCommunity();
+    }
+
+    unselectCommunity(index){
+        this.communitiesList[index].unselectCommunity();
+    }
+
     drawBorders(){
         this.communitiesList.map(x => x.drawBorder());
     }

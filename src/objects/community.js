@@ -29,6 +29,14 @@ export default class Community {
         this.border.setPosition(this.circle.position.x, this.circle.position.y, this.circle.position.z);
     }
 
+    selectCommunity(){
+        this.userList.selectCommunity();
+    }
+
+    unselectCommunity(){
+        this.userList.unselectCommunity();
+    }
+
     getPosition(){
         let pos ={
             "x":this.circle.position.x,

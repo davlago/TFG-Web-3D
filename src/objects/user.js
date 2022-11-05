@@ -15,6 +15,14 @@ export default class User {
     setPosition(x,y,z){
         this.user.position.set(x,y,z);
     }
+
+    selectUser(){
+        this.user.position.y = 10;
+    }
+
+    unselectUser(){
+        this.user.position.y = 0;
+    }
     
     get3DObject() {
         return this.user;
