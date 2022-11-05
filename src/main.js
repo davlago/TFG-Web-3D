@@ -1,4 +1,4 @@
-import Stats from 'stats.js/src/Stats.js'
+import Stats from '../node_modules/stats.js/src/Stats.js'
 import Light from './view/light.js'
 import Room from './objects/room.js'
 import PolygonDist from './objects/polygonDist.js'
