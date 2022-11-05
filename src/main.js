@@ -101,7 +101,6 @@ function onDocumentMouseDown( event ) {
     mouse.x = ( event.clientX / renderer.domElement.clientWidth ) * 2 - 1;
     mouse.y = - ( event.clientY / renderer.domElement.clientHeight ) * 2 + 1;
     raycaster.setFromCamera( mouse, camera );
-    console.log(controller.getCameraInfo())
     let intersectsC = raycaster.intersectObjects(communitiesList.getObjectList());
     if (controller.getCameraInfo() !== "community" && intersectsC.length > 0) {
         commSelected = intersectsC[0].object.name;
@@ -219,7 +218,7 @@ function createScenary(){
     console.log("empiezo")
     createRoom();
     scene.add(light.get3DObject());
-    scene.add(communityLight.addToScene());
+    communityLight.addToScene();
     scene.add( polygonDist.get3DObject());
     let arrayModels = [models.getStickMan()];
     createCommunities(arrayModels);
@@ -280,7 +279,6 @@ function changeShow(communitySelect = null){
 }
 
 function changeUser(userInfo = null, first){
-    console.log(userInfo)
     if(first) document.getElementById("botonSimulado").click()
     if(userInfo !== null){
         document.getElementById("raya").className = "hr1 myShow"
