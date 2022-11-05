@@ -38,7 +38,6 @@ function rendererScene() {
     stats.begin();
     renderer.render( scene, camera );
     controller.update();
-
     stats.end();
     requestAnimationFrame( rendererScene );
 };
@@ -109,7 +108,6 @@ function onDocumentMouseDown( event ) {
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         moveCamera();
         changeBox(commSelected);
-        setCommunityLight()
         communityLight.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
         communityLight.setConfLight(0xba8083, 2, 50); //x, y, z
         light.setConfLight(0xffffff, 1, 200); //x, y, z
@@ -141,15 +139,6 @@ function onDocumentMouseDown( event ) {
     }
 }
 
-function setCommunityLight(type){
-    if(type === "community"){
-
-    }
-    else{
-
-    }
-
-}
 
 
 function defaultView(noSelect){
