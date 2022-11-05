@@ -10,7 +10,6 @@ import CommunityLight from './view/communityLight.js';
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
-console.log(window.location.href)
 
 
 //RENDERER
