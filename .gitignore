@@ -1,1 +1,5 @@
-node_modules/
+/node_modules/*
+!/node_modules/three
+!/node_modules/stats.js
+!/node_modules/@fortawesome/fontawesome-free/css
+!/node_modules/bootstrap
