@@ -1,12 +1,12 @@
-import Stats from '../node_modules/stats.js/src/Stats.js'
-import Light from './view/light.js'
-import Room from './objects/room.js'
-import PolygonDist from './objects/polygonDist.js'
-import data from '../data/data1.json' assert {type:'json'}; //READ JSON
-import CommunitiesList from './objects/CommunitiesList.js';
-import Controller from './controller/controller.js';
-import Models from '../models/models.js';
-import CommunityLight from './view/communityLight.js';
+import Stats from 'stats.js/src/Stats.js'
+import Light from './src/view/light.js'
+import Room from './src/objects/room.js'
+import PolygonDist from './src/objects/polygonDist.js'
+import data from './data/data1.json' assert {type:'json'}; //READ JSON
+import CommunitiesList from './src/objects/CommunitiesList.js';
+import Controller from './src/controller/controller.js';
+import Models from './models/models.js';
+import CommunityLight from './src/view/communityLight.js';
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
