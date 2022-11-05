@@ -4,7 +4,8 @@
   "description": "TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informática de la UCM",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npm index.js"
   },
   "repository": {
     "type": "git",
