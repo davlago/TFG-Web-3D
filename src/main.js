@@ -131,16 +131,6 @@ function onDocumentMouseDown( event ) {
     }
 }
 
-function setCommunityLight(type){
-    if(type === "community"){
-
-    }
-    else{
-
-    }
-
-}
-
 
 function defaultView(noSelect){
     if(!noSelect){
