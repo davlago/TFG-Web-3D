@@ -1,8 +1,8 @@
 # TFG-Web-3D
 TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informática de la UCM
 
-docker build . -t node-app --no-cache
+PARA INICIAR EN DOCKER:
 
-docker images
+docker-compose -f docker-compose.yml up
 
-docker run -p 4000:3000  -d node-app
+Se inicia el localhost:4000
