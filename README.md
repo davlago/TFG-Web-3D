@@ -12,4 +12,7 @@ TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informá
     clonar el repositorio actual y ejecutar
     
     npm install
+    
     npm start
+    
+    Se inicia el localhost:3000
