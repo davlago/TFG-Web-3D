@@ -8,6 +8,7 @@ TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informá
     Se inicia el localhost:4000
    
 - PARA INICIAR CON NPM:
+
     clonar el repositorio actual y ejecutar
     
     npm install
