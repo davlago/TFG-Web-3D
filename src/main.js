@@ -302,3 +302,18 @@ document.getElementById("icross").addEventListener('click', () =>{
     
 })
 
+
+//LEYENDA
+
+document.getElementById("legendIcon").addEventListener('click', () =>{
+        document.getElementById("legend-box").className = "legend expand";
+        document.getElementById("legendIcon").className ="legendIcon hide";
+        document.getElementById("xLegend").className ="xLegend myShow";
+
+})
+
+document.getElementById("xLegend").addEventListener('click', () =>{
+        document.getElementById("legend-box").className = "legend retract";
+        document.getElementById("legendIcon").className ="legendIcon myShow";
+        document.getElementById("xLegend").className ="xLegend hide";
+})

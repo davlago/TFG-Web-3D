@@ -108,13 +108,59 @@ h1 {
 
 }
 
-.smallXIcon:hover {
+.smallXIcon:hover, .xLegend:hover {
   color: rgb(255, 65, 65);
 
 }
 
-.smalliIcon:hover {
+.smalliIcon:hover, .legendIcon:hover {
   color: rgb(197, 197, 197);
+}
+
+.legend-space{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 30%;
+  height: 300px;
+  padding-bottom: 15px;
+}
+
+.legend{
+  position: absolute;
+  right: 10;
+  bottom: 10;
+  background-color: black;
+  opacity: 0.5;
+  backdrop-filter: blur(10px);
+  width: 50px;
+  height: 50px;
+  border-radius: 10%;
+  border: 3px solid whitesmoke;
+  text-align: center;
+  color: white;
+}
+
+.legendIcon {
+  position: absolute;
+  bottom: 20;
+  right: 20;
+  font-size: 30px;
+  color: white;
+  opacity: 1;
+  z-index: 2;
+}
+
+.xLegend {
+  position: absolute;
+  bottom: 20;
+  right: 25;
+  font-size: 30px;
+  color: white;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+
 }
 
 .myShow {
@@ -176,6 +222,8 @@ h1 {
     height: 50px;
   }
 }
+
+
 
 
 .treeJs-container {
