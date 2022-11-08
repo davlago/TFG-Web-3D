@@ -3,14 +3,13 @@ import Light from './view/light.js'
 import Room from './objects/room.js'
 import PolygonDist from './objects/polygonDist.js'
 import data from '../data/data1.json' assert {type:'json'}; //READ JSON
-import CommunitiesList from './objects/CommunitiesList.js';
+import CommunitiesList from './objects/communitiesList.js';
 import Controller from './controller/controller.js';
 import Models from '../models/models.js';
 import CommunityLight from './view/communityLight.js';
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
-
 
 
 //RENDERER
