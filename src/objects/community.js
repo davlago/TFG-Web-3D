@@ -2,15 +2,15 @@ import CommunityBorder from './communityBorder.js';
 import UsersList from './usersList.js';
 export default class Community {
 
-    constructor(scene, index, radius, data, xPos, yPos, zPos, models) {
+    constructor(scene, index, radius, data,pos, models, textureBase) {
         this.scene = scene;
         this.info = data["communities"][index];
         this.geometry = new THREE.CylinderGeometry( radius,radius,17, 32);
-        this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0} );
+        this.material = new THREE.MeshPhongMaterial( { map:textureBase, transparent: true, opacity: 0} );
         this.circle = new THREE.Mesh( this.geometry, this.material );
         this.circle.name = index;
         this.border = new CommunityBorder(scene, index, radius)
-        this.setPosition(xPos, yPos, zPos);
+        this.setPosition(pos.x, pos.y, pos.z);
         this.userList = new UsersList(scene, this.info, radius, this.getPosition());
         data["communities"][index]["users"].forEach(userIndex => {
             data["users"].forEach(userInfo => {

@@ -1,17 +1,18 @@
 import Community from './community.js';
 export default class CommunitiesList {
 
-    constructor(scene) {
+    constructor(scene, textureBase) {
         this.scene = scene;
+        this.textureBase = textureBase;
         this.communitiesList = []
         this.objectList = []
         this.n_communities = 0;
     }
 
-    addCommunity(models, index, data, xPos, yPos, zPos) {
+    addCommunity(models, index, data, pos) {
         let radius = Math.log(data["communities"][index]["users"].length)*8;
         if (radius===0)radius = 4;
-        let newComunity = new Community(this.scene, index, radius, data,xPos, yPos, zPos, models);
+        let newComunity = new Community(this.scene, index, radius, data,pos, models, this.textureBase);
         this.objectList.push(newComunity.get3DObject());
         this.communitiesList.push(newComunity);
         this.n_communities++;
