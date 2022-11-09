@@ -19,7 +19,6 @@ export default class Models {
     }
 
     getModelsArray() {
-        console.log([stickman, young, adult, elderly]);
         return [stickman, young, adult, elderly]
     }
 
@@ -69,7 +68,6 @@ export default class Models {
                 materials.preload();
                 let objLoader = new OBJLoader();
                 objLoader.setMaterials(materials);
-                console.log(objLoader)
                 objLoader.load(
                     './models/elderly/elderly.obj',
                     (object) => {
