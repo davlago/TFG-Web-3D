@@ -35,7 +35,7 @@ document.body.appendChild( stats.dom );
 
 //CARGAR IMAGENES Y MODELOS
 let models = new Models();
-models.loadStickMan();
+models.loadModels();
 
 let textures = new Textures();
 textures.loadTextures();
@@ -219,7 +219,7 @@ function createScenary(){
     light.addToScene();
     communityLight.addToScene();
     scene.add( polygonDist.get3DObject());
-    let arrayModels = [models.getStickMan()];
+    let arrayModels = models.getModelsArray();
     createCommunities(arrayModels);
 }
 setTimeout(()=>{createScenary();},2000);

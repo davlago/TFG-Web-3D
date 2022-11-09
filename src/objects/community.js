@@ -15,11 +15,25 @@ export default class Community {
         data["communities"][index]["users"].forEach(userIndex => {
             data["users"].forEach(userInfo => {
                 if(userInfo.id === userIndex){
-                    this.userList.addUser(userInfo, models[0].clone());
+                        let modelNum = this.getModelNum(userInfo.explicit_community.ageGroup);
+                        this.userList.addUser(userInfo, models[modelNum].clone());
                 }
             })
         });
 
+    }
+    
+    getModelNum(age){
+        if(age === "young"){
+            return 1;
+        }
+        else if(age ==="adult"){
+            return 2;
+        }
+        else if(age ==="elderly"){
+            return 3;
+        }
+        else return 0;
     }
 
     setPosition(x, y, z) {
