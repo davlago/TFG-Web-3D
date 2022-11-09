@@ -28,6 +28,19 @@ export default class Models {
             (object) => {
                 object.position.set(0,3.5,0);
                 object.scale.set(2.5,2.5,2.5);
+                object.traverse( function (obj) {
+                    if (obj.isMesh){
+                        if(Array.isArray(obj.material)){
+                            obj.material.forEach(element => {
+                                element.color.setHex(0x00ff00);
+                            });
+                        }
+                        else{
+                            obj.material.color.setHex(0x00ff00);
+                        }
+
+                    }
+                  } );
                 console.log("Cargado Young")
                 young = object;
             },
@@ -42,6 +55,19 @@ export default class Models {
             (object) => {
                 object.position.set(0,3.5,0);
                 object.scale.set(3,3,3);
+                object.traverse( function (obj) {
+                    if (obj.isMesh){
+                        if(Array.isArray(obj.material)){
+                            obj.material.forEach(element => {
+                                element.color.setHex(0x0000ff);
+                            });
+                        }
+                        else{
+                            obj.material.color.setHex(0x0000ff);
+                        }
+
+                    }
+                  } );
                 console.log("Cargado Adult")
                 adult = object;
             },
@@ -56,6 +82,19 @@ export default class Models {
             (object) => {
                 object.position.set(0,3.5,0);
                 object.scale.set(0.2,0.2,0.2);
+                object.traverse( function (obj) {
+                    if (obj.isMesh){
+                        if(Array.isArray(obj.material)){
+                            obj.material.forEach(element => {
+                                element.color.setHex(0xff0000);
+                            });
+                        }
+                        else{
+                            obj.material.color.setHex(0xff0000);
+                        }
+
+                    }
+                  } );
                 console.log("Cargado Elderly")
                 elderly = object;
             },
@@ -69,6 +108,19 @@ export default class Models {
             (object) => {
                 object.position.set(0,3.5,0);
                 object.scale.set(1.5,1.5,1.5);
+                object.traverse( function (obj) {
+                    if (obj.isMesh){
+                        if(Array.isArray(obj.material)){
+                            obj.material.forEach(element => {
+                                element.color.setHex(0xffff00);
+                            });
+                        }
+                        else{
+                            obj.material.color.setHex(0xffff00);
+                        }
+
+                    }
+                  } );
                 console.log("Cargado StickMan")
                 stickman = object;
             },
