@@ -1,12 +1,98 @@
-# Blender MTL File: 'upload.blend'
-# Material Count: 1
+# Exported from Fuse 1.3.0
 
-newmtl Texture
-Ns 96.078431
-Ka 1.000000 1.000000 1.000000
-Kd 0.640000 0.640000 0.640000
-Ks 0.500000 0.500000 0.500000
-Ke 0.000000 0.000000 0.000000
-Ni 1.000000
-d 1.000000
-illum 2
+newmtl Bottom
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd adult_Bottom_diffuse.png
+map_Ks adult_Bottom_specular.png
+bump adult_Bottom_normal.png
+map_Ns adult_Bottom_gloss.png
+
+newmtl Body
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd adult_Body_diffuse.png
+map_Ks adult_Body_specular.png
+bump adult_Body_normal.png
+map_Ns adult_Body_gloss.png
+
+newmtl Hair
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd adult_Hair_diffuse.png
+map_Ks adult_Hair_specular.png
+bump adult_Hair_normal.png
+map_Ns adult_Hair_gloss.png
+
+newmtl Eyewear
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd adult_Eyewear_diffuse.png
+map_Ks adult_Eyewear_specular.png
+bump adult_Eyewear_normal.png
+map_Ns adult_Eyewear_gloss.png
+
+newmtl Beard
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd adult_Beard_diffuse.png
+map_Ks adult_Beard_specular.png
+bump adult_Beard_normal.png
+map_Ns adult_Beard_gloss.png
+
+newmtl Top
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd adult_Top_diffuse.png
+map_Ks adult_Top_specular.png
+bump adult_Top_normal.png
+map_Ns adult_Top_gloss.png
+
+newmtl Shoes
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd adult_Shoes_diffuse.png
+map_Ks adult_Shoes_specular.png
+bump adult_Shoes_normal.png
+map_Ns adult_Shoes_gloss.png
+
+newmtl Moustache
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd adult_Moustache_diffuse.png
+map_Ks adult_Moustache_specular.png
+bump adult_Moustache_normal.png
+map_Ns adult_Moustache_gloss.png
+
