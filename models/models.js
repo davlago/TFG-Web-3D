@@ -34,7 +34,7 @@ export default class Models {
                     './models/young/young.obj',
                     (object) => {
                         object.position.set(0, 3.5, 0);
-                        object.scale.set(0.15, 0.15, 0.15);
+                        object.scale.set(0.07, 0.07, 0.07);
                         console.log("Cargado Young")
                         young = object;
                     });
@@ -54,7 +54,7 @@ export default class Models {
                     './models/adult/adult.obj',
                     (object) => {
                         object.position.set(0, 3.5, 0);
-                        object.scale.set(2.5, 2.5, 2.5);
+                        object.scale.set(1.7, 1.7, 1.7);
                         console.log("Cargado adult")
                         adult = object;
                     });
