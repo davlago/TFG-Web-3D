@@ -4,7 +4,8 @@
   "description": "TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informática de la UCM",
   "main": "index.js",
   "scripts": {
-    "deploy": "npm run build && gh-pages -d .",
+    "deploy": "npm run start && gh-pages -d dist",
+    "build": "webpack --config webpack.config.js",
     "start": "node index.js"
   },
   "repository": {
