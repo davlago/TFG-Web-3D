@@ -1,116 +1,50 @@
-# 3ds Max Wavefront OBJ Exporter v0.97b - (c)2007 guruware
-# File Created: 06.03.2017 20:55:51
+# Exported from Fuse 1.3.0
 
-newmtl Material__147
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 1.0000 0.4706 0.1804
-	Kd 1.0000 0.4706 0.1804
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
+newmtl Bottom
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd young_Bottom_diffuse.png
+map_Ks young_Bottom_specular.png
+bump young_Bottom_normal.png
+map_Ns young_Bottom_gloss.png
 
-newmtl Material__123
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.5880 0.5880 0.5880
-	Kd 0.5880 0.5880 0.5880
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
-	map_Ka boyface.jpg
-	map_Kd boyface.jpg
+newmtl Body
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd young_Body_diffuse.png
+map_Ks young_Body_specular.png
+bump young_Body_normal.png
+map_Ns young_Body_gloss.png
 
-newmtl Material__110
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.3451 0.2431 0.2078
-	Kd 0.3451 0.2431 0.2078
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
+newmtl Top
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd young_Top_diffuse.png
+map_Ks young_Top_specular.png
+bump young_Top_normal.png
+map_Ns young_Top_gloss.png
 
-newmtl Material__94
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.1922 0.0941 0.0275
-	Kd 0.1922 0.0941 0.0275
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
+newmtl Hat
+illum 4
+Kd 1.00 1.00 1.00
+Ka 0.00 0.00 0.00
+Tf 1.00 1.00 1.00
+Ni 1.00
+Ks 1.00 1.00 1.00
+map_Kd young_Hat_diffuse.png
+map_Ks young_Hat_specular.png
+bump young_Hat_normal.png
+map_Ns young_Hat_gloss.png
 
-newmtl Material__81
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.5880 0.5880 0.5880
-	Kd 0.5880 0.5880 0.5880
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
-
-newmtl Material__95
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.1922 0.0941 0.0275
-	Kd 0.1922 0.0941 0.0275
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
-	map_Ka hair.jpg
-	map_Kd hair.jpg
-
-newmtl Material__159
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.1765 0.1765 0.1765
-	Kd 0.1765 0.1765 0.1765
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
-
-newmtl Material__160
-	Ns 10.0000
-	Ni 1.5000
-	d 0.2000
-	Tr 0.8000
-	Tf 0.2000 0.2000 0.2000 
-	illum 2
-	Ka 0.8353 0.8353 0.8353
-	Kd 0.8353 0.8353 0.8353
-	Ks 0.8100 0.8100 0.8100
-	Ke 0.0000 0.0000 0.0000
-
-newmtl Material__161
-	Ns 10.0000
-	Ni 1.5000
-	d 1.0000
-	Tr 0.0000
-	Tf 1.0000 1.0000 1.0000 
-	illum 2
-	Ka 0.5880 0.5880 0.5880
-	Kd 0.5880 0.5880 0.5880
-	Ks 0.0000 0.0000 0.0000
-	Ke 0.0000 0.0000 0.0000
-	map_Ka eye.jpg
-	map_Kd eye.jpg
