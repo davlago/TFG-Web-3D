@@ -1,4 +1,6 @@
 import Community from './community.js';
+
+const coordAcom = [1, 7, 21, 42, 73];
 export default class CommunitiesList {
 
     constructor(scene, textureBase) {
@@ -10,7 +12,14 @@ export default class CommunitiesList {
     }
 
     addCommunity(models, index, data, pos) {
-        let radius = Math.log(data["communities"][index]["users"].length)*8;
+        let grand;
+        for(let i = 0; i < coordAcom.length; i++){
+            if(coordAcom[i] >= data["communities"][index]["users"].length){
+                grand = i;
+                break;
+            }
+        }   
+        let radius = grand*10;
         if (radius===0)radius = 4;
         let newComunity = new Community(this.scene, index, radius, data,pos, models, this.textureBase);
         this.objectList.push(newComunity.get3DObject());
