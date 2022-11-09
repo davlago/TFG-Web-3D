@@ -1,126 +1,106 @@
 import { OBJLoader } from './OBJLoader.js';
+import { MTLLoader } from './MTLLoader.js';
+
 let stickman;
 let young;
 let adult;
 let elderly;
-const objLoader = new OBJLoader();
 export default class Models {
 
     constructor(scene) {
         this.scene = scene;
     }
 
-    loadModels(){
+    loadModels() {
         this.loadStickMan();
         this.loadYoung();
         this.loadAdult();
         this.loadElderly();
     }
 
-    getModelsArray(){
-        return [stickman,young,adult,elderly]
+    getModelsArray() {
+        console.log([stickman, young, adult, elderly]);
+        return [stickman, young, adult, elderly]
     }
 
 
-    loadYoung(){
-        objLoader.load(
-            '../models/young.obj',
-            (object) => {
-                object.position.set(0,3.5,0);
-                object.scale.set(2.5,2.5,2.5);
-                object.traverse( function (obj) {
-                    if (obj.isMesh){
-                        if(Array.isArray(obj.material)){
-                            obj.material.forEach(element => {
-                                element.color.setHex(0x00ff00);
-                            });
-                        }
-                        else{
-                            obj.material.color.setHex(0x00ff00);
-                        }
+    loadYoung() {
+        let mtlLoader = new MTLLoader();
+        mtlLoader.load(
+            './models/young/young.mtl', (materials) => {
+                materials.preload();
+                let objLoader = new OBJLoader();
+                objLoader.setMaterials(materials);
+                objLoader.load(
+                    './models/young/young.obj',
+                    (object) => {
+                        object.position.set(0, 3.5, 0);
+                        object.scale.set(0.15, 0.15, 0.15);
+                        console.log("Cargado Young")
+                        young = object;
+                    });
+            })
 
-                    }
-                  } );
-                console.log("Cargado Young")
-                young = object;
-            },
-            (error) => {
-            });
 
     }
 
-    loadAdult(){
-        objLoader.load(
-            '../models/adult.obj',
-            (object) => {
-                object.position.set(0,3.5,0);
-                object.scale.set(3,3,3);
-                object.traverse( function (obj) {
-                    if (obj.isMesh){
-                        if(Array.isArray(obj.material)){
-                            obj.material.forEach(element => {
-                                element.color.setHex(0x0000ff);
-                            });
-                        }
-                        else{
-                            obj.material.color.setHex(0x0000ff);
-                        }
-
-                    }
-                  } );
-                console.log("Cargado Adult")
-                adult = object;
-            },
-            (error) => {
-            });
+    loadAdult() {
+        let mtlLoader = new MTLLoader();
+        mtlLoader.load(
+            './models/adult/adult.mtl', (materials) => {
+                materials.preload();
+                let objLoader = new OBJLoader();
+                objLoader.setMaterials(materials);
+                objLoader.load(
+                    './models/adult/adult.obj',
+                    (object) => {
+                        object.position.set(0, 3.5, 0);
+                        object.scale.set(2.5, 2.5, 2.5);
+                        console.log("Cargado adult")
+                        adult = object;
+                    });
+            })
     }
 
-    loadElderly(){
-        let color = new THREE.Color( 0xFFB6C1 );
-        objLoader.load(
-            '../models/elderly.obj',
-            (object) => {
-                object.position.set(0,3.5,0);
-                object.scale.set(0.2,0.2,0.2);
-                object.traverse( function (obj) {
-                    if (obj.isMesh){
-                        if(Array.isArray(obj.material)){
-                            obj.material.forEach(element => {
-                                element.color.setHex(0xff0000);
-                            });
-                        }
-                        else{
-                            obj.material.color.setHex(0xff0000);
-                        }
-
-                    }
-                  } );
-                console.log("Cargado Elderly")
-                elderly = object;
-            },
-            (error) => {
-            });
+    loadElderly() {
+        let mtlLoader = new MTLLoader();
+        mtlLoader.load(
+            './models/elderly/elderly.mtl', (materials) => {
+                materials.preload();
+                let objLoader = new OBJLoader();
+                objLoader.setMaterials(materials);
+                console.log(objLoader)
+                objLoader.load(
+                    './models/elderly/elderly.obj',
+                    (object) => {
+                        object.position.set(0, 3.5, 0);
+                        object.scale.set(0.19, 0.19, 0.19);
+                        console.log("Cargado elderly")
+                        elderly = object;
+                    });
+            })
     }
 
-    loadStickMan(){
+    loadStickMan() {
+        let objLoader = new OBJLoader();
         objLoader.load(
-            '../models/stickman.obj',
+            './models/stickman/stickman.obj',
             (object) => {
-                object.position.set(0,3.5,0);
-                object.scale.set(1.5,1.5,1.5);
-                object.traverse( function (obj) {
-                    if (obj.isMesh){
-                        if(Array.isArray(obj.material)){
+                object.position.set(0, 3.5, 0);
+                object.scale.set(1.3, 1.3, 1.3);
+                object.traverse(function (obj) {
+                    if (obj.isMesh) {
+                        if (Array.isArray(obj.material)) {
                             obj.material.forEach(element => {
                                 element.color.setHex(0xffff00);
                             });
                         }
-                        else{
+                        else {
                             obj.material.color.setHex(0xffff00);
                         }
 
                     }
-                  } );
+                });
                 console.log("Cargado StickMan")
                 stickman = object;
             },
