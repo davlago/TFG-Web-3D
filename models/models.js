@@ -1,5 +1,5 @@
-import { OBJLoader } from './OBJLoader.js';
-import { MTLLoader } from './MTLLoader.js';
+import { OBJLoader } from '../models/OBJLoader.js';
+import { MTLLoader } from '../models/MTLLoader.js';
 
 let stickman;
 let young;
@@ -26,12 +26,12 @@ export default class Models {
     loadYoung() {
         let mtlLoader = new MTLLoader();
         mtlLoader.load(
-            './models/young/young.mtl', (materials) => {
+            '../models/young/young.mtl', (materials) => {
                 materials.preload();
                 let objLoader = new OBJLoader();
                 objLoader.setMaterials(materials);
                 objLoader.load(
-                    './models/young/young.obj',
+                    '../models/young/young.obj',
                     (object) => {
                         object.position.set(0, 3.5, 0);
                         object.scale.set(0.07, 0.07, 0.07);
@@ -46,12 +46,12 @@ export default class Models {
     loadAdult() {
         let mtlLoader = new MTLLoader();
         mtlLoader.load(
-            './models/adult/adult.mtl', (materials) => {
+            '../models/adult/adult.mtl', (materials) => {
                 materials.preload();
                 let objLoader = new OBJLoader();
                 objLoader.setMaterials(materials);
                 objLoader.load(
-                    './models/adult/adult.obj',
+                    '../models/adult/adult.obj',
                     (object) => {
                         object.position.set(0, 3.5, 0);
                         object.scale.set(0.07, 0.07, 0.07);
@@ -64,12 +64,12 @@ export default class Models {
     loadElderly() {
         let mtlLoader = new MTLLoader();
         mtlLoader.load(
-            './models/elderly/elderly.mtl', (materials) => {
+            '../models/elderly/elderly.mtl', (materials) => {
                 materials.preload();
                 let objLoader = new OBJLoader();
                 objLoader.setMaterials(materials);
                 objLoader.load(
-                    './models/elderly/elderly.obj',
+                    '../models/elderly/elderly.obj',
                     (object) => {
                         object.position.set(0, 3.5, 0);
                         object.scale.set(0.19, 0.19, 0.19);
@@ -82,7 +82,7 @@ export default class Models {
     loadStickMan() {
         let objLoader = new OBJLoader();
         objLoader.load(
-            './models/stickman/stickman.obj',
+            '../models/stickman/stickman.obj',
             (object) => {
                 object.position.set(0, 3.5, 0);
                 object.scale.set(1.3, 1.3, 1.3);
