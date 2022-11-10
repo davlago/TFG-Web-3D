@@ -199,7 +199,6 @@ function moveCamera(){
     camera.position.x *= positive;
     camera.position.y *= positive;
     camera.position.z *= positive;
-    console.log(controller.getDistance())
     if(controller.getDistance() > 109 && controller.getCameraInfo()=== "default"){
         cancelAnimationFrame(moveCamera);
     }
