@@ -16,9 +16,11 @@ export default class User {
     }
 
     createBall(){
-        const geometry = new THREE.SphereGeometry( 0.7, 32, 16 );
+        const geometry = new THREE.CircleGeometry( 3, 32);
         const material = new THREE.MeshBasicMaterial( { color: this.getColor(this.info.explicit_community.language) } );
-        return new THREE.Mesh( geometry, material );
+        let mesh = new THREE.Mesh( geometry, material );
+        mesh.rotateX(-Math.PI/2)
+        return mesh
     }
 
     getColor(leng){
@@ -43,7 +45,7 @@ export default class User {
     setPosition(x,y,z){
         this.user.position.set(x,y,z);
         let tam = this.getTam(this.info.explicit_community.ageGroup);
-        this.ball.position.set(x,y+ tam,z);
+        this.ball.position.set(x,y+0.1,z);
     }
 
     getTam(age){
