@@ -16,7 +16,7 @@ export default class User {
     }
 
     createBall(){
-        const geometry = new THREE.SphereGeometry( 1.5, 32, 16 );
+        const geometry = new THREE.SphereGeometry( 0.7, 32, 16 );
         const material = new THREE.MeshBasicMaterial( { color: this.getColor(this.info.explicit_community.language) } );
         return new THREE.Mesh( geometry, material );
     }
