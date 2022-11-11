@@ -50,6 +50,7 @@ export default class UsersList {
     addUsersOnScene(){
         this.usersList.forEach((elem) =>{
             this.scene.add(elem.get3DObject());
+            this.scene.add(elem.getBall3DObject());
         })
     }
 
