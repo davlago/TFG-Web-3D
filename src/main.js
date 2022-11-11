@@ -7,6 +7,7 @@ import CommunitiesList from './objects/communitiesList.js';
 import Controller from './controller/controller.js';
 import Models from '../models/models.js';
 import CommunityLight from './view/communityLight.js';
+import Textures from '../textures/textures.js'
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
@@ -15,7 +16,7 @@ const scene = new THREE.Scene();
 //RENDERER
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.outerWidth,window.outerHeight );
-renderer.setClearColor( 0x000000, 1);
+renderer.setClearColor( 0x64B5F6, 1);
 renderer.shadowMap.enabled = true;
 
 
@@ -32,6 +33,13 @@ var stats = new Stats();
 stats.showPanel( 0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild( stats.dom );
 
+//CARGAR IMAGENES Y MODELOS
+let models = new Models();
+models.loadModels();
+
+let textures = new Textures();
+textures.loadTextures();
+
 //RENDERER FUNCTION
 function rendererScene() {
     stats.begin();
@@ -47,37 +55,39 @@ rendererScene();
 container.appendChild( renderer.domElement );
 
 //PRINCIPAL ROOM
-const room = new Room(scene);
+const room = new Room(scene, textures.getWindowOpen(), textures.getWindowClose(), textures.getWood());
 const roomSize ={
     x:200,
     y:50,
     z:200
 }
 function createRoom(){
-    room.setSize(roomSize.x,roomSize.y,roomSize.z);
+    room.setSize(roomSize.x*1.25,roomSize.y,roomSize.z*1.25);
     room.setPosition(0,roomSize.y/2,0);
     scene.add(room.get3DObject());
 }
 
 //LUCES
-let light = new Light(scene,0xffffff, 2, 200 );
+let light = new Light(scene,0xffffff, 1, 250 );
 let communityLight = new CommunityLight(scene,0xffffff, 0, 200 )
 light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
 
 
 //POLIGONO DE DISTRIBUCIÓN
-const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/3.5)
+const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/2.8)
 
 //COMUNIDADES
-let communitiesList = new CommunitiesList(scene);
+let communitiesList = new CommunitiesList(scene, textures.getWood());
 function createCommunities(models){
     let cont = 0;
     data["communities"].forEach(comm => {
-        let xPos = polygonDist.getOneVertex(cont).x;
-        let yPos = 1;
-        let zPos = polygonDist.getOneVertex(cont).z;
+        let pos = {
+            "x" : polygonDist.getOneVertex(cont).x,
+            "y" : 1,
+            "z" :polygonDist.getOneVertex(cont).z
+        }
     
-        communitiesList.addCommunity(models,cont, data, xPos , yPos, zPos)
+        communitiesList.addCommunity(models,cont, data,pos)
         cont++;
     });
     communitiesList.addCommunityOnScene();
@@ -107,9 +117,8 @@ function onDocumentMouseDown( event ) {
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         moveCamera();
         changeBox(commSelected);
-        communityLight.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
-        communityLight.setConfLight(0xba8083, 2, 50); //x, y, z
-        light.setConfLight(0xffffff, 1, 200); //x, y, z
+        communityLight.setPosition(coord.x, roomSize.y*0.25, coord.z); //x, y, z
+        communityLight.setConfLight(0xba8083, 0.5, 75); //x, y, z
         communitiesList.selectCommunity(parseInt(commSelected));
 
     }
@@ -147,10 +156,9 @@ function defaultView(noSelect){
             communitiesList.getOneCommunityInfo(commSelected).userList.unselectOneUser(userSelected)
         }
         newDist = [0,0,0];
+        controller.setDefaultCamera();
         moveCamera();
         communityLight.setConfLight(0xffffff, 0, 0); //x, y, z
-        light.setConfLight(0xffffff, 2, 200); //x, y, z
-        controller.setDefaultCamera();
     }
     changeBox();
 }
@@ -182,33 +190,35 @@ moveScene();
 function moveCamera(){
     let positive;
     if(controller.getCameraInfo()=== "community"){
-        positive = Math.abs(0.98); 
+        positive = Math.abs(0.99); 
     }
     else{         
-        positive = Math.abs(1.02); 
+        positive = Math.abs(1.01); 
     }
     //Moving camera.
     camera.position.x *= positive;
     camera.position.y *= positive;
     camera.position.z *= positive;
-    if(controller.getDistance() > 119 || controller.getDistance() < 81){
-        cancelAnimationFrame(moveCamera)
+    if(controller.getDistance() > 109 && controller.getCameraInfo()=== "default"){
+        cancelAnimationFrame(moveCamera);
+    }
+    else if(controller.getDistance() <80 && controller.getCameraInfo()=== "community"){
+        cancelAnimationFrame(moveCamera);
     }
     else{
         requestAnimationFrame(moveCamera);
     }
 }
 
-let models = new Models();
-models.loadStickMan();
+
 
 function createScenary(){
     console.log("empiezo")
     createRoom();
-    scene.add(light.get3DObject());
+    light.addToScene();
     communityLight.addToScene();
     scene.add( polygonDist.get3DObject());
-    let arrayModels = [models.getStickMan()];
+    let arrayModels = models.getModelsArray();
     createCommunities(arrayModels);
 }
 setTimeout(()=>{createScenary();},2000);
