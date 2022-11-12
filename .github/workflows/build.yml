@@ -13,9 +13,5 @@ jobs:
       - run: |
           git config --global user.email "davlago@ucm.es"
           git config --global user.name "davlago"
-          git remote set-url origin https://{username}:{password}@github.com/{username}/project.git
+          git remote set-url origin https://davlago.github.io/TFG-Web-3D/
           npm run deploy
-          
-        env:
-          github_token: ${{ secrets.DEPLOY_ACCESS_TOKEN }}
-          repository: ${{ github.repository }}
