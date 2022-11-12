@@ -13,5 +13,5 @@ jobs:
       - run: |
           git config --global user.email "davlago@ucm.es"
           git config --global user.name "davlago"
-          git remote add origin https://{username}:{password}@github.com/{username}/project.git
+          git remote set-url origin https://{username}:{password}@github.com/{username}/project.git
           npm run deploy
