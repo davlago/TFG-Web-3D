@@ -238,3 +238,21 @@ hr.hr1 {
     opacity: 1;
     position: relative;
 }
+
+.circle{
+  height: 5px;
+  width: 5px;
+  border-radius: 50%;
+}
+
+.red{
+  background-color: red;
+}
+
+.blue{
+  background-color: blue;
+}
+
+.green{
+  background-color: greenyellow;
+}
