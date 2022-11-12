@@ -10,8 +10,8 @@ jobs:
       - run: npm install
       - name: Build and Deploy
         run: |
-          git config --global user.name $user_name
-          git config --global user.email $user_email
+          git config --global user.name "user_name"
+          git config --global user.email"user_email@mail.com"
           npm run deploy
       - name: Init
         run: npm start
