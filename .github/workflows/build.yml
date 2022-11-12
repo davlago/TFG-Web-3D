@@ -8,6 +8,9 @@ jobs:
       - run: npm --version
       - uses: actions/checkout@v3
       - run: npm install
-      
       - run: npm run build
-      - run: npm run deploy
+      
+      - run: |
+          git config --global user.email "davlago@ucm.es"
+          git config --global user.name "davlago"
+          npm run deploy
