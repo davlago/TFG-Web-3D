@@ -221,7 +221,7 @@ function createScenary(){
     let arrayModels = models.getModelsArray();
     createCommunities(arrayModels);
 }
-setTimeout(()=>{createScenary();},2000);
+setTimeout(()=>{createScenary();},500);
 /*--------------------------------------------------------------------
 -----------------------CAMBIOS EN HTML--------------------------------
 --------------------------------------------------------------------*/
@@ -318,6 +318,13 @@ document.getElementById("legendIcon").addEventListener('click', () =>{
         document.getElementById("legend-box").className = "legend expand";
         document.getElementById("legendIcon").className ="legendIcon hide";
         document.getElementById("xLegend").className ="xLegend myShow";
+        setTimeout(() =>{
+            let filas = Array.from(document.getElementsByClassName("legendData"));
+            console.log(filas)
+            filas.forEach(fila =>{
+                fila.className = "legendData row myShow"
+            })
+        }, 300)
 
 })
 
@@ -325,4 +332,9 @@ document.getElementById("xLegend").addEventListener('click', () =>{
         document.getElementById("legend-box").className = "legend retract";
         document.getElementById("legendIcon").className ="legendIcon myShow";
         document.getElementById("xLegend").className ="xLegend hide";
+        let filas = Array.from(document.getElementsByClassName("legendData"));
+        console.log(filas)
+        filas.forEach(fila =>{
+            fila.className = "legendData row hide"
+        })
 })

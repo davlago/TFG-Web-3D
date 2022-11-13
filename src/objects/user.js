@@ -3,7 +3,6 @@ export default class User {
     constructor(scene, info, model, index, x, y) {
         this.scene = scene;  
         this.info = info;
-        console.log(this.info)
         this.ball = this.createBall();
         this.user = model;
         this.user.name = index;
