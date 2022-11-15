@@ -1,3 +1,6 @@
+/**
+ * Clase que crea un borde para las comunidades
+ */
 export default class CommunityBorder {
 
     constructor(scene, index, radius) {

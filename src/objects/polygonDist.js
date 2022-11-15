@@ -1,3 +1,7 @@
+/**
+ * Clase que distribuye las comunidades
+ */
+
 export default class Room {
 
     constructor(scene, n_sides, radius) {

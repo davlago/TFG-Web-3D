@@ -1,3 +1,7 @@
+/**
+ * Clase de la habitación principal
+ */
+
 export default class Room {
 
     constructor(scene, textureWallOpen, textureWallClose, textureFloor){

@@ -42,7 +42,7 @@ import {
 	sRGBEncoding
 } from '../node_modules/three/build/three.module.js';
 import * as fflate from '../node_modules/three/examples/jsm/libs/fflate.module.js';
-import { NURBSCurve } from './NURBSCurve.js';
+import { NURBSCurve } from '../models/NURBSCurve.js';
 
 /**
  * Loader loads FBX file and generates Group representing FBX scene.

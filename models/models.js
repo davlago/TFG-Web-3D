@@ -1,5 +1,8 @@
+/**
+ * Clase para cargar los modelos 3D de cada persona
+ */
+
 import { OBJLoader } from '../models/OBJLoader.js';
-import { MTLLoader } from '../models/MTLLoader.js';
 import { FBXLoader } from '../models/FBXLoader.js';
 
 let stickman;
@@ -14,64 +17,72 @@ export default class Models {
     }
 
     loadModels() {
-        this.loadStickMan();
-        this.loadYoung();
-        this.loadAdult();
-        this.loadElderly();
+        return new Promise((resolve, reject) => {
+            loadStickMan().then(function () {
+                loadYoung().then(function () {
+                    loadAdult().then(function () {
+                        loadElderly().then(function () {
+                            resolve();
+                        });
+                    });
+                });
+            });
+        });
     }
 
     getModelsArray() {
         return [stickman, young, adult, elderly]
     }
+}
 
-
-    loadYoung() {
-        let mtlLoader = new MTLLoader();
-        mtlLoader.load(
-            '../models/young/young.mtl', (materials) => {
-                materials.preload();
-                let objLoader = new OBJLoader();
-                objLoader.setMaterials(materials);
-                objLoader.load(
-                    '../models/young/young.obj',
-                    (object) => {
-                        object.position.set(0, 3.5, 0);
-                        object.scale.set(0.07, 0.07, 0.07);
-                        console.log("Cargado Young")
-                        young = object;
-                    });
-            })
-
-
-    }
-
-    loadAdult() {
-        let mtlLoader = new MTLLoader();
-        mtlLoader.load(
-            '../models/adult/adult.mtl', (materials) => {
-                materials.preload();
-                let objLoader = new OBJLoader();
-                objLoader.setMaterials(materials);
-                objLoader.load(
-                    '../models/adult/adult.obj',
-                    (object) => {
-                        object.position.set(0, 3.5, 0);
-                        object.scale.set(0.07, 0.07, 0.07);
-                        console.log("Cargado adult")
-                        adult = object;
-                    });
-            })
-    }
-
-    loadElderly() {
+async function loadYoung() {
+    return new Promise((resolve, reject) => {
         let fbxLoader = new FBXLoader();
-        fbxLoader.load( '../models/elderly/elderly.fbx', function ( object ) {
-            elderly = object;
-            console.log(elderly)
-        });
-    }
+        fbxLoader.load(
+            '../models/young/young.fbx',
+            (object) => {
+                young = object;
+                young.scale.set(0.06, 0.06, 0.06);
+                console.log("Cargado young")
+                resolve();
+            });
 
-    loadStickMan() {
+    });
+
+}
+
+async function loadAdult() {
+    return new Promise((resolve, reject) => {
+        let fbxLoader = new FBXLoader();
+        fbxLoader.load(
+            '../models/adult/adult.fbx',
+            (object) => {
+                adult = object;
+                adult.scale.set(0.07, 0.07, 0.07);
+                console.log("Cargado adult")
+                resolve();
+            });
+
+    });
+}
+
+async function loadElderly() {
+    return new Promise((resolve, reject) => {
+        let fbxLoader = new FBXLoader();
+        fbxLoader.load(
+            '../models/elderly/elderly.fbx',
+            (object) => {
+                elderly = object;
+                elderly.scale.set(0.06, 0.06, 0.06);
+                console.log("Cargado elderly")
+                resolve();
+            });
+
+    });
+}
+
+async function loadStickMan() {
+    return new Promise((resolve, reject) => {
         let objLoader = new OBJLoader();
         objLoader.load(
             '../models/stickman/stickman.obj',
@@ -93,9 +104,9 @@ export default class Models {
                 });
                 console.log("Cargado StickMan")
                 stickman = object;
-            },
-            (error) => {
+                console.log(stickman)
+                resolve();
             });
-    }
 
-}
+    });
+};

@@ -1,3 +1,7 @@
+/**
+ * Clase usuario, tiene toda la información
+ */
+
 export default class User {
 
     constructor(scene, info, model, index, x, y) {
@@ -41,8 +45,13 @@ export default class User {
     }
 
     setPosition(x,y,z){
-        this.user.position.set(x,y,z);
-        this.user.updateMatrix();
+        if(this.info.explicit_community.ageGroup ==="elderly"){
+            this.user.position.set(x,0,z);
+        }
+        else{
+            this.user.position.set(x,y,z);
+        }
+        
         this.ball.position.set(x,y+0.1,z);
     }
 
