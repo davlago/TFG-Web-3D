@@ -15,6 +15,7 @@ export default class Light {
         this.light[1].position.set( x+distance, y, z-distance);
         this.light[2].position.set( x-distance, y, z+distance);
         this.light[3].position.set( x-distance, y, z-distance);
+        
     }
 
     setConfLight(color, intensity, distance ){

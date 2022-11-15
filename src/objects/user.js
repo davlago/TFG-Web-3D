@@ -42,8 +42,13 @@ export default class User {
     }
 
     setPosition(x,y,z){
-        this.user.position.set(x,y,z);
-        let tam = this.getTam(this.info.explicit_community.ageGroup);
+        if(this.info.explicit_community.ageGroup ==="elderly"){
+            this.user.position.set(x,0,z);
+        }
+        else{
+            this.user.position.set(x,y,z);
+        }
+        
         this.ball.position.set(x,y+0.1,z);
     }
 

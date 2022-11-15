@@ -1,5 +1,7 @@
 import CommunityBorder from './communityBorder.js';
 import UsersList from './usersList.js';
+import { clone } from '../../models/SkeletonUtils.js';
+
 export default class Community {
 
     constructor(scene, index, radius, data,pos, models, textureBase) {
@@ -16,7 +18,8 @@ export default class Community {
             data["users"].forEach(userInfo => {
                 if(userInfo.id === userIndex){
                         let modelNum = this.getModelNum(userInfo.explicit_community.ageGroup);
-                        this.userList.addUser(userInfo, models[modelNum].clone());
+                        let newModel = clone(models[modelNum]);
+                        this.userList.addUser(userInfo, newModel);
                 }
             })
         });

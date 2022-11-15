@@ -18,7 +18,7 @@ export default class Community {
     setDefaultCamera(){
         this.controls.minDistance = 80 //min zoom
         this.controls.maxDistance = 120 //max zoom
-        this.controls.maxPolarAngle = 0.9 //max angle      
+        this.controls.maxPolarAngle = 1.5 //max angle      
         this.controls.update()
         this.cameraInfo = "default";
     }

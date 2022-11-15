@@ -1,6 +1,7 @@
 import { OBJLoader } from '../models/OBJLoader.js';
 import { MTLLoader } from '../models/MTLLoader.js';
-import { GLTFLoader } from '../models/GLTFLoader.js'
+import { GLTFLoader } from '../models/GLTFLoader.js';
+import { FBXLoader } from '../models/FBXLoader.js';
 
 let stickman;
 let young;
@@ -25,55 +26,37 @@ export default class Models {
 
 
     loadYoung() {
-        let mtlLoader = new MTLLoader();
-        mtlLoader.load(
-            '../models/young/young.mtl', (materials) => {
-                materials.preload();
-                let objLoader = new OBJLoader();
-                objLoader.setMaterials(materials);
-                objLoader.load(
-                    '../models/young/young.obj',
-                    (object) => {
-                        object.position.set(0, 3.5, 0);
-                        object.scale.set(0.07, 0.07, 0.07);
-                        console.log("Cargado Young")
-                        young = object;
-                    });
-            })
-
-
+        let fbxLoader = new FBXLoader();
+        fbxLoader.load(
+            '../models/young/young.fbx',
+            (object) => {
+                young = object;
+                young.scale.set(0.06, 0.06, 0.06);
+                console.log("Cargado young")
+            });
     }
 
     loadAdult() {
-        let mtlLoader = new MTLLoader();
-        mtlLoader.load(
-            '../models/adult/adult.mtl', (materials) => {
-                materials.preload();
-                let objLoader = new OBJLoader();
-                objLoader.setMaterials(materials);
-                objLoader.load(
-                    '../models/adult/adult.obj',
-                    (object) => {
-                        object.position.set(0, 3.5, 0);
-                        object.scale.set(0.07, 0.07, 0.07);
-                        console.log("Cargado adult")
-                        adult = object;
-                    });
-            })
+        let fbxLoader = new FBXLoader();
+        fbxLoader.load(
+            '../models/adult/adult.fbx',
+            (object) => {
+                adult = object;
+                adult.scale.set(0.07, 0.07, 0.07);
+                console.log("Cargado adult")
+            });
     }
 
     loadElderly() {
-        let gltfLoader = new GLTFLoader();
-        gltfLoader.load(
-            '../models/elderly/elderly.gltf',
+        let fbxLoader = new FBXLoader();
+        fbxLoader.load(
+            '../models/elderly/elderly.fbx',
             (object) => {
-                console.log(object)
+                elderly = object;
+                elderly.scale.set(0.06, 0.06, 0.06);
                 console.log("Cargado elderly")
-                console.log(object)
 
-                elderly = object.scene;
             });
-
     }
 
     loadStickMan() {
@@ -98,6 +81,7 @@ export default class Models {
                 });
                 console.log("Cargado StickMan")
                 stickman = object;
+                console.log(stickman)
             },
             (error) => {
             });

@@ -34,7 +34,7 @@ stats.showPanel( 0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild( stats.dom );
 
 //CARGAR IMAGENES Y MODELOS
-let models = new Models();
+let models = new Models(scene);
 models.loadModels();
 
 let textures = new Textures();
@@ -118,7 +118,7 @@ function onDocumentMouseDown( event ) {
         moveCamera();
         changeBox(commSelected);
         communityLight.setPosition(coord.x, roomSize.y*0.25, coord.z); //x, y, z
-        communityLight.setConfLight(0xba8083, 0.5, 75); //x, y, z
+        communityLight.setConfLight(0xffffff, 1, 75); //x, y, z
         communitiesList.selectCommunity(parseInt(commSelected));
 
     }
@@ -133,8 +133,9 @@ function onDocumentMouseDown( event ) {
             else{
                 first = true
             }
-            if(userSelected !== intersectsU[0].object.parent.name){
-                userSelected = intersectsU[0].object.parent.name;
+            let userParent = getParent(intersectsU[0].object.parent);
+            if(userSelected !== userParent.name){
+                userSelected = userParent.name;
                 changeUser(communitiesList.getOneCommunityInfo(commSelected).userList.getOneUserInfo(userSelected).info, first)
                 communitiesList.getOneCommunityInfo(commSelected).userList.selectOneUser(userSelected)
             }
@@ -145,6 +146,11 @@ function onDocumentMouseDown( event ) {
 
         }
     }
+}
+
+function getParent(actual){//Funcion para obtener el ultimo padre y asi poder obtener el id correspondiente
+    if(actual.parent.parent === null) return actual;
+    else return getParent(actual.parent);
 }
 
 
