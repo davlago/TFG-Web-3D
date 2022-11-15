@@ -237,7 +237,7 @@ createScenary();
 //CAMBIAR CAJA
 function changeBox(commIndex = null){
     let communitySelect = communitiesList.getOneCommunityInfo(parseInt(commIndex));
-    if(commIndex === -1){
+    if(commIndex === -1){       //Si no hay ninguna comunidad seleccionada (y se ha pulsado el boton de info)
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = "No community selected"
         document.getElementById("community-type").innerHTML = "";
@@ -248,7 +248,7 @@ function changeBox(commIndex = null){
         communitySelect = -1
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
-    else if(commIndex !== null){
+    else if(commIndex !== null){        //Si si hay alguna comunidad seleccionada 
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
         document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
@@ -259,7 +259,7 @@ function changeBox(commIndex = null){
   
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
-    else{
+    else{       //Si no hay ninguna comunidad seleccionada y se ha pulsado la cruz de la informacioon
         document.getElementById("info-box").className = "info retract";
         document.getElementById("icross").className = "smalliIcon myShow"
         document.getElementById("xcross").className = "smallXIcon hide";
@@ -270,13 +270,13 @@ function changeBox(commIndex = null){
 
 //CAMBIAR INFO
 function changeShow(communitySelect = null){
-    if(communitySelect !== null || communitySelect === -1){
+    if(communitySelect !== null || communitySelect === -1){     //Si se ha pulsado el boton de info, ya sea con comunidad seleccionada o no, mostrar
         document.getElementById("community-title").className = "myShow";
         document.getElementById("community-nUsers-row").className = "data row myShow";
         document.getElementById("community-explanation-row").className = "data row myShow";
         document.getElementById("community-type-row").className = "data row myShow";
     }
-    else{
+    else{       //Si se ha pulsado el boton de cruz, esconder
         document.getElementById("community-title").className = "hide";
         document.getElementById("community-type-row").className = "data row hide";
         document.getElementById("community-explanation-row").className = "data row hide";
@@ -285,8 +285,8 @@ function changeShow(communitySelect = null){
 }
 
 function changeUser(userInfo = null, first){
-    if(first) document.getElementById("botonSimulado").click()
-    if(userInfo !== null){
+    if(first) document.getElementById("botonSimulado").click()      //expande la seccion del usuario
+    if(userInfo !== null){      //Si hay algun usuario seleccionado
         document.getElementById("raya").className = "hr1 myShow"
         document.getElementById("user-id-row").className = "data row myShow";
         document.getElementById("user-age-row").className = "data row myShow";
@@ -296,7 +296,7 @@ function changeUser(userInfo = null, first){
         document.getElementById("user-language").innerHTML = userInfo.explicit_community.language;
 
     }
-    else{
+    else{       //Si no hay ningun usuario seleccionado
         document.getElementById("raya").className = "hr1 hide"
         document.getElementById("user-id-row").className = "data row hide"
         document.getElementById("user-age-row").className = "data row hide"
@@ -305,10 +305,10 @@ function changeUser(userInfo = null, first){
 }
 
 document.getElementById("xcross").addEventListener('mouseup', () =>{
-    if(controller.getCameraInfo()=== "community"){
+    if(controller.getCameraInfo() === "community"){  //Si estamos en una comunidad y pulsas la cruz vuelve a la posicion por defecto
         defaultView(false);  
     }
-    else{
+    else{       //Si no estamos en ninguna comunidd y se pulsa la cruz no se vuelve a la posicion por defecto
         defaultView(true);  
     }
     commSelected = null;
@@ -316,7 +316,33 @@ document.getElementById("xcross").addEventListener('mouseup', () =>{
 })
 
 document.getElementById("icross").addEventListener('click', () =>{
-    changeBox(-1);
+    changeBox(-1);      //Si se pulsa el boton de info se abre la ventana sin informacion (-1)
     
 })
 
+
+//LEYENDA
+document.getElementById("legendIcon").addEventListener('click', () =>{
+        document.getElementById("legend-box").className = "legend expand";
+        document.getElementById("legendIcon").className ="legendIcon hide";
+        document.getElementById("xLegend").className ="xLegend myShow";
+        setTimeout(() =>{
+            let filas = Array.from(document.getElementsByClassName("legendData"));
+            console.log(filas)
+            filas.forEach(fila =>{
+                fila.className = "legendData row myShow"
+            })
+        }, 300)
+
+})
+
+document.getElementById("xLegend").addEventListener('click', () =>{
+        document.getElementById("legend-box").className = "legend retract";
+        document.getElementById("legendIcon").className ="legendIcon myShow";
+        document.getElementById("xLegend").className ="xLegend hide";
+        let filas = Array.from(document.getElementsByClassName("legendData"));
+        console.log(filas)
+        filas.forEach(fila =>{
+            fila.className = "legendData row hide"
+        })
+})

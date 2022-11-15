@@ -11,7 +11,8 @@ let adult;
 let elderly;
 export default class Models {
 
-    constructor(scene) {
+    constructor(scene, mixer) {
+        this.mixer = mixer
         this.scene = scene;
     }
 

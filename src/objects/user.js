@@ -10,7 +10,6 @@ export default class User {
         this.ball = this.createBall();
         this.user = model;
         this.user.name = index;
-        
         this.setPosition(x,0,y);
     }
 
