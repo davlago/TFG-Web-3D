@@ -35,7 +35,7 @@ document.body.appendChild( stats.dom );
 
 //CARGAR IMAGENES Y MODELOS
 let models = new Models(scene);
-models.loadModels();
+
 
 let textures = new Textures();
 textures.loadTextures();
@@ -219,15 +219,17 @@ function moveCamera(){
 
 
 function createScenary(){
-    console.log("empiezo")
-    createRoom();
-    light.addToScene();
-    communityLight.addToScene();
-    scene.add( polygonDist.get3DObject());
-    let arrayModels = models.getModelsArray();
-    createCommunities(arrayModels);
+    models.loadModels().then(function(){
+        console.log("empiezo")
+        createRoom();
+        light.addToScene();
+        communityLight.addToScene();
+        scene.add( polygonDist.get3DObject());
+        let arrayModels = models.getModelsArray();
+        createCommunities(arrayModels);
+    }); 
 }
-setTimeout(()=>{createScenary();},2000);
+createScenary();
 /*--------------------------------------------------------------------
 -----------------------CAMBIOS EN HTML--------------------------------
 --------------------------------------------------------------------*/

@@ -14,10 +14,17 @@ export default class Models {
     }
 
     loadModels() {
-        this.loadStickMan();
-        this.loadYoung();
-        this.loadAdult();
-        this.loadElderly();
+        return new Promise((resolve, reject) => {
+            loadStickMan().then(function () {
+                loadYoung().then(function () {
+                    loadAdult().then(function () {
+                        loadElderly().then(function () {
+                            resolve();
+                        });
+                    });
+                });
+            });
+        });
     }
 
     getModelsArray() {
@@ -25,7 +32,12 @@ export default class Models {
     }
 
 
-    loadYoung() {
+
+
+}
+
+async function loadYoung() {
+    return new Promise((resolve, reject) => {
         let fbxLoader = new FBXLoader();
         fbxLoader.load(
             '../models/young/young.fbx',
@@ -33,10 +45,15 @@ export default class Models {
                 young = object;
                 young.scale.set(0.06, 0.06, 0.06);
                 console.log("Cargado young")
+                resolve();
             });
-    }
 
-    loadAdult() {
+    });
+
+}
+
+async function loadAdult() {
+    return new Promise((resolve, reject) => {
         let fbxLoader = new FBXLoader();
         fbxLoader.load(
             '../models/adult/adult.fbx',
@@ -44,10 +61,14 @@ export default class Models {
                 adult = object;
                 adult.scale.set(0.07, 0.07, 0.07);
                 console.log("Cargado adult")
+                resolve();
             });
-    }
 
-    loadElderly() {
+    });
+}
+
+async function loadElderly() {
+    return new Promise((resolve, reject) => {
         let fbxLoader = new FBXLoader();
         fbxLoader.load(
             '../models/elderly/elderly.fbx',
@@ -55,11 +76,14 @@ export default class Models {
                 elderly = object;
                 elderly.scale.set(0.06, 0.06, 0.06);
                 console.log("Cargado elderly")
-
+                resolve();
             });
-    }
 
-    loadStickMan() {
+    });
+}
+
+async function loadStickMan() {
+    return new Promise((resolve, reject) => {
         let objLoader = new OBJLoader();
         objLoader.load(
             '../models/stickman/stickman.obj',
@@ -82,9 +106,8 @@ export default class Models {
                 console.log("Cargado StickMan")
                 stickman = object;
                 console.log(stickman)
-            },
-            (error) => {
+                resolve();
             });
-    }
 
-}
+    });
+};
