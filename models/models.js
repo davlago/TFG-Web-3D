@@ -1,6 +1,8 @@
+/**
+ * Clase para cargar los modelos 3D de cada persona
+ */
+
 import { OBJLoader } from '../models/OBJLoader.js';
-import { MTLLoader } from '../models/MTLLoader.js';
-import { GLTFLoader } from '../models/GLTFLoader.js';
 import { FBXLoader } from '../models/FBXLoader.js';
 
 let stickman;

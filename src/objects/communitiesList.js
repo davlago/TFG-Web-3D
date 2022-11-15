@@ -1,3 +1,7 @@
+/**
+ * Clase de la lista de comunidades
+ */
+
 import Community from './community.js';
 
 const coordAcom = [1, 7, 21, 42, 73];

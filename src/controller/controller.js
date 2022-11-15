@@ -1,3 +1,7 @@
+/**
+ * Clase para controllar la camara y la escena
+ */
+
 import {OrbitControls} from  './OrbitControls.js';
 
 export default class Community {

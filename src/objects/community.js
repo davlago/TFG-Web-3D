@@ -1,3 +1,7 @@
+/**
+ * Clase de la comunidad
+ */
+
 import CommunityBorder from './communityBorder.js';
 import UsersList from './usersList.js';
 import { clone } from '../../models/SkeletonUtils.js';

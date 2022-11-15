@@ -1,3 +1,7 @@
+/**
+ * Clase para tener las luces generales de la habitación
+ */
+
 export default class Light {
 
     constructor(scene, color, intensity, distance ){

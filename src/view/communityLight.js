@@ -1,3 +1,7 @@
+/**
+ * Clase para tener las luces que se encienden al pulsar una comunidad
+ */
+
 export default class CommunityLight {
 
     constructor(scene, color, intensity, distance ){

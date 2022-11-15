@@ -1,3 +1,7 @@
+/**
+ * Clase para cargar las texturas
+ */
+
 export default class Textures {
 
     constructor(scene) {

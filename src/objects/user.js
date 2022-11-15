@@ -1,3 +1,7 @@
+/**
+ * Clase usuario, tiene toda la información
+ */
+
 export default class User {
 
     constructor(scene, info, model, index, x, y) {
