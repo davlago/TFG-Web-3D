@@ -7,6 +7,7 @@ import CommunitiesList from './objects/communitiesList.js';
 import Controller from './controller/controller.js';
 import Models from '../models/models.js';
 import CommunityLight from './view/communityLight.js';
+import Textures from '../textures/textures.js'
 
 const container = document.getElementById("mainScene");
 const scene = new THREE.Scene();
@@ -15,7 +16,7 @@ const scene = new THREE.Scene();
 //RENDERER
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize( window.outerWidth,window.outerHeight );
-renderer.setClearColor( 0x000000, 1);
+renderer.setClearColor( 0x64B5F6, 1);
 renderer.shadowMap.enabled = true;
 
 
@@ -32,12 +33,18 @@ var stats = new Stats();
 stats.showPanel( 0); // 0: fps, 1: ms, 2: mb, 3+: custom
 document.body.appendChild( stats.dom );
 
+//CARGAR IMAGENES Y MODELOS
+let models = new Models(scene);
+
+
+let textures = new Textures();
+textures.loadTextures();
+
 //RENDERER FUNCTION
 function rendererScene() {
     stats.begin();
     renderer.render( scene, camera );
     controller.update();
-
     stats.end();
     requestAnimationFrame( rendererScene );
 };
@@ -48,37 +55,39 @@ rendererScene();
 container.appendChild( renderer.domElement );
 
 //PRINCIPAL ROOM
-const room = new Room(scene);
+const room = new Room(scene, textures.getWindowOpen(), textures.getWindowClose(), textures.getWood());
 const roomSize ={
     x:200,
     y:50,
     z:200
 }
 function createRoom(){
-    room.setSize(roomSize.x,roomSize.y,roomSize.z);
+    room.setSize(roomSize.x*1.25,roomSize.y,roomSize.z*1.25);
     room.setPosition(0,roomSize.y/2,0);
     scene.add(room.get3DObject());
 }
 
 //LUCES
-let light = new Light(scene,0xffffff, 2, 200 );
+let light = new Light(scene,0xffffff, 1, 250 );
 let communityLight = new CommunityLight(scene,0xffffff, 0, 200 )
 light.setPosition(0, roomSize.y*0.9, 0); //x, y, z
 
 
 //POLIGONO DE DISTRIBUCIÓN
-const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/3.5)
+const polygonDist = new PolygonDist(scene, data["communities"].length, roomSize.x/2.8)
 
 //COMUNIDADES
-let communitiesList = new CommunitiesList(scene);
+let communitiesList = new CommunitiesList(scene, textures.getWood());
 function createCommunities(models){
     let cont = 0;
     data["communities"].forEach(comm => {
-        let xPos = polygonDist.getOneVertex(cont).x;
-        let yPos = 1;
-        let zPos = polygonDist.getOneVertex(cont).z;
+        let pos = {
+            "x" : polygonDist.getOneVertex(cont).x,
+            "y" : 1,
+            "z" :polygonDist.getOneVertex(cont).z
+        }
     
-        communitiesList.addCommunity(models,cont, data, xPos , yPos, zPos)
+        communitiesList.addCommunity(models,cont, data,pos)
         cont++;
     });
     communitiesList.addCommunityOnScene();
@@ -108,10 +117,8 @@ function onDocumentMouseDown( event ) {
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         moveCamera();
         changeBox(commSelected);
-        setCommunityLight()
-        communityLight.setPosition(coord.x, roomSize.y*0.5, coord.z); //x, y, z
-        communityLight.setConfLight(0xba8083, 2, 50); //x, y, z
-        light.setConfLight(0xffffff, 1, 200); //x, y, z
+        communityLight.setPosition(coord.x, roomSize.y*0.1, coord.z); //x, y, z
+        communityLight.setConfLight(0xffffff, 1, 75); //x, y, z
         communitiesList.selectCommunity(parseInt(commSelected));
 
     }
@@ -126,8 +133,9 @@ function onDocumentMouseDown( event ) {
             else{
                 first = true
             }
-            if(userSelected !== intersectsU[0].object.parent.name){
-                userSelected = intersectsU[0].object.parent.name;
+            let userParent = getParent(intersectsU[0].object.parent);
+            if(userSelected !== userParent.name){
+                userSelected = userParent.name;
                 changeUser(communitiesList.getOneCommunityInfo(commSelected).userList.getOneUserInfo(userSelected).info, first)
                 communitiesList.getOneCommunityInfo(commSelected).userList.selectOneUser(userSelected)
             }
@@ -140,15 +148,11 @@ function onDocumentMouseDown( event ) {
     }
 }
 
-function setCommunityLight(type){
-    if(type === "community"){
-
-    }
-    else{
-
-    }
-
+function getParent(actual){//Funcion para obtener el ultimo padre y asi poder obtener el id correspondiente
+    if(actual.parent.parent === null) return actual;
+    else return getParent(actual.parent);
 }
+
 
 
 function defaultView(noSelect){
@@ -158,10 +162,9 @@ function defaultView(noSelect){
             communitiesList.getOneCommunityInfo(commSelected).userList.unselectOneUser(userSelected)
         }
         newDist = [0,0,0];
+        controller.setDefaultCamera();
         moveCamera();
         communityLight.setConfLight(0xffffff, 0, 0); //x, y, z
-        light.setConfLight(0xffffff, 2, 200); //x, y, z
-        controller.setDefaultCamera();
     }
     changeBox();
 }
@@ -193,36 +196,40 @@ moveScene();
 function moveCamera(){
     let positive;
     if(controller.getCameraInfo()=== "community"){
-        positive = Math.abs(0.98); 
+        positive = Math.abs(0.99); 
     }
     else{         
-        positive = Math.abs(1.02); 
+        positive = Math.abs(1.01); 
     }
     //Moving camera.
     camera.position.x *= positive;
     camera.position.y *= positive;
     camera.position.z *= positive;
-    if(controller.getDistance() > 119 || controller.getDistance() < 81){
-        cancelAnimationFrame(moveCamera)
+    if(controller.getDistance() > 109 && controller.getCameraInfo()=== "default"){
+        cancelAnimationFrame(moveCamera);
+    }
+    else if(controller.getDistance() <80 && controller.getCameraInfo()=== "community"){
+        cancelAnimationFrame(moveCamera);
     }
     else{
         requestAnimationFrame(moveCamera);
     }
 }
 
-let models = new Models();
-models.loadStickMan();
+
 
 function createScenary(){
-    console.log("empiezo")
-    createRoom();
-    scene.add(light.get3DObject());
-    communityLight.addToScene();
-    scene.add( polygonDist.get3DObject());
-    let arrayModels = [models.getStickMan()];
-    createCommunities(arrayModels);
+    models.loadModels().then(function(){
+        console.log("empiezo")
+        createRoom();
+        light.addToScene();
+        communityLight.addToScene();
+        scene.add( polygonDist.get3DObject());
+        let arrayModels = models.getModelsArray();
+        createCommunities(arrayModels);
+    }); 
 }
-setTimeout(()=>{createScenary();},2000);
+createScenary();
 /*--------------------------------------------------------------------
 -----------------------CAMBIOS EN HTML--------------------------------
 --------------------------------------------------------------------*/
@@ -230,7 +237,7 @@ setTimeout(()=>{createScenary();},2000);
 //CAMBIAR CAJA
 function changeBox(commIndex = null){
     let communitySelect = communitiesList.getOneCommunityInfo(parseInt(commIndex));
-    if(commIndex === -1){
+    if(commIndex === -1){       //Si no hay ninguna comunidad seleccionada (y se ha pulsado el boton de info)
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = "No community selected"
         document.getElementById("community-type").innerHTML = "";
@@ -241,7 +248,7 @@ function changeBox(commIndex = null){
         communitySelect = -1
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
-    else if(commIndex !== null){
+    else if(commIndex !== null){        //Si si hay alguna comunidad seleccionada 
         document.getElementById("info-box").className = "info expand";
         document.getElementById("community-title").innerHTML = communitySelect.getInfo()["name"];
         document.getElementById("community-type").innerHTML = communitySelect.getInfo()["community-type"];
@@ -252,7 +259,7 @@ function changeBox(commIndex = null){
   
         setTimeout(() => {changeShow(communitySelect)}, 300);
     }
-    else{
+    else{       //Si no hay ninguna comunidad seleccionada y se ha pulsado la cruz de la informacioon
         document.getElementById("info-box").className = "info retract";
         document.getElementById("icross").className = "smalliIcon myShow"
         document.getElementById("xcross").className = "smallXIcon hide";
@@ -263,13 +270,13 @@ function changeBox(commIndex = null){
 
 //CAMBIAR INFO
 function changeShow(communitySelect = null){
-    if(communitySelect !== null || communitySelect === -1){
+    if(communitySelect !== null || communitySelect === -1){     //Si se ha pulsado el boton de info, ya sea con comunidad seleccionada o no, mostrar
         document.getElementById("community-title").className = "myShow";
         document.getElementById("community-nUsers-row").className = "data row myShow";
         document.getElementById("community-explanation-row").className = "data row myShow";
         document.getElementById("community-type-row").className = "data row myShow";
     }
-    else{
+    else{       //Si se ha pulsado el boton de cruz, esconder
         document.getElementById("community-title").className = "hide";
         document.getElementById("community-type-row").className = "data row hide";
         document.getElementById("community-explanation-row").className = "data row hide";
@@ -278,8 +285,8 @@ function changeShow(communitySelect = null){
 }
 
 function changeUser(userInfo = null, first){
-    if(first) document.getElementById("botonSimulado").click()
-    if(userInfo !== null){
+    if(first) document.getElementById("botonSimulado").click()      //expande la seccion del usuario
+    if(userInfo !== null){      //Si hay algun usuario seleccionado
         document.getElementById("raya").className = "hr1 myShow"
         document.getElementById("user-id-row").className = "data row myShow";
         document.getElementById("user-age-row").className = "data row myShow";
@@ -289,7 +296,7 @@ function changeUser(userInfo = null, first){
         document.getElementById("user-language").innerHTML = userInfo.explicit_community.language;
 
     }
-    else{
+    else{       //Si no hay ningun usuario seleccionado
         document.getElementById("raya").className = "hr1 hide"
         document.getElementById("user-id-row").className = "data row hide"
         document.getElementById("user-age-row").className = "data row hide"
@@ -298,10 +305,10 @@ function changeUser(userInfo = null, first){
 }
 
 document.getElementById("xcross").addEventListener('mouseup', () =>{
-    if(controller.getCameraInfo()=== "community"){
+    if(controller.getCameraInfo() === "community"){  //Si estamos en una comunidad y pulsas la cruz vuelve a la posicion por defecto
         defaultView(false);  
     }
-    else{
+    else{       //Si no estamos en ninguna comunidd y se pulsa la cruz no se vuelve a la posicion por defecto
         defaultView(true);  
     }
     commSelected = null;
@@ -309,7 +316,33 @@ document.getElementById("xcross").addEventListener('mouseup', () =>{
 })
 
 document.getElementById("icross").addEventListener('click', () =>{
-    changeBox(-1);
+    changeBox(-1);      //Si se pulsa el boton de info se abre la ventana sin informacion (-1)
     
 })
 
+
+//LEYENDA
+document.getElementById("legendIcon").addEventListener('click', () =>{
+        document.getElementById("legend-box").className = "legend expand";
+        document.getElementById("legendIcon").className ="legendIcon hide";
+        document.getElementById("xLegend").className ="xLegend myShow";
+        setTimeout(() =>{
+            let filas = Array.from(document.getElementsByClassName("legendData"));
+            console.log(filas)
+            filas.forEach(fila =>{
+                fila.className = "legendData row myShow"
+            })
+        }, 300)
+
+})
+
+document.getElementById("xLegend").addEventListener('click', () =>{
+        document.getElementById("legend-box").className = "legend retract";
+        document.getElementById("legendIcon").className ="legendIcon myShow";
+        document.getElementById("xLegend").className ="xLegend hide";
+        let filas = Array.from(document.getElementsByClassName("legendData"));
+        console.log(filas)
+        filas.forEach(fila =>{
+            fila.className = "legendData row hide"
+        })
+})

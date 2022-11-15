@@ -1,25 +1,46 @@
+/**
+ * Clase de la comunidad
+ */
+
 import CommunityBorder from './communityBorder.js';
 import UsersList from './usersList.js';
+import { clone } from '../../models/SkeletonUtils.js';
+
 export default class Community {
 
-    constructor(scene, index, radius, data, xPos, yPos, zPos, models) {
+    constructor(scene, index, radius, data,pos, models, textureBase) {
         this.scene = scene;
         this.info = data["communities"][index];
         this.geometry = new THREE.CylinderGeometry( radius,radius,17, 32);
-        this.material = new THREE.MeshBasicMaterial( { color: 0xff0000, transparent: true, opacity: 0} );
+        this.material = new THREE.MeshPhongMaterial( { map:textureBase, transparent: true, opacity: 0} );
         this.circle = new THREE.Mesh( this.geometry, this.material );
         this.circle.name = index;
         this.border = new CommunityBorder(scene, index, radius)
-        this.setPosition(xPos, yPos, zPos);
+        this.setPosition(pos.x, pos.y, pos.z);
         this.userList = new UsersList(scene, this.info, radius, this.getPosition());
         data["communities"][index]["users"].forEach(userIndex => {
             data["users"].forEach(userInfo => {
                 if(userInfo.id === userIndex){
-                    this.userList.addUser(userInfo, models[0].clone());
+                        let modelNum = this.getModelNum(userInfo.explicit_community.ageGroup);
+                        let newModel = clone(models[modelNum]);
+                        this.userList.addUser(userInfo, newModel);
                 }
             })
         });
 
+    }
+    
+    getModelNum(age){
+        if(age === "young"){
+            return 1;
+        }
+        else if(age ==="adult"){
+            return 2;
+        }
+        else if(age ==="elderly"){
+            return 3;
+        }
+        else return 0;
     }
 
     setPosition(x, y, z) {

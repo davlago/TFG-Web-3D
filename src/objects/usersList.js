@@ -1,5 +1,9 @@
+/**
+ * Clase de la lista de usuarios
+ */
+
 import User from "./user.js";
-const coordCircle = [1,6, 14, 21, 29];
+const coordCircle = [1, 6, 14, 21, 29];
 const coordAcom = [1, 7, 21, 42, 73];
 export default class UsersList {
 
@@ -50,6 +54,7 @@ export default class UsersList {
     addUsersOnScene(){
         this.usersList.forEach((elem) =>{
             this.scene.add(elem.get3DObject());
+            this.scene.add(elem.getBall3DObject());
         })
     }
 
