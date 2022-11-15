@@ -117,7 +117,7 @@ function onDocumentMouseDown( event ) {
         newDist = [-coord.x, roomSize.y/2, -coord.z];
         moveCamera();
         changeBox(commSelected);
-        communityLight.setPosition(coord.x, roomSize.y*0.25, coord.z); //x, y, z
+        communityLight.setPosition(coord.x, roomSize.y*0.1, coord.z); //x, y, z
         communityLight.setConfLight(0xffffff, 1, 75); //x, y, z
         communitiesList.selectCommunity(parseInt(commSelected));
 

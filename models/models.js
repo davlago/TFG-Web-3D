@@ -30,10 +30,6 @@ export default class Models {
     getModelsArray() {
         return [stickman, young, adult, elderly]
     }
-
-
-
-
 }
 
 async function loadYoung() {
