@@ -1,5 +1,6 @@
 import { OBJLoader } from '../models/OBJLoader.js';
 import { MTLLoader } from '../models/MTLLoader.js';
+import { GLTFLoader } from '../models/GLTFLoader.js'
 
 let stickman;
 let young;
@@ -62,21 +63,17 @@ export default class Models {
     }
 
     loadElderly() {
-        let mtlLoader = new MTLLoader();
-        mtlLoader.load(
-            '../models/elderly/elderly.mtl', (materials) => {
-                materials.preload();
-                let objLoader = new OBJLoader();
-                objLoader.setMaterials(materials);
-                objLoader.load(
-                    '../models/elderly/elderly.obj',
-                    (object) => {
-                        object.position.set(0, 3.5, 0);
-                        object.scale.set(0.19, 0.19, 0.19);
-                        console.log("Cargado elderly")
-                        elderly = object;
-                    });
-            })
+        let gltfLoader = new GLTFLoader();
+        gltfLoader.load(
+            '../models/elderly/elderly.gltf',
+            (object) => {
+                console.log(object)
+                console.log("Cargado elderly")
+                console.log(object)
+
+                elderly = object.scene;
+            });
+
     }
 
     loadStickMan() {

@@ -49,6 +49,9 @@ export default class UsersList {
 
     addUsersOnScene(){
         this.usersList.forEach((elem) =>{
+            if(elem.getInfo().explicit_community !== undefined && elem.getInfo().explicit_community.ageGroup === "elderly"){
+                console.log(elem.get3DObject())
+            }
             this.scene.add(elem.get3DObject());
             this.scene.add(elem.getBall3DObject());
         })
