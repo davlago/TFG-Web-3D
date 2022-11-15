@@ -221,7 +221,7 @@ function createScenary(){
     let arrayModels = models.getModelsArray();
     createCommunities(arrayModels);
 }
-setTimeout(()=>{createScenary();},500);
+setTimeout(()=>{createScenary();},2000);
 /*--------------------------------------------------------------------
 -----------------------CAMBIOS EN HTML--------------------------------
 --------------------------------------------------------------------*/

@@ -1,5 +1,6 @@
 import { OBJLoader } from '../models/OBJLoader.js';
 import { MTLLoader } from '../models/MTLLoader.js';
+import { FBXLoader } from '../models/FBXLoader.js';
 
 let stickman;
 let young;
@@ -7,7 +8,8 @@ let adult;
 let elderly;
 export default class Models {
 
-    constructor(scene) {
+    constructor(scene, mixer) {
+        this.mixer = mixer
         this.scene = scene;
     }
 
@@ -62,21 +64,11 @@ export default class Models {
     }
 
     loadElderly() {
-        let mtlLoader = new MTLLoader();
-        mtlLoader.load(
-            '../models/elderly/elderly.mtl', (materials) => {
-                materials.preload();
-                let objLoader = new OBJLoader();
-                objLoader.setMaterials(materials);
-                objLoader.load(
-                    '../models/elderly/elderly.obj',
-                    (object) => {
-                        object.position.set(0, 3.5, 0);
-                        object.scale.set(0.19, 0.19, 0.19);
-                        console.log("Cargado elderly")
-                        elderly = object;
-                    });
-            })
+        let fbxLoader = new FBXLoader();
+        fbxLoader.load( '../models/elderly/elderly.fbx', function ( object ) {
+            elderly = object;
+            console.log(elderly)
+        });
     }
 
     loadStickMan() {

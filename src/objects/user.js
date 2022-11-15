@@ -6,7 +6,6 @@ export default class User {
         this.ball = this.createBall();
         this.user = model;
         this.user.name = index;
-        
         this.setPosition(x,0,y);
     }
 
@@ -43,7 +42,7 @@ export default class User {
 
     setPosition(x,y,z){
         this.user.position.set(x,y,z);
-        let tam = this.getTam(this.info.explicit_community.ageGroup);
+        this.user.updateMatrix();
         this.ball.position.set(x,y+0.1,z);
     }
 
