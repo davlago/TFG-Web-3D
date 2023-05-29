@@ -1,5 +1,5 @@
-# TFG-Web-3D
-TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informática de la UCM
+# Prototipo primero del TFG-VISIR
+Prototipo TFG, formado por Ignacio Urretavizcaya y David Lago para la facultad de informática de la UCM
 
 - PARA INICIAR EN DOCKER:
 
